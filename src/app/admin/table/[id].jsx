@@ -1,4 +1,3 @@
-
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -54,7 +53,6 @@ const TableDetails = () => {
 
     const getEndpoint = (baseUrl) => {
         if (!baseUrl || !cleanId) return "";
-
         return `${baseUrl.trim().replace(/\/+$/, "")}/${encodeURIComponent(cleanId)}`;
     };
 
@@ -343,18 +341,16 @@ const TableDetails = () => {
 
     if (loading) {
         return (
-            <SafeAreaView
-                className="flex-1 bg-white"
-                edges={["top", "left", "right"]}
-            >
+            <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
                 <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-                <Navbar />
+                <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                    <Navbar />
+                </View>
 
                 <View className="flex-1 items-center justify-center">
-                    <ActivityIndicator size="large" color="#F97316" />
-
-                    <Text className="mt-3 text-sm text-gray-500">
+                    <ActivityIndicator size="large" color="#2563EB" />
+                    <Text className="mt-3 text-xs font-bold text-[#64748B]">
                         Loading table details...
                     </Text>
                 </View>
@@ -364,28 +360,28 @@ const TableDetails = () => {
 
     if (!table) {
         return (
-            <SafeAreaView
-                className="flex-1 bg-white"
-                edges={["top", "left", "right"]}
-            >
+            <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
                 <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-                <Navbar />
+                <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                    <Navbar />
+                </View>
 
                 <View className="flex-1 items-center justify-center px-6">
-                    <Ionicons
-                        name="alert-circle-outline"
-                        size={48}
-                        color="#EF4444"
-                    />
+                    <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-red-100 bg-red-50">
+                        <Ionicons
+                            name="alert-circle-outline"
+                            size={36}
+                            color="#DC2626"
+                        />
+                    </View>
 
-                    <Text className="mt-3 text-lg font-bold text-gray-900">
+                    <Text className="text-base font-extrabold text-[#0F172A]">
                         Table Not Found
                     </Text>
 
-                    <Text className="mt-2 text-center text-sm text-gray-500">
-                        The table could not be loaded. Check the table ID
-                        and API configuration.
+                    <Text className="mt-1 text-center text-xs text-[#64748B]">
+                        The table could not be loaded. Check the table ID and API configuration.
                     </Text>
 
                     <TouchableOpacity
@@ -396,9 +392,10 @@ const TableDetails = () => {
                                 router.replace("/admin/table");
                             }
                         }}
-                        className="mt-5 rounded-xl bg-gray-900 px-6 py-3"
+                        className="mt-6 rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
+                        activeOpacity={0.8}
                     >
-                        <Text className="font-bold text-white">
+                        <Text className="text-xs font-bold text-white">
                             Go Back
                         </Text>
                     </TouchableOpacity>
@@ -416,16 +413,15 @@ const TableDetails = () => {
     }
 
     return (
-        <SafeAreaView
-            className="flex-1 bg-white"
-            edges={["top", "left", "right"]}
-        >
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
             <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            <Navbar />
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
+            </View>
 
             <KeyboardAwareScrollView
-                className="flex-1 bg-white"
+                className="flex-1 bg-[#F8FAFC]"
                 contentContainerStyle={{
                     padding: 20,
                     paddingBottom: 140,
@@ -438,57 +434,50 @@ const TableDetails = () => {
             >
                 <TouchableOpacity
                     onPress={() => router.back()}
-                    className="mb-5 flex-row items-center self-start rounded-xl border border-gray-200 bg-white px-4 py-2.5"
+                    className="mb-5 flex-row items-center self-start rounded-2xl border border-[#DBEAFE] bg-white px-4 py-2.5 shadow-sm"
+                    activeOpacity={0.7}
                 >
-                    <Ionicons
-                        name="arrow-back"
-                        size={18}
-                        color="#111827"
-                    />
-
-                    <Text className="ml-2 text-xs font-bold text-gray-900">
+                    <Ionicons name="arrow-back" size={18} color="#2563EB" />
+                    <Text className="ml-2 text-xs font-bold text-[#2563EB]">
                         Back to Management
                     </Text>
                 </TouchableOpacity>
 
                 {!isEditing ? (
-                    <View className="h-64 w-full items-center justify-center rounded-2xl border border-gray-200 bg-orange-50">
+                    <View className="h-56 w-full items-center justify-center rounded-3xl border border-[#DBEAFE] bg-[#EFF6FF] shadow-sm">
                         <Ionicons
                             name="restaurant-outline"
-                            size={72}
-                            color="#F97316"
+                            size={56}
+                            color="#2563EB"
                         />
-
-                        <Text className="mt-3 text-sm font-bold text-orange-600">
+                        <Text className="mt-3 text-xs font-black text-[#2563EB]">
                             Restaurant Table
                         </Text>
-
-                        <Text className="mt-1 text-xs text-gray-500">
+                        <Text className="mt-0.5 text-[10px] text-[#64748B]">
                             Table #{table.tableNumber}
                         </Text>
                     </View>
                 ) : (
-                    <View className="mb-4 h-44 w-full items-center justify-center rounded-2xl border border-gray-200 bg-orange-50">
+                    <View className="mb-4 h-40 w-full items-center justify-center rounded-3xl border border-[#DBEAFE] bg-[#EFF6FF] shadow-sm">
                         <Ionicons
                             name="restaurant-outline"
-                            size={56}
-                            color="#F97316"
+                            size={44}
+                            color="#2563EB"
                         />
-
-                        <Text className="mt-2 text-xs font-bold text-orange-600">
+                        <Text className="mt-2 text-xs font-black text-[#2563EB]">
                             Editing Table #{table.tableNumber}
                         </Text>
                     </View>
                 )}
 
                 {!isEditing ? (
-                    <View className="mt-6 rounded-2xl border border-gray-200 bg-white p-5">
+                    <View className="mt-5 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
                         <View className="flex-row items-start justify-between">
-                            <Text className="mr-2 flex-1 text-2xl font-extrabold text-gray-900">
+                            <Text className="mr-2 flex-1 text-lg font-black text-[#0F172A]">
                                 Table #{table.tableNumber}
                             </Text>
 
-                            <Text className="text-xl font-extrabold text-orange-500">
+                            <Text className="text-base font-black text-[#2563EB]">
                                 {table.seats}{" "}
                                 {Number(table.seats) === 1
                                     ? "Seat"
@@ -497,19 +486,63 @@ const TableDetails = () => {
                         </View>
 
                         <View className="mt-4 flex-row items-center">
-                            <View className="mr-2 rounded-lg border border-gray-200 bg-gray-100 px-3 py-1.5">
-                                <Text className="text-xs font-bold text-gray-800">
+                            <View className="mr-2 rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] px-3 py-1">
+                                <Text className="text-[10px] font-bold text-[#2563EB]">
                                     Table {table.tableNumber}
                                 </Text>
                             </View>
 
                             <View
-                                className={`rounded-lg border px-3 py-1.5 ${
+                                className={`rounded-xl border px-3 py-1 ${
                                     table.isAvailable !== false
                                         ? "border-emerald-200 bg-emerald-50"
                                         : "border-red-200 bg-red-50"
                                 }`}
                             >
+                                <Text
+                                    className={`text-[10px] font-extrabold uppercase ${
+                                        table.isAvailable !== false
+                                            ? "text-emerald-600"
+                                            : "text-red-600"
+                                    }`}
+                                >
+                                    {table.isAvailable !== false
+                                        ? "Available"
+                                        : "Unavailable"}
+                                </Text>
+                            </View>
+                        </View>
+
+                        <View className="mt-5 border-t border-[#F1F5F9] pt-4">
+                            <Text className="text-xs font-black text-[#0F172A]">
+                                Table Information
+                            </Text>
+
+                            <View className="mt-3 flex-row items-center justify-between border-b border-[#F1F5F9] py-3">
+                                <Text className="text-xs text-[#64748B]">
+                                    Table Number
+                                </Text>
+                                <Text className="text-xs font-bold text-[#0F172A]">
+                                    {table.tableNumber}
+                                </Text>
+                            </View>
+
+                            <View className="flex-row items-center justify-between border-b border-[#F1F5F9] py-3">
+                                <Text className="text-xs text-[#64748B]">
+                                    Seating Capacity
+                                </Text>
+                                <Text className="text-xs font-bold text-[#0F172A]">
+                                    {table.seats}{" "}
+                                    {Number(table.seats) === 1
+                                        ? "Person"
+                                        : "Persons"}
+                                </Text>
+                            </View>
+
+                            <View className="flex-row items-center justify-between py-3">
+                                <Text className="text-xs text-[#64748B]">
+                                    Availability
+                                </Text>
                                 <Text
                                     className={`text-xs font-bold ${
                                         table.isAvailable !== false
@@ -523,64 +556,16 @@ const TableDetails = () => {
                                 </Text>
                             </View>
                         </View>
-
-                        <View className="mt-6 border-t border-gray-100 pt-4">
-                            <Text className="text-sm font-bold text-gray-800">
-                                Table Information
-                            </Text>
-
-                            <View className="mt-3 flex-row items-center justify-between border-b border-gray-100 py-3">
-                                <Text className="text-sm text-gray-500">
-                                    Table Number
-                                </Text>
-
-                                <Text className="text-sm font-bold text-gray-900">
-                                    {table.tableNumber}
-                                </Text>
-                            </View>
-
-                            <View className="flex-row items-center justify-between border-b border-gray-100 py-3">
-                                <Text className="text-sm text-gray-500">
-                                    Seating Capacity
-                                </Text>
-
-                                <Text className="text-sm font-bold text-gray-900">
-                                    {table.seats}{" "}
-                                    {Number(table.seats) === 1
-                                        ? "Person"
-                                        : "Persons"}
-                                </Text>
-                            </View>
-
-                            <View className="flex-row items-center justify-between py-3">
-                                <Text className="text-sm text-gray-500">
-                                    Availability
-                                </Text>
-
-                                <Text
-                                    className={`text-sm font-bold ${
-                                        table.isAvailable !== false
-                                            ? "text-emerald-600"
-                                            : "text-red-600"
-                                    }`}
-                                >
-                                    {table.isAvailable !== false
-                                        ? "Available"
-                                        : "Unavailable"}
-                                </Text>
-                            </View>
-                        </View>
                     </View>
                 ) : (
-                    <View className="mt-2 rounded-2xl border border-orange-200 bg-white p-5">
-                        <Text className="mb-4 text-lg font-extrabold text-gray-900">
+                    <View className="mt-2 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                        <Text className="mb-4 text-base font-black text-[#0F172A]">
                             Edit Table Details
                         </Text>
 
-                        <Text className="mb-1 text-xs font-bold text-gray-700">
+                        <Text className="mb-1 text-[10px] font-bold text-[#64748B]">
                             Table Number
                         </Text>
-
                         <TextInput
                             value={formData.tableNumber}
                             onChangeText={(value) =>
@@ -591,15 +576,14 @@ const TableDetails = () => {
                             }
                             keyboardType="number-pad"
                             editable={!updating && !deleting}
-                            className="mb-4 rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-3 text-sm text-gray-900"
+                            className="mb-4 rounded-2xl border border-[#DBEAFE] bg-[#F8FAFC] px-3.5 py-3 text-xs font-bold text-[#0F172A]"
                             placeholder="Enter table number"
-                            placeholderTextColor="#9CA3AF"
+                            placeholderTextColor="#94A3B8"
                         />
 
-                        <Text className="mb-1 text-xs font-bold text-gray-700">
+                        <Text className="mb-1 text-[10px] font-bold text-[#64748B]">
                             Seat Capacity
                         </Text>
-
                         <TextInput
                             value={formData.seats}
                             onChangeText={(value) =>
@@ -610,15 +594,14 @@ const TableDetails = () => {
                             }
                             keyboardType="number-pad"
                             editable={!updating && !deleting}
-                            className="mb-4 rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-3 text-sm text-gray-900"
+                            className="mb-4 rounded-2xl border border-[#DBEAFE] bg-[#F8FAFC] px-3.5 py-3 text-xs font-bold text-[#0F172A]"
                             placeholder="Enter number of seats"
-                            placeholderTextColor="#9CA3AF"
+                            placeholderTextColor="#94A3B8"
                         />
 
-                        <Text className="mb-1 text-xs font-bold text-gray-700">
+                        <Text className="mb-1 text-[10px] font-bold text-[#64748B]">
                             Availability
                         </Text>
-
                         <TouchableOpacity
                             onPress={() =>
                                 setFormData((prev) => ({
@@ -627,14 +610,15 @@ const TableDetails = () => {
                                 }))
                             }
                             disabled={updating || deleting}
-                            className={`mb-4 flex-row items-center justify-between rounded-xl border p-3 ${
+                            className={`flex-row items-center justify-between rounded-2xl border p-3.5 ${
                                 formData.isAvailable
                                     ? "border-emerald-200 bg-emerald-50"
                                     : "border-red-200 bg-red-50"
                             }`}
+                            activeOpacity={0.8}
                         >
                             <Text
-                                className={`text-xs font-bold ${
+                                className={`text-xs font-bold uppercase ${
                                     formData.isAvailable
                                         ? "text-emerald-700"
                                         : "text-red-700"
@@ -651,7 +635,7 @@ const TableDetails = () => {
                                         ? "checkmark-circle"
                                         : "close-circle"
                                 }
-                                size={22}
+                                size={20}
                                 color={
                                     formData.isAvailable
                                         ? "#059669"
@@ -663,13 +647,13 @@ const TableDetails = () => {
                 )}
             </KeyboardAwareScrollView>
 
-            <View className="flex-row items-center justify-between border-t border-gray-200 bg-white px-5 py-4">
+            <View className="flex-row items-center justify-between border-t border-[#F1F5F9] bg-white px-5 py-4 shadow-sm">
                 {!isEditing ? (
                     <>
                         <TouchableOpacity
                             onPress={() => setIsEditing(true)}
                             disabled={deleting || updating}
-                            className="mr-2.5 flex-1 flex-row items-center justify-center rounded-xl bg-orange-500 py-3.5"
+                            className="mr-2.5 flex-1 flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-3.5 shadow-sm"
                             activeOpacity={0.8}
                         >
                             <Ionicons
@@ -677,8 +661,7 @@ const TableDetails = () => {
                                 size={18}
                                 color="#FFFFFF"
                             />
-
-                            <Text className="ml-2 font-bold text-white">
+                            <Text className="ml-2 text-xs font-bold text-white">
                                 Update Table
                             </Text>
                         </TouchableOpacity>
@@ -686,7 +669,7 @@ const TableDetails = () => {
                         <TouchableOpacity
                             onPress={handleDelete}
                             disabled={deleting || updating}
-                            className="ml-2.5 flex-1 flex-row items-center justify-center rounded-xl bg-red-600 py-3.5"
+                            className="ml-2.5 flex-1 flex-row items-center justify-center rounded-2xl bg-red-600 py-3.5 shadow-sm"
                             activeOpacity={0.8}
                         >
                             {deleting ? (
@@ -701,8 +684,7 @@ const TableDetails = () => {
                                         size={18}
                                         color="#FFFFFF"
                                     />
-
-                                    <Text className="ml-2 font-bold text-white">
+                                    <Text className="ml-2 text-xs font-bold text-white">
                                         Delete Table
                                     </Text>
                                 </>
@@ -714,7 +696,7 @@ const TableDetails = () => {
                         <TouchableOpacity
                             onPress={handleSaveUpdate}
                             disabled={updating || deleting}
-                            className="mr-2.5 flex-1 flex-row items-center justify-center rounded-xl bg-emerald-600 py-3.5"
+                            className="mr-2.5 flex-1 flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-3.5 shadow-sm"
                             activeOpacity={0.8}
                         >
                             {updating ? (
@@ -729,8 +711,7 @@ const TableDetails = () => {
                                         size={18}
                                         color="#FFFFFF"
                                     />
-
-                                    <Text className="ml-2 font-bold text-white">
+                                    <Text className="ml-2 text-xs font-bold text-white">
                                         Save Changes
                                     </Text>
                                 </>
@@ -740,10 +721,10 @@ const TableDetails = () => {
                         <TouchableOpacity
                             onPress={cancelEditing}
                             disabled={updating || deleting}
-                            className="ml-2.5 flex-1 items-center justify-center rounded-xl bg-gray-200 py-3.5"
+                            className="ml-2.5 flex-1 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-[#F8FAFC] py-3.5"
                             activeOpacity={0.8}
                         >
-                            <Text className="font-bold text-gray-700">
+                            <Text className="text-xs font-bold text-[#64748B]">
                                 Cancel
                             </Text>
                         </TouchableOpacity>

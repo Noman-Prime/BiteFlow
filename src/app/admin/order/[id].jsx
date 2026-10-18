@@ -35,6 +35,10 @@ const OrderDetails = () => {
         setToast({ visible: true, type, message });
     };
 
+    const hideToast = () => {
+        setToast((prev) => ({ ...prev, visible: false }));
+    };
+
     const fetchOrder = async () => {
         try {
             setLoading(true);
@@ -148,98 +152,54 @@ const OrderDetails = () => {
 
     const formatDate = (date) => {
         if (!date) return "N/A";
-
         const parsedDate = new Date(date);
-
-        return Number.isNaN(parsedDate.getTime())
-            ? "N/A"
-            : parsedDate.toLocaleString();
+        return Number.isNaN(parsedDate.getTime()) ? "N/A" : parsedDate.toLocaleString();
     };
 
     const orderItems = order?.orderItems || [];
     const customer = order?.user;
 
     return (
-        <SafeAreaView
-            style={{ flex: 1, backgroundColor: "#111827" }}
-            edges={["top", "left", "right"]}
-        >
-            <StatusBar style="light" />
-            <Navbar />
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            <View style={{ flex: 1, backgroundColor: "#F3F4F6" }}>
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
+            </View>
+
+            <Toast
+                visible={toast.visible}
+                type={toast.type}
+                message={toast.message}
+                onHide={hideToast}
+            />
+
+            <View className="flex-1 bg-[#F8FAFC]">
                 {loading ? (
-                    <View
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        <ActivityIndicator size="large" color="#F97316" />
-                        <Text style={{ color: "#6B7280", marginTop: 12 }}>
+                    <View className="flex-1 items-center justify-center">
+                        <ActivityIndicator size="large" color="#2563EB" />
+                        <Text className="mt-3 text-xs font-bold text-[#64748B]">
                             Loading order details...
                         </Text>
                     </View>
                 ) : !order ? (
-                    <View
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            padding: 24,
-                        }}
-                    >
-                        <Ionicons
-                            name="receipt-outline"
-                            size={64}
-                            color="#9CA3AF"
-                        />
-                        <Text
-                            style={{
-                                color: "#111827",
-                                fontSize: 20,
-                                fontWeight: "bold",
-                                marginTop: 16,
-                            }}
-                        >
+                    <View className="flex-1 items-center justify-center p-6">
+                        <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-red-100 bg-red-50">
+                            <Ionicons name="receipt-outline" size={36} color="#DC2626" />
+                        </View>
+                        <Text className="text-base font-extrabold text-[#0F172A]">
                             Order Not Found
                         </Text>
-                        <Text
-                            style={{
-                                color: "#6B7280",
-                                fontSize: 14,
-                                textAlign: "center",
-                                marginTop: 8,
-                            }}
-                        >
-                            This order could not be loaded or you are not
-                            authorized to view it.
+                        <Text className="mt-1 text-center text-xs text-[#64748B]">
+                            This order could not be loaded or you are not authorized to view it.
                         </Text>
                         <TouchableOpacity
                             onPress={() => router.back()}
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                backgroundColor: "#F97316",
-                                paddingHorizontal: 20,
-                                paddingVertical: 13,
-                                borderRadius: 10,
-                                marginTop: 22,
-                            }}
+                            className="mt-6 flex-row items-center rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
+                            activeOpacity={0.8}
                         >
-                            <Ionicons
-                                name="arrow-back"
-                                size={18}
-                                color="#FFFFFF"
-                            />
-                            <Text
-                                style={{
-                                    color: "#FFFFFF",
-                                    fontWeight: "bold",
-                                    marginLeft: 8,
-                                }}
-                            >
+                            <Ionicons name="arrow-back" size={18} color="#FFFFFF" />
+                            <Text className="ml-2 text-xs font-bold text-white">
                                 Go Back
                             </Text>
                         </TouchableOpacity>
@@ -247,254 +207,94 @@ const OrderDetails = () => {
                 ) : (
                     <ScrollView
                         showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{
-                            padding: 18,
-                            paddingBottom: 35,
-                        }}
+                        contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
                     >
                         <TouchableOpacity
                             onPress={() => router.back()}
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                marginBottom: 20,
-                            }}
+                            className="mb-5 flex-row items-center self-start rounded-2xl border border-[#DBEAFE] bg-white px-4 py-2.5 shadow-sm"
+                            activeOpacity={0.7}
                         >
-                            <Ionicons
-                                name="arrow-back"
-                                size={22}
-                                color="#F97316"
-                            />
-                            <Text
-                                style={{
-                                    color: "#374151",
-                                    fontSize: 15,
-                                    fontWeight: "600",
-                                    marginLeft: 8,
-                                }}
-                            >
-                                Back
+                            <Ionicons name="arrow-back" size={18} color="#2563EB" />
+                            <Text className="ml-2 text-xs font-bold text-[#2563EB]">
+                                Back to Orders
                             </Text>
                         </TouchableOpacity>
 
-                        <View
-                            style={{
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 16,
-                                padding: 20,
-                                borderWidth: 1,
-                                borderColor: "#E5E7EB",
-                                marginBottom: 16,
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    alignItems: "flex-start",
-                                }}
-                            >
-                                <View style={{ flex: 1, paddingRight: 10 }}>
-                                    <Text
-                                        style={{
-                                            color: "#6B7280",
-                                            fontSize: 12,
-                                            marginBottom: 6,
-                                        }}
-                                    >
-                                        ORDER NUMBER
+                        {/* Order Number & Status Card */}
+                        <View className="mb-4 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                            <View className="flex-row items-start justify-between">
+                                <View className="flex-1 pr-3">
+                                    <Text className="text-[10px] font-extrabold uppercase tracking-wider text-[#64748B]">
+                                        Order Number
                                     </Text>
-                                    <Text
-                                        style={{
-                                            color: "#111827",
-                                            fontSize: 21,
-                                            fontWeight: "bold",
-                                        }}
-                                    >
+                                    <Text className="mt-1 text-lg font-black text-[#0F172A]">
                                         #{String(order._id).slice(-6).toUpperCase()}
                                     </Text>
                                 </View>
-
-                                <View
-                                    style={{
-                                        backgroundColor: "#FFF7ED",
-                                        padding: 12,
-                                        borderRadius: 12,
-                                    }}
-                                >
-                                    <Ionicons
-                                        name="receipt-outline"
-                                        size={28}
-                                        color="#F97316"
-                                    />
+                                <View className="rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] p-3">
+                                    <Ionicons name="receipt-outline" size={24} color="#2563EB" />
                                 </View>
                             </View>
 
-                            <View
-                                style={{
-                                    height: 1,
-                                    backgroundColor: "#F3F4F6",
-                                    marginVertical: 18,
-                                }}
-                            />
+                            <View className="my-4 h-px w-full bg-[#F1F5F9]" />
 
-                            <Text
-                                style={{
-                                    color: "#6B7280",
-                                    fontSize: 13,
-                                    marginBottom: 8,
-                                }}
-                            >
+                            <Text className="text-xs font-bold text-[#64748B]">
                                 Order Status
                             </Text>
 
                             <View
-                                style={{
-                                    alignSelf: "flex-start",
-                                    backgroundColor: `${getStatusColor(order.orderStatus)}18`,
-                                    paddingHorizontal: 14,
-                                    paddingVertical: 9,
-                                    borderRadius: 10,
-                                }}
+                                className="mt-2 self-start rounded-xl px-3 py-1.5"
+                                style={{ backgroundColor: `${getStatusColor(order.orderStatus)}18` }}
                             >
                                 <Text
-                                    style={{
-                                        color: getStatusColor(order.orderStatus),
-                                        fontSize: 14,
-                                        fontWeight: "bold",
-                                    }}
+                                    className="text-xs font-extrabold"
+                                    style={{ color: getStatusColor(order.orderStatus) }}
                                 >
                                     {order.orderStatus || "Pending"}
                                 </Text>
                             </View>
 
-                            <Text
-                                style={{
-                                    color: "#6B7280",
-                                    fontSize: 12,
-                                    marginTop: 16,
-                                }}
-                            >
+                            <Text className="mt-3 text-[10px] text-[#64748B]">
                                 Order Date: {formatDate(order.createdAt)}
                             </Text>
                         </View>
 
-                        <View
-                            style={{
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 16,
-                                padding: 20,
-                                borderWidth: 1,
-                                borderColor: "#E5E7EB",
-                                marginBottom: 16,
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    marginBottom: 18,
-                                }}
-                            >
-                                <Ionicons
-                                    name="person-circle-outline"
-                                    size={25}
-                                    color="#F97316"
-                                />
-                                <Text
-                                    style={{
-                                        color: "#111827",
-                                        fontSize: 18,
-                                        fontWeight: "bold",
-                                        marginLeft: 9,
-                                    }}
-                                >
+                        {/* Customer Details Card */}
+                        <View className="mb-4 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                            <View className="mb-4 flex-row items-center">
+                                <Ionicons name="person-circle-outline" size={22} color="#2563EB" />
+                                <Text className="ml-2 text-base font-black text-[#0F172A]">
                                     Customer Details
                                 </Text>
                             </View>
 
-                            <Text style={{ color: "#6B7280", fontSize: 12 }}>
-                                Name
-                            </Text>
-                            <Text
-                                style={{
-                                    color: "#111827",
-                                    fontSize: 16,
-                                    fontWeight: "600",
-                                    marginTop: 5,
-                                    marginBottom: 15,
-                                }}
-                            >
+                            <Text className="text-[10px] font-bold text-[#64748B]">Name</Text>
+                            <Text className="mt-0.5 text-xs font-extrabold text-[#0F172A] mb-3">
                                 {customer?.name || "N/A"}
                             </Text>
 
-                            <Text style={{ color: "#6B7280", fontSize: 12 }}>
-                                Email
-                            </Text>
-                            <Text
-                                style={{
-                                    color: "#111827",
-                                    fontSize: 15,
-                                    marginTop: 5,
-                                    marginBottom: 15,
-                                }}
-                            >
+                            <Text className="text-[10px] font-bold text-[#64748B]">Email</Text>
+                            <Text className="mt-0.5 text-xs font-extrabold text-[#0F172A] mb-3">
                                 {customer?.email || "N/A"}
                             </Text>
 
-                            <Text style={{ color: "#6B7280", fontSize: 12 }}>
-                                Delivery Address
-                            </Text>
-                            <Text
-                                style={{
-                                    color: "#111827",
-                                    fontSize: 15,
-                                    lineHeight: 22,
-                                    marginTop: 5,
-                                }}
-                            >
+                            <Text className="text-[10px] font-bold text-[#64748B]">Delivery Address</Text>
+                            <Text className="mt-0.5 text-xs font-medium text-[#0F172A] leading-relaxed">
                                 {order.deliveryAddress || "No address provided"}
                             </Text>
                         </View>
 
-                        <View
-                            style={{
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 16,
-                                padding: 20,
-                                borderWidth: 1,
-                                borderColor: "#E5E7EB",
-                                marginBottom: 16,
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    marginBottom: 16,
-                                }}
-                            >
-                                <Ionicons
-                                    name="fast-food-outline"
-                                    size={25}
-                                    color="#F97316"
-                                />
-                                <Text
-                                    style={{
-                                        color: "#111827",
-                                        fontSize: 18,
-                                        fontWeight: "bold",
-                                        marginLeft: 9,
-                                    }}
-                                >
+                        {/* Ordered Products Card */}
+                        <View className="mb-4 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                            <View className="mb-4 flex-row items-center">
+                                <Ionicons name="fast-food-outline" size={22} color="#2563EB" />
+                                <Text className="ml-2 text-base font-black text-[#0F172A]">
                                     Ordered Products
                                 </Text>
                             </View>
 
                             {orderItems.length === 0 ? (
-                                <Text style={{ color: "#6B7280", fontSize: 14 }}>
-                                    No products found.
-                                </Text>
+                                <Text className="text-xs text-[#64748B]">No products found.</Text>
                             ) : (
                                 orderItems.map((item, index) => {
                                     const menuItem = item.menuItem;
@@ -504,46 +304,16 @@ const OrderDetails = () => {
                                     return (
                                         <View
                                             key={item._id || `${order._id}-${index}`}
-                                            style={{
-                                                paddingVertical: 14,
-                                                borderTopWidth: index === 0 ? 1 : 0,
-                                                borderBottomWidth: 1,
-                                                borderColor: "#F3F4F6",
-                                            }}
+                                            className={`py-3.5 ${index > 0 ? "border-t border-[#F1F5F9]" : ""}`}
                                         >
-                                            <Text
-                                                style={{
-                                                    color: "#111827",
-                                                    fontSize: 16,
-                                                    fontWeight: "600",
-                                                }}
-                                            >
+                                            <Text className="text-xs font-bold text-[#0F172A]">
                                                 {menuItem?.name || "Unavailable product"}
                                             </Text>
-
-                                            <View
-                                                style={{
-                                                    flexDirection: "row",
-                                                    justifyContent: "space-between",
-                                                    alignItems: "center",
-                                                    marginTop: 9,
-                                                }}
-                                            >
-                                                <Text
-                                                    style={{
-                                                        color: "#6B7280",
-                                                        fontSize: 14,
-                                                    }}
-                                                >
+                                            <View className="mt-1 flex-row items-center justify-between">
+                                                <Text className="text-[10px] text-[#64748B]">
                                                     Rs. {price.toLocaleString()} × {quantity}
                                                 </Text>
-                                                <Text
-                                                    style={{
-                                                        color: "#F97316",
-                                                        fontSize: 17,
-                                                        fontWeight: "bold",
-                                                    }}
-                                                >
+                                                <Text className="text-xs font-black text-[#2563EB]">
                                                     Rs. {(price * quantity).toLocaleString()}
                                                 </Text>
                                             </View>
@@ -552,160 +322,58 @@ const OrderDetails = () => {
                                 })
                             )}
 
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    marginTop: 20,
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        color: "#111827",
-                                        fontSize: 17,
-                                        fontWeight: "bold",
-                                    }}
-                                >
+                            <View className="mt-4 flex-row items-center justify-between border-t border-[#F1F5F9] pt-4">
+                                <Text className="text-xs font-black text-[#0F172A]">
                                     Total Amount
                                 </Text>
-                                <Text
-                                    style={{
-                                        color: "#F97316",
-                                        fontSize: 23,
-                                        fontWeight: "bold",
-                                    }}
-                                >
+                                <Text className="text-base font-black text-[#2563EB]">
                                     Rs. {(Number(order.totalAmount) || 0).toLocaleString()}
                                 </Text>
                             </View>
                         </View>
 
-                        <View
-                            style={{
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 16,
-                                padding: 20,
-                                borderWidth: 1,
-                                borderColor: "#E5E7EB",
-                                marginBottom: 16,
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    marginBottom: 18,
-                                }}
-                            >
-                                <Ionicons
-                                    name="card-outline"
-                                    size={25}
-                                    color="#F97316"
-                                />
-                                <Text
-                                    style={{
-                                        color: "#111827",
-                                        fontSize: 18,
-                                        fontWeight: "bold",
-                                        marginLeft: 9,
-                                    }}
-                                >
+                        {/* Payment Details Card */}
+                        <View className="mb-4 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                            <View className="mb-4 flex-row items-center">
+                                <Ionicons name="card-outline" size={22} color="#2563EB" />
+                                <Text className="ml-2 text-base font-black text-[#0F172A]">
                                     Payment Details
                                 </Text>
                             </View>
 
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    marginBottom: 16,
-                                }}
-                            >
-                                <Text style={{ color: "#6B7280", fontSize: 14 }}>
-                                    Payment Method
-                                </Text>
-                                <Text
-                                    style={{
-                                        color: "#111827",
-                                        fontSize: 14,
-                                        fontWeight: "600",
-                                        flex: 1,
-                                        textAlign: "right",
-                                        marginLeft: 10,
-                                    }}
-                                >
+                            <View className="mb-3 flex-row items-center justify-between">
+                                <Text className="text-xs text-[#64748B]">Payment Method</Text>
+                                <Text className="text-xs font-bold text-[#0F172A]">
                                     {order.paymentMethod || "N/A"}
                                 </Text>
                             </View>
 
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <Text style={{ color: "#6B7280", fontSize: 14 }}>
-                                    Payment Status
-                                </Text>
+                            <View className="flex-row items-center justify-between">
+                                <Text className="text-xs text-[#64748B]">Payment Status</Text>
                                 <Text
-                                    style={{
-                                        color:
-                                            order.paymentStatus === "Paid"
-                                                ? "#16A34A"
-                                                : order.paymentStatus === "Failed"
-                                                ? "#DC2626"
-                                                : "#D97706",
-                                        fontSize: 14,
-                                        fontWeight: "bold",
-                                    }}
+                                    className={`text-xs font-bold ${
+                                        order.paymentStatus === "Paid"
+                                            ? "text-emerald-600"
+                                            : order.paymentStatus === "Failed"
+                                            ? "text-red-600"
+                                            : "text-amber-600"
+                                    }`}
                                 >
                                     {order.paymentStatus || "Pending"}
                                 </Text>
                             </View>
                         </View>
 
-                        <View
-                            style={{
-                                backgroundColor: "#FFFFFF",
-                                borderRadius: 16,
-                                padding: 20,
-                                borderWidth: 1,
-                                borderColor: "#E5E7EB",
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    marginBottom: 8,
-                                }}
-                            >
-                                <Ionicons
-                                    name="sync-outline"
-                                    size={25}
-                                    color="#F97316"
-                                />
-                                <Text
-                                    style={{
-                                        color: "#111827",
-                                        fontSize: 18,
-                                        fontWeight: "bold",
-                                        marginLeft: 9,
-                                    }}
-                                >
+                        {/* Update Status Card */}
+                        <View className="rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                            <View className="mb-2 flex-row items-center">
+                                <Ionicons name="sync-outline" size={22} color="#2563EB" />
+                                <Text className="ml-2 text-base font-black text-[#0F172A]">
                                     Update Order Status
                                 </Text>
                             </View>
 
-                            <Text
-                                style={{
-                                    color: "#6B7280",
-                                    fontSize: 13,
-                                    lineHeight: 19,
-                                    marginBottom: 16,
-                                }}
-                            >
+                            <Text className="mb-4 text-[10px] text-[#64748B]">
                                 Only managers can update order status.
                             </Text>
 
@@ -717,102 +385,36 @@ const OrderDetails = () => {
                                         key={status}
                                         disabled={updating || selected}
                                         onPress={() => updateStatus(status)}
-                                        style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            justifyContent: "space-between",
-                                            padding: 14,
-                                            borderRadius: 10,
-                                            borderWidth: 1,
-                                            borderColor: selected
-                                                ? getStatusColor(status)
-                                                : "#E5E7EB",
-                                            backgroundColor: selected
-                                                ? `${getStatusColor(status)}12`
-                                                : "#FFFFFF",
-                                            marginTop: 9,
-                                            opacity: updating && !selected ? 0.6 : 1,
-                                        }}
+                                        activeOpacity={0.8}
+                                        className={`mt-2.5 flex-row items-center justify-between rounded-2xl border p-3.5 ${
+                                            selected
+                                                ? "border-[#2563EB] bg-[#EFF6FF]"
+                                                : "border-[#DBEAFE] bg-white"
+                                        } ${updating && !selected ? "opacity-50" : "opacity-100"}`}
                                     >
-                                        <View
-                                            style={{
-                                                flexDirection: "row",
-                                                alignItems: "center",
-                                            }}
-                                        >
+                                        <View className="flex-row items-center">
                                             <View
-                                                style={{
-                                                    width: 10,
-                                                    height: 10,
-                                                    borderRadius: 5,
-                                                    backgroundColor: getStatusColor(status),
-                                                    marginRight: 11,
-                                                }}
+                                                className="mr-3 h-2.5 w-2.5 rounded-full"
+                                                style={{ backgroundColor: getStatusColor(status) }}
                                             />
                                             <Text
-                                                style={{
-                                                    color: selected
-                                                        ? getStatusColor(status)
-                                                        : "#374151",
-                                                    fontSize: 15,
-                                                    fontWeight: selected ? "bold" : "500",
-                                                }}
+                                                className={`text-xs font-bold ${
+                                                    selected ? "text-[#2563EB]" : "text-[#0F172A]"
+                                                }`}
                                             >
                                                 {status}
                                             </Text>
                                         </View>
-
-                                        {selected ? (
-                                            <Ionicons
-                                                name="checkmark-circle"
-                                                size={21}
-                                                color={getStatusColor(status)}
-                                            />
-                                        ) : (
-                                            <Ionicons
-                                                name="chevron-forward"
-                                                size={19}
-                                                color="#9CA3AF"
-                                            />
+                                        {selected && (
+                                            <Ionicons name="checkmark-circle" size={18} color="#2563EB" />
                                         )}
                                     </TouchableOpacity>
                                 );
                             })}
-
-                            {updating && (
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        marginTop: 18,
-                                    }}
-                                >
-                                    <ActivityIndicator color="#F97316" />
-                                    <Text
-                                        style={{
-                                            color: "#6B7280",
-                                            marginLeft: 10,
-                                            fontSize: 13,
-                                        }}
-                                    >
-                                        Updating order status...
-                                    </Text>
-                                </View>
-                            )}
                         </View>
                     </ScrollView>
                 )}
             </View>
-
-            <Toast
-                visible={toast.visible}
-                type={toast.type}
-                message={toast.message}
-                onHide={() =>
-                    setToast((prev) => ({ ...prev, visible: false }))
-                }
-            />
         </SafeAreaView>
     );
 };

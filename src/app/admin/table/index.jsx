@@ -114,32 +114,32 @@ const TableManagement = () => {
                     }
                 }}
                 activeOpacity={0.8}
-                className="mb-3 flex-row items-center justify-between rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
+                className="mb-3.5 flex-row items-center justify-between rounded-3xl border border-[#DBEAFE] bg-white p-4 shadow-sm"
             >
                 <View className="flex-row items-center flex-1">
-                    <View className="h-10 w-10 items-center justify-center rounded-xl bg-orange-50 mr-3">
-                        <Ionicons name="restaurant-outline" size={20} color="#F97316" />
+                    <View className="h-12 w-12 items-center justify-center rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE] mr-3">
+                        <Ionicons name="restaurant-outline" size={22} color="#2563EB" />
                     </View>
 
                     <View className="flex-1 pr-3">
-                        <Text className="text-base font-extrabold text-gray-900">
+                        <Text className="text-xs font-black text-[#0F172A]">
                             Table #{item.tableNumber ?? "N/A"}
                         </Text>
-                        <Text className="mt-0.5 text-xs font-semibold text-gray-500">
+                        <Text className="mt-0.5 text-[10px] font-medium text-[#64748B]">
                             {item.seats ?? 1} {Number(item.seats) === 1 ? "Person Capacity" : "Persons Capacity"}
                         </Text>
                     </View>
                 </View>
 
                 <View
-                    className={`rounded-xl px-3 py-1.5 border ${
+                    className={`rounded-xl px-3 py-1 border ${
                         isAvailable
                             ? "bg-emerald-50 border-emerald-200"
                             : "bg-red-50 border-red-200"
                     }`}
                 >
                     <Text
-                        className={`text-xs font-bold ${
+                        className={`text-[10px] font-extrabold uppercase ${
                             isAvailable ? "text-emerald-700" : "text-red-700"
                         }`}
                     >
@@ -151,33 +151,33 @@ const TableManagement = () => {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-white" edges={["top", "left", "right"]}>
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
             <StatusBar style="dark" backgroundColor="#FFFFFF" />
             
-            {/* Navbar is placed first inside Safe Area */}
-            <Navbar />
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
+            </View>
 
-            {/* Container for everything else */}
-            <View className="flex-1 bg-white px-5 pt-5">
+            <View className="flex-1 px-5 pt-4">
                 {/* Header & Create Button Section */}
-                <View className="mb-5 flex-row items-center justify-between">
+                <View className="mb-4 flex-row items-center justify-between">
                     <View className="flex-1 pr-2">
-                        <Text className="text-2xl font-extrabold text-gray-900">
-                            Table <Text className="text-orange-500">Management</Text>
+                        <Text className="text-xl font-black text-[#0F172A]">
+                            Table Management
                         </Text>
-                        <Text className="mt-0.5 text-xs text-gray-500">
+                        <Text className="mt-0.5 text-xs text-[#64748B]">
                             {tables.length} {tables.length === 1 ? "Table" : "Tables"} available
                         </Text>
                     </View>
 
                     {/* Create Table Button */}
                     <TouchableOpacity
-                        className="flex-row items-center rounded-xl bg-orange-500 px-4 py-3 shadow-md active:bg-orange-600"
+                        className="flex-row items-center rounded-2xl bg-[#2563EB] px-4 py-3 shadow-sm active:opacity-90"
                         onPress={() => router.push("/admin/table/add")}
                         activeOpacity={0.8}
                     >
-                        <Ionicons name="add-circle-outline" size={20} color="#FFFFFF" />
-                        <Text className="ml-1.5 text-sm font-bold text-white">
+                        <Ionicons name="add-circle-outline" size={18} color="#FFFFFF" />
+                        <Text className="ml-1.5 text-xs font-bold text-white">
                             Create Table
                         </Text>
                     </TouchableOpacity>
@@ -186,33 +186,33 @@ const TableManagement = () => {
                 {/* Main Content View */}
                 {loading ? (
                     <View className="flex-1 items-center justify-center">
-                        <ActivityIndicator size="large" color="#F97316" />
-                        <Text className="mt-3 text-sm font-medium text-gray-500">
+                        <ActivityIndicator size="large" color="#2563EB" />
+                        <Text className="mt-3 text-xs font-bold text-[#64748B]">
                             Loading tables...
                         </Text>
                     </View>
                 ) : tables.length === 0 ? (
                     /* Empty State Container */
-                    <View className="flex-1 items-center justify-center rounded-2xl border border-gray-100 bg-gray-50 px-5 py-12 mb-6">
-                        <View className="mb-4 h-16 w-16 items-center justify-center rounded-2xl bg-orange-500/10 border border-orange-500/20">
-                            <Ionicons name="grid-outline" size={32} color="#F97316" />
+                    <View className="flex-1 items-center justify-center rounded-3xl border border-[#DBEAFE] bg-white px-5 py-12 mb-6 shadow-sm">
+                        <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl bg-[#EFF6FF] border border-[#DBEAFE]">
+                            <Ionicons name="grid-outline" size={36} color="#2563EB" />
                         </View>
 
-                        <Text className="mb-1 text-lg font-bold text-gray-900">
+                        <Text className="mb-1 text-base font-extrabold text-[#0F172A]">
                             No Tables Found
                         </Text>
 
-                        <Text className="mb-6 text-center text-xs leading-5 text-gray-500">
+                        <Text className="mb-6 text-center text-xs text-[#64748B]">
                             Start by creating tables to set up your restaurant seating.
                         </Text>
 
                         <TouchableOpacity
-                            className="w-full flex-row items-center justify-center rounded-xl bg-orange-500 px-5 py-3.5"
+                            className="w-full flex-row items-center justify-center rounded-2xl bg-[#2563EB] px-5 py-3.5 shadow-sm"
                             onPress={() => router.push("/admin/table/add")}
                             activeOpacity={0.8}
                         >
-                            <Ionicons name="add-circle-outline" size={20} color="#FFFFFF" />
-                            <Text className="ml-2 text-sm font-bold text-white">
+                            <Ionicons name="add-circle-outline" size={18} color="#FFFFFF" />
+                            <Text className="ml-2 text-xs font-bold text-white">
                                 Add First Table
                             </Text>
                         </TouchableOpacity>
@@ -231,15 +231,14 @@ const TableManagement = () => {
                             <RefreshControl
                                 refreshing={refreshing}
                                 onRefresh={onRefresh}
-                                tintColor="#F97316"
-                                colors={["#F97316"]}
+                                tintColor="#2563EB"
+                                colors={["#2563EB"]}
                             />
                         }
                     />
                 )}
             </View>
 
-            {/* Toast Component placed at the absolute bottom of SafeAreaView with high rendering priority */}
             <Toast
                 visible={toast.visible}
                 type={toast.type}

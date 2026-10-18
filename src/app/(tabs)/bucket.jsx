@@ -1,4 +1,3 @@
-
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -7,11 +6,13 @@ import {
     Alert,
     Image,
     ScrollView,
+    StatusBar,
     Text,
     TouchableOpacity,
     View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Navbar from "../../components/Navbar";
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 
@@ -51,11 +52,12 @@ const Bucket = () => {
     if (!isCartLoaded) {
         return (
             <SafeAreaView
-                className="flex-1 items-center justify-center bg-white"
-                edges={["top", "left", "right"]}
+                className="flex-1 items-center justify-center bg-[#F8FAFC]"
+                edges={["top"]}
             >
-                <ActivityIndicator size="large" color="#10B981" />
-                <Text className="mt-3 text-xs text-gray-500">
+                <StatusBar style="dark" backgroundColor="#FFFFFF" />
+                <ActivityIndicator size="large" color="#2563EB" />
+                <Text className="mt-3 text-xs font-bold text-[#64748B]">
                     Loading your bucket...
                 </Text>
             </SafeAreaView>
@@ -65,36 +67,36 @@ const Bucket = () => {
     if (cartItems.length === 0) {
         return (
             <SafeAreaView
-                className="flex-1 bg-white"
-                edges={["top", "left", "right"]}
+                className="flex-1 bg-[#F8FAFC]"
+                edges={["top"]}
             >
-                <View className="bg-gray-900 px-5 py-4">
-                    <Text className="text-base font-extrabold text-white">
-                        My Bucket
-                    </Text>
+                <StatusBar style="dark" backgroundColor="#FFFFFF" />
+
+                <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                    <Navbar />
                 </View>
 
                 <View className="flex-1 items-center justify-center p-6">
-                    <View className="mb-4 h-16 w-16 items-center justify-center rounded-2xl border border-emerald-100 bg-emerald-50">
+                    <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-[#DBEAFE] bg-[#EFF6FF]">
                         <Ionicons
                             name="basket-outline"
-                            size={32}
-                            color="#10B981"
+                            size={36}
+                            color="#2563EB"
                         />
                     </View>
 
-                    <Text className="text-base font-bold text-black">
+                    <Text className="text-base font-extrabold text-[#0F172A]">
                         Your bucket is empty
                     </Text>
 
-                    <Text className="mt-1 text-center text-xs text-gray-500">
+                    <Text className="mt-1 text-center text-xs text-[#64748B]">
                         Explore our menu and add items to your bucket to get
                         started.
                     </Text>
 
                     <TouchableOpacity
                         onPress={() => router.push("/(tabs)")}
-                        className="mt-6 rounded-2xl bg-emerald-600 px-6 py-3.5 shadow-sm shadow-emerald-200"
+                        className="mt-6 rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
                         activeOpacity={0.8}
                     >
                         <Text className="text-xs font-bold text-white">
@@ -108,14 +110,20 @@ const Bucket = () => {
 
     return (
         <SafeAreaView
-            className="flex-1 bg-white"
-            edges={["top", "left", "right"]}
+            className="flex-1 bg-[#F8FAFC]"
+            edges={["top"]}
         >
-            <View className="bg-gray-900 px-5 py-4">
-                <Text className="text-base font-extrabold text-white">
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
+
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
+            </View>
+
+            <View className="bg-white px-5 py-3 border-b border-[#F1F5F9]">
+                <Text className="text-xl font-black text-[#0F172A]">
                     My Bucket
                 </Text>
-                <Text className="mt-0.5 text-[10px] font-semibold text-gray-400">
+                <Text className="mt-0.5 text-xs text-[#64748B]">
                     Review your selected items before checkout
                 </Text>
             </View>
@@ -128,33 +136,33 @@ const Bucket = () => {
                 {cartItems.map((item) => (
                     <View
                         key={item.id}
-                        className="mb-3.5 flex-row items-center rounded-3xl border border-gray-100 bg-white p-3 shadow-sm"
+                        className="mb-3.5 flex-row items-center rounded-3xl border border-[#DBEAFE] bg-white p-3 shadow-sm"
                     >
                         {item.image ? (
                             <Image
                                 source={{ uri: item.image }}
-                                className="h-16 w-16 rounded-2xl bg-gray-50"
+                                className="h-16 w-16 rounded-2xl bg-[#EFF6FF]"
                                 resizeMode="cover"
                             />
                         ) : (
-                            <View className="h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50">
+                            <View className="h-16 w-16 items-center justify-center rounded-2xl bg-[#EFF6FF]">
                                 <Ionicons
                                     name="fast-food-outline"
-                                    size={26}
-                                    color="#10B981"
+                                    size={24}
+                                    color="#2563EB"
                                 />
                             </View>
                         )}
 
                         <View className="ml-3 flex-1 pr-2">
                             <Text
-                                className="text-xs font-bold text-black"
+                                className="text-xs font-bold text-[#0F172A]"
                                 numberOfLines={2}
                             >
                                 {item.name}
                             </Text>
 
-                            <Text className="mt-1 text-sm font-extrabold text-orange-600">
+                            <Text className="mt-1 text-xs font-black text-[#2563EB]">
                                 Rs. {item.price * item.quantity}
                             </Text>
 
@@ -169,26 +177,26 @@ const Bucket = () => {
                             </TouchableOpacity>
                         </View>
 
-                        <View className="flex-row items-center rounded-xl border border-gray-100 bg-gray-50 p-1">
+                        <View className="flex-row items-center rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] p-1">
                             <TouchableOpacity
                                 onPress={() => updateQuantity(item.id, -1)}
-                                className="h-7 w-7 items-center justify-center rounded-lg bg-white shadow-sm"
+                                className="h-7 w-7 items-center justify-center rounded-lg bg-white shadow-sm border border-[#DBEAFE]"
                                 activeOpacity={0.7}
                             >
                                 <Ionicons
                                     name="remove"
                                     size={14}
-                                    color="#000000"
+                                    color="#2563EB"
                                 />
                             </TouchableOpacity>
 
-                            <Text className="px-2.5 text-xs font-bold text-black">
+                            <Text className="px-2.5 text-xs font-bold text-[#0F172A]">
                                 {item.quantity}
                             </Text>
 
                             <TouchableOpacity
                                 onPress={() => updateQuantity(item.id, 1)}
-                                className="h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 shadow-sm"
+                                className="h-7 w-7 items-center justify-center rounded-lg bg-[#2563EB] shadow-sm"
                                 activeOpacity={0.7}
                             >
                                 <Ionicons
@@ -201,46 +209,46 @@ const Bucket = () => {
                     </View>
                 ))}
 
-                <View className="mb-6 mt-4 rounded-3xl border border-gray-100 bg-gray-50 p-4">
-                    <Text className="mb-3 text-xs font-bold uppercase tracking-wider text-black">
+                <View className="mb-6 mt-4 rounded-3xl border border-[#DBEAFE] bg-white p-4 shadow-sm">
+                    <Text className="mb-3 text-xs font-black uppercase tracking-wider text-[#0F172A]">
                         Order Summary
                     </Text>
 
                     <View className="mb-2 flex-row justify-between">
-                        <Text className="text-xs text-gray-600">
+                        <Text className="text-xs text-[#64748B]">
                             Subtotal
                         </Text>
-                        <Text className="text-xs font-bold text-black">
+                        <Text className="text-xs font-bold text-[#0F172A]">
                             Rs. {subtotal}
                         </Text>
                     </View>
 
-                    <View className="mb-3 flex-row justify-between border-b border-gray-200 pb-3">
-                        <Text className="text-xs text-gray-600">
+                    <View className="mb-3 flex-row justify-between border-b border-[#F1F5F9] pb-3">
+                        <Text className="text-xs text-[#64748B]">
                             Delivery Fee
                         </Text>
-                        <Text className="text-xs font-bold text-black">
+                        <Text className="text-xs font-bold text-[#0F172A]">
                             Rs. {deliveryFee}
                         </Text>
                     </View>
 
                     <View className="flex-row justify-between">
-                        <Text className="text-sm font-extrabold text-black">
+                        <Text className="text-sm font-black text-[#0F172A]">
                             Total Amount
                         </Text>
-                        <Text className="text-sm font-extrabold text-orange-600">
+                        <Text className="text-sm font-black text-[#2563EB]">
                             Rs. {total}
                         </Text>
                     </View>
                 </View>
             </ScrollView>
 
-            <View className="absolute bottom-0 left-0 right-0 border-t border-gray-100 bg-white px-5 py-4 shadow-lg">
+            <View className="absolute bottom-0 left-0 right-0 border-t border-[#F1F5F9] bg-white px-5 py-4 shadow-lg">
                 <TouchableOpacity
                     onPress={handleCheckout}
                     disabled={checkingOut}
                     activeOpacity={0.8}
-                    className="w-full flex-row items-center justify-center rounded-2xl bg-emerald-600 py-4 shadow-sm shadow-emerald-200"
+                    className="w-full flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-4 shadow-sm"
                 >
                     {checkingOut ? (
                         <ActivityIndicator color="#FFFFFF" />

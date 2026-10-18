@@ -69,26 +69,22 @@ const ReservationScreen = () => {
                 timeout: 20000,
             });
 
-            console.log("Reservations API response:", response.data);
-
             const data = response.data;
 
             const fetchedReservations = Array.isArray(data)
                 ? data
                 : Array.isArray(data?.reservations)
-                  ? data.reservations
-                  : Array.isArray(data?.data?.reservations)
-                    ? data.data.reservations
-                    : Array.isArray(data?.data)
-                      ? data.data
-                      : [];
+                ? data.reservations
+                : Array.isArray(data?.data?.reservations)
+                ? data.data.reservations
+                : Array.isArray(data?.data)
+                ? data.data
+                : [];
 
             setReservations(fetchedReservations);
         } catch (error) {
             console.error("Reservations API URL:", apiUrl);
             console.error("Reservations request error:", error.message);
-            console.error("HTTP status:", error.response?.status);
-            console.error("API error:", error.response?.data);
 
             const message = error.response
                 ? error.response.data?.message ||
@@ -133,19 +129,22 @@ const ReservationScreen = () => {
     const getStatusStyle = (status) => {
         switch (status?.toLowerCase()) {
             case "confirmed":
-                return "bg-green-100 text-green-700";
+                return "bg-blue-50 text-blue-600 border border-blue-200";
             case "cancelled":
-                return "bg-red-100 text-red-700";
+                return "bg-red-50 text-red-600 border border-red-200";
+            case "completed":
+                return "bg-emerald-50 text-emerald-600 border border-emerald-200";
             case "pending":
-                return "bg-yellow-100 text-yellow-700";
             default:
-                return "bg-gray-100 text-gray-700";
+                return "bg-blue-50 text-blue-600 border border-blue-200";
         }
     };
 
     const renderReservation = ({ item }) => {
         const reservationId = getReservationId(item);
         const status = item.status || "Pending";
+        const statusStyleClasses = getStatusStyle(status);
+        const [bgClass, textClass, borderClass] = statusStyleClasses.split(" ");
 
         return (
             <TouchableOpacity
@@ -155,113 +154,101 @@ const ReservationScreen = () => {
                         router.push(`/admin/reservation/${reservationId}`);
                     }
                 }}
-                className="mb-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm"
+                className="mb-3.5 rounded-3xl border border-[#DBEAFE] bg-white p-4 shadow-sm"
             >
                 <View className="mb-3 flex-row items-center justify-between">
                     <View className="flex-1 flex-row items-center">
-                        <View className="mr-3 h-11 w-11 items-center justify-center rounded-full bg-orange-100">
+                        <View className="mr-3 h-12 w-12 items-center justify-center rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE]">
                             <Ionicons
                                 name="calendar-outline"
                                 size={22}
-                                color="#ea580c"
+                                color="#2563EB"
                             />
                         </View>
 
                         <View className="flex-1">
-                            <Text className="text-base font-bold text-gray-800">
+                            <Text className="text-xs font-black text-[#0F172A]">
                                 {getCustomerName(item)}
                             </Text>
 
-                            <Text className="mt-1 text-xs text-gray-500">
-                                Reservation ID:{" "}
-                                {reservationId
-                                    ? String(reservationId).slice(-8)
-                                    : "N/A"}
+                            <Text className="mt-0.5 text-[10px] font-medium text-[#64748B]">
+                                ID: {reservationId ? String(reservationId).slice(-8) : "N/A"}
                             </Text>
                         </View>
                     </View>
 
                     <View
-                        className={`rounded-full px-3 py-1 ${getStatusStyle(status).split(" ")[0]}`}
+                        className={`rounded-xl px-3 py-1 ${bgClass} ${borderClass || ""}`}
                     >
                         <Text
-                            className={`text-xs font-semibold ${getStatusStyle(status).split(" ")[1]}`}
+                            className={`text-[10px] font-extrabold uppercase ${textClass}`}
                         >
                             {status}
                         </Text>
                     </View>
                 </View>
 
-                <View className="border-t border-gray-100 pt-3">
-                    <View className="mb-3 flex-row items-center">
+                <View className="border-t border-[#F1F5F9] pt-3">
+                    <View className="mb-2 flex-row items-center">
                         <Ionicons
                             name="restaurant-outline"
-                            size={18}
-                            color="#6b7280"
+                            size={16}
+                            color="#64748B"
                         />
-                        <Text className="ml-2 flex-1 text-sm text-gray-600">
+                        <Text className="ml-2 flex-1 text-xs font-bold text-[#0F172A]">
                             Table:{" "}
-                            {item.table?.tableNumber ||
-                                item.table?.number ||
-                                item.tableNumber ||
-                                item.table ||
-                                "N/A"}
+                            <Text className="font-medium text-[#64748B]">
+                                {item.table?.tableNumber ||
+                                    item.table?.number ||
+                                    item.tableNumber ||
+                                    item.table ||
+                                    "N/A"}
+                            </Text>
                         </Text>
 
                         <Ionicons
                             name="people-outline"
-                            size={18}
-                            color="#6b7280"
+                            size={16}
+                            color="#64748B"
                         />
-                        <Text className="ml-2 text-sm text-gray-600">
+                        <Text className="ml-2 text-xs font-bold text-[#0F172A]">
                             Guests:{" "}
-                            {item.guests ??
-                                item.numberOfGuests ??
-                                item.numberOfPeople ??
-                                item.partySize ??
-                                "N/A"}
+                            <Text className="font-medium text-[#64748B]">
+                                {item.guests ??
+                                    item.numberOfGuests ??
+                                    item.numberOfPeople ??
+                                    item.partySize ??
+                                    "N/A"}
+                            </Text>
                         </Text>
                     </View>
 
-                    <View className="mb-3 flex-row items-center">
-                        <Ionicons
-                            name="calendar-outline"
-                            size={18}
-                            color="#6b7280"
-                        />
-                        <Text className="ml-2 flex-1 text-sm text-gray-600">
-                            {item.date
-                                ? new Date(item.date).toLocaleDateString()
-                                : item.reservationDate
-                                  ? new Date(
-                                        item.reservationDate
-                                    ).toLocaleDateString()
-                                  : "Date unavailable"}
-                        </Text>
-                    </View>
-
-                    <View className="flex-row items-center justify-between">
+                    <View className="flex-row items-center justify-between pt-1">
                         <View className="flex-row items-center">
                             <Ionicons
                                 name="time-outline"
-                                size={18}
-                                color="#6b7280"
+                                size={16}
+                                color="#64748B"
                             />
-                            <Text className="ml-2 text-sm text-gray-600">
-                                {item.time ||
-                                    item.reservationTime ||
-                                    "Time unavailable"}
+                            <Text className="ml-2 text-[10px] font-medium text-[#64748B]">
+                                {item.date
+                                    ? new Date(item.date).toLocaleDateString()
+                                    : item.reservationDate
+                                    ? new Date(item.reservationDate).toLocaleDateString()
+                                    : "Date unavailable"}{" "}
+                                {" · "}
+                                {item.time || item.reservationTime || "Time unavailable"}
                             </Text>
                         </View>
 
                         <View className="flex-row items-center">
-                            <Text className="mr-1 text-sm font-semibold text-orange-600">
+                            <Text className="mr-1 text-xs font-bold text-[#2563EB]">
                                 View Details
                             </Text>
                             <Ionicons
                                 name="chevron-forward"
                                 size={16}
-                                color="#ea580c"
+                                color="#2563EB"
                             />
                         </View>
                     </View>
@@ -271,18 +258,20 @@ const ReservationScreen = () => {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-gray-50">
-            <StatusBar style="dark" />
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            <Navbar />
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
+            </View>
 
-            <View className="flex-1 px-4 pt-5">
-                <View className="mb-5 flex-row items-center justify-between">
+            <View className="flex-1 px-5 pt-4">
+                <View className="mb-4 flex-row items-center justify-between">
                     <View>
-                        <Text className="text-2xl font-bold text-gray-900">
+                        <Text className="text-xl font-black text-[#0F172A]">
                             Reservations
                         </Text>
-                        <Text className="mt-1 text-sm text-gray-500">
+                        <Text className="mt-0.5 text-xs text-[#64748B]">
                             Manage customer reservations
                         </Text>
                     </View>
@@ -290,29 +279,34 @@ const ReservationScreen = () => {
                     <TouchableOpacity
                         onPress={onRefresh}
                         disabled={loading || refreshing}
-                        className="h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white"
+                        className="h-11 w-11 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-white shadow-sm"
                     >
                         <Ionicons
                             name="refresh-outline"
-                            size={22}
-                            color="#ea580c"
+                            size={20}
+                            color="#2563EB"
                         />
                     </TouchableOpacity>
                 </View>
 
-                <View className="mb-5 rounded-2xl bg-orange-500 p-5">
-                    <Text className="text-sm font-medium text-orange-50">
-                        Total Reservations
-                    </Text>
-                    <Text className="mt-1 text-3xl font-bold text-white">
-                        {reservations.length}
-                    </Text>
+                <View className="mb-4 flex-row items-center rounded-3xl border border-[#DBEAFE] bg-white p-4 shadow-sm">
+                    <View className="mr-3 h-12 w-12 items-center justify-center rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE]">
+                        <Ionicons name="calendar-outline" size={24} color="#2563EB" />
+                    </View>
+                    <View>
+                        <Text className="text-[10px] font-bold text-[#64748B]">
+                            Total Reservations
+                        </Text>
+                        <Text className="mt-0.5 text-xl font-black text-[#0F172A]">
+                            {reservations.length}
+                        </Text>
+                    </View>
                 </View>
 
                 {loading ? (
                     <View className="flex-1 items-center justify-center">
-                        <ActivityIndicator size="large" color="#ea580c" />
-                        <Text className="mt-3 text-sm text-gray-500">
+                        <ActivityIndicator size="large" color="#2563EB" />
+                        <Text className="mt-3 text-xs font-bold text-[#64748B]">
                             Loading reservations...
                         </Text>
                     </View>
@@ -328,7 +322,8 @@ const ReservationScreen = () => {
                             <RefreshControl
                                 refreshing={refreshing}
                                 onRefresh={onRefresh}
-                                colors={["#ea580c"]}
+                                tintColor="#2563EB"
+                                colors={["#2563EB"]}
                             />
                         }
                         contentContainerStyle={{
@@ -336,24 +331,27 @@ const ReservationScreen = () => {
                             paddingBottom: 24,
                         }}
                         ListEmptyComponent={
-                            <View className="flex-1 items-center justify-center py-16">
-                                <Ionicons
-                                    name="calendar-outline"
-                                    size={56}
-                                    color="#9ca3af"
-                                />
-                                <Text className="mt-4 text-lg font-semibold text-gray-700">
+                            <View className="flex-1 items-center justify-center rounded-3xl border border-[#DBEAFE] bg-white px-5 py-12 shadow-sm">
+                                <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-[#DBEAFE] bg-[#EFF6FF]">
+                                    <Ionicons
+                                        name="calendar-outline"
+                                        size={36}
+                                        color="#2563EB"
+                                    />
+                                </View>
+                                <Text className="text-base font-extrabold text-[#0F172A]">
                                     No Reservations Found
                                 </Text>
-                                <Text className="mt-2 text-center text-sm text-gray-500">
+                                <Text className="mt-1 text-center text-xs text-[#64748B]">
                                     Reservations will appear here when available.
                                 </Text>
 
                                 <TouchableOpacity
                                     onPress={onRefresh}
-                                    className="mt-5 rounded-xl bg-orange-500 px-5 py-3"
+                                    className="mt-6 rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
+                                    activeOpacity={0.8}
                                 >
-                                    <Text className="font-semibold text-white">
+                                    <Text className="text-xs font-bold text-white">
                                         Try Again
                                     </Text>
                                 </TouchableOpacity>

@@ -1,4 +1,3 @@
-
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -64,7 +63,7 @@ const SearchAndDelivery = ({ onSearch }) => {
                 <TouchableOpacity
                     onPress={() => onSearch?.(search.trim())}
                     activeOpacity={0.8}
-                    className="rounded-xl bg-emerald-600 px-4 py-2.5"
+                    className="rounded-xl bg-blue-600 px-4 py-2.5"
                 >
                     <Text className="text-xs font-bold text-white">Search</Text>
                 </TouchableOpacity>

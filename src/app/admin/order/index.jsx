@@ -40,32 +40,32 @@ const OrderList = () => {
             case "Preparing":
                 return {
                     backgroundColor: "#EFF6FF",
-                    borderColor: "#BFDBFE",
-                    color: "#1D4ED8",
+                    borderColor: "#DBEAFE",
+                    color: "#2563EB",
                 };
             case "Ready":
                 return {
                     backgroundColor: "#F5F3FF",
                     borderColor: "#DDD6FE",
-                    color: "#6D28D9",
+                    color: "#7C3AED",
                 };
             case "Completed":
                 return {
-                    backgroundColor: "#ECFDF5",
-                    borderColor: "#A7F3D0",
-                    color: "#047857",
+                    backgroundColor: "#F0FDF4",
+                    borderColor: "#DCFCE7",
+                    color: "#16A34A",
                 };
             case "Cancelled":
                 return {
                     backgroundColor: "#FEF2F2",
-                    borderColor: "#FECACA",
-                    color: "#B91C1C",
+                    borderColor: "#FEE2E2",
+                    color: "#DC2626",
                 };
             default:
                 return {
-                    backgroundColor: "#FFF7ED",
-                    borderColor: "#FED7AA",
-                    color: "#C2410C",
+                    backgroundColor: "#EFF6FF",
+                    borderColor: "#DBEAFE",
+                    color: "#2563EB",
                 };
         }
     };
@@ -129,23 +129,23 @@ const OrderList = () => {
                     }
                 }}
                 activeOpacity={0.8}
-                className="mb-3 flex-row items-center justify-between rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
+                className="mb-3.5 flex-row items-center justify-between rounded-3xl border border-[#DBEAFE] bg-white p-4 shadow-sm"
             >
-                <View className="mr-3 h-11 w-11 items-center justify-center rounded-xl bg-orange-50">
-                    <Ionicons name="receipt-outline" size={22} color="#F97316" />
+                <View className="mr-3 h-12 w-12 items-center justify-center rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE]">
+                    <Ionicons name="receipt-outline" size={22} color="#2563EB" />
                 </View>
 
                 <View className="flex-1 pr-2">
-                    <Text className="text-base font-extrabold text-gray-900">
+                    <Text className="text-xs font-black text-[#0F172A]">
                         Order #{String(orderId || "").slice(-6).toUpperCase()}
                     </Text>
 
-                    <Text className="mt-0.5 text-xs font-semibold text-gray-500">
+                    <Text className="mt-1 text-xs text-[#64748B]">
                         {orderItems.length} {orderItems.length === 1 ? "Product" : "Products"}
                         {" · "}Rs. {(Number(item.totalAmount) || 0).toLocaleString()}
                     </Text>
 
-                    <Text className="mt-1 text-xs text-gray-500">
+                    <Text className="mt-0.5 text-[10px] font-medium text-[#64748B]">
                         {item.paymentMethod || "Payment not specified"}
                     </Text>
                 </View>
@@ -156,11 +156,11 @@ const OrderList = () => {
                             backgroundColor: statusStyle.backgroundColor,
                             borderColor: statusStyle.borderColor,
                         }}
-                        className="rounded-xl border px-3 py-1.5"
+                        className="rounded-xl border px-3 py-1"
                     >
                         <Text
                             style={{ color: statusStyle.color }}
-                            className="text-xs font-bold"
+                            className="text-[10px] font-extrabold uppercase"
                         >
                             {status}
                         </Text>
@@ -168,8 +168,8 @@ const OrderList = () => {
 
                     <Ionicons
                         name="chevron-forward"
-                        size={18}
-                        color="#9CA3AF"
+                        size={16}
+                        color="#94A3B8"
                         style={{ marginTop: 8 }}
                     />
                 </View>
@@ -178,32 +178,34 @@ const OrderList = () => {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-white" edges={["top", "left", "right"]}>
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
             <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            <Navbar />
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
+            </View>
 
-            <View className="flex-1 bg-white px-5 pt-5">
-                <View className="mb-5">
-                    <Text className="text-2xl font-extrabold text-gray-900">
-                        Order <Text className="text-orange-500">Management</Text>
+            <View className="flex-1 px-5 pt-4">
+                <View className="mb-4">
+                    <Text className="text-xl font-black text-[#0F172A]">
+                        Order Management
                     </Text>
 
-                    <Text className="mt-0.5 text-xs text-gray-500">
+                    <Text className="mt-0.5 text-xs text-[#64748B]">
                         {orders.length} {orders.length === 1 ? "Order" : "Orders"} found
                     </Text>
 
-                    <View className="mt-4 flex-row items-center rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                        <View className="mr-3 h-12 w-12 items-center justify-center rounded-xl bg-orange-100">
-                            <Ionicons name="receipt-outline" size={25} color="#F97316" />
+                    <View className="mt-4 flex-row items-center rounded-3xl border border-[#DBEAFE] bg-white p-4 shadow-sm">
+                        <View className="mr-3 h-12 w-12 items-center justify-center rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE]">
+                            <Ionicons name="receipt-outline" size={24} color="#2563EB" />
                         </View>
 
                         <View>
-                            <Text className="text-xs font-semibold text-gray-500">
+                            <Text className="text-[10px] font-bold text-[#64748B]">
                                 Total Orders
                             </Text>
 
-                            <Text className="mt-0.5 text-2xl font-extrabold text-gray-900">
+                            <Text className="mt-0.5 text-xl font-black text-[#0F172A]">
                                 {orders.length}
                             </Text>
                         </View>
@@ -212,23 +214,22 @@ const OrderList = () => {
 
                 {loading ? (
                     <View className="flex-1 items-center justify-center">
-                        <ActivityIndicator size="large" color="#F97316" />
-
-                        <Text className="mt-3 text-sm font-medium text-gray-500">
+                        <ActivityIndicator size="large" color="#2563EB" />
+                        <Text className="mt-3 text-xs font-bold text-[#64748B]">
                             Loading orders...
                         </Text>
                     </View>
                 ) : orders.length === 0 ? (
-                    <View className="mb-6 flex-1 items-center justify-center rounded-2xl border border-gray-100 bg-gray-50 px-5 py-12">
-                        <View className="mb-4 h-16 w-16 items-center justify-center rounded-2xl border border-orange-200 bg-orange-50">
-                            <Ionicons name="receipt-outline" size={32} color="#F97316" />
+                    <View className="mb-6 flex-1 items-center justify-center rounded-3xl border border-[#DBEAFE] bg-white px-5 py-12 shadow-sm">
+                        <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-[#DBEAFE] bg-[#EFF6FF]">
+                            <Ionicons name="receipt-outline" size={36} color="#2563EB" />
                         </View>
 
-                        <Text className="mb-1 text-lg font-bold text-gray-900">
+                        <Text className="mb-1 text-base font-extrabold text-[#0F172A]">
                             No Orders Found
                         </Text>
 
-                        <Text className="text-center text-xs leading-5 text-gray-500">
+                        <Text className="text-center text-xs text-[#64748B]">
                             Customer orders will appear here when they place an order.
                         </Text>
                     </View>
@@ -245,8 +246,8 @@ const OrderList = () => {
                             <RefreshControl
                                 refreshing={refreshing}
                                 onRefresh={onRefresh}
-                                tintColor="#F97316"
-                                colors={["#F97316"]}
+                                tintColor="#2563EB"
+                                colors={["#2563EB"]}
                             />
                         }
                     />

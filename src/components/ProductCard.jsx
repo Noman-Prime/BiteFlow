@@ -176,8 +176,8 @@ const ProductList = ({
     if (loading) {
         return (
             <View className="flex-1 items-center justify-center bg-white py-12">
-                <ActivityIndicator size="large" color="#10B981" />
-                <Text className="mt-3 text-xs font-semibold text-black">
+                <ActivityIndicator size="large" color="#2563EB" />
+                <Text className="mt-3 text-xs font-semibold text-slate-700">
                     Loading menu items...
                 </Text>
             </View>
@@ -186,21 +186,21 @@ const ProductList = ({
 
     if (error) {
         return (
-            <View className="mx-4 my-6 items-center justify-center rounded-3xl border border-orange-200 bg-white p-6 shadow-sm">
-                <View className="h-12 w-12 items-center justify-center rounded-2xl bg-orange-50">
+            <View className="mx-4 my-6 items-center justify-center rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <View className="h-12 w-12 items-center justify-center rounded-2xl bg-blue-50">
                     <Ionicons
                         name="alert-circle-outline"
                         size={24}
-                        color="#F97316"
+                        color="#2563EB"
                     />
                 </View>
 
-                <Text className="mt-3 text-center text-xs font-bold text-black">
+                <Text className="mt-3 text-center text-xs font-bold text-slate-900">
                     {error}
                 </Text>
 
                 <TouchableOpacity
-                    className="mt-4 rounded-xl bg-emerald-600 px-6 py-3"
+                    className="mt-4 rounded-xl bg-blue-600 px-6 py-3"
                     onPress={fetchProducts}
                     activeOpacity={0.8}
                 >
@@ -226,32 +226,32 @@ const ProductList = ({
 
             {title ? (
                 <View className="mb-4 flex-row items-center justify-between">
-                    <Text className="text-base font-extrabold text-black">
+                    <Text className="text-base font-extrabold text-slate-900">
                         {title}
                     </Text>
                 </View>
             ) : null}
 
             {filteredProducts.length === 0 ? (
-                <View className="my-6 items-center justify-center rounded-3xl border border-gray-100 bg-white p-8 shadow-sm">
-                    <View className="h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50">
+                <View className="my-6 items-center justify-center rounded-3xl border border-slate-100 bg-white p-8 shadow-sm">
+                    <View className="h-14 w-14 items-center justify-center rounded-2xl bg-blue-50">
                         <Ionicons
                             name="restaurant-outline"
                             size={26}
-                            color="#10B981"
+                            color="#2563EB"
                         />
                     </View>
 
-                    <Text className="mt-4 text-sm font-bold text-black">
+                    <Text className="mt-4 text-sm font-bold text-slate-900">
                         No Menu Items Found
                     </Text>
 
-                    <Text className="mt-1 text-center text-xs text-gray-500">
+                    <Text className="mt-1 text-center text-xs text-slate-500">
                         {query
                             ? `No products match "${searchQuery}".`
                             : category !== "all"
-                              ? `No items found in category "${selectedCategory}".`
-                              : "Please check back later."}
+                            ? `No items found in category "${selectedCategory}".`
+                            : "Please check back later."}
                     </Text>
                 </View>
             ) : (
@@ -275,9 +275,9 @@ const ProductList = ({
                                 <TouchableOpacity
                                     activeOpacity={0.85}
                                     onPress={() => handlePress(item)}
-                                    className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm shadow-gray-100"
+                                    className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
                                 >
-                                    <View className="relative h-32 w-full bg-gray-500/15">
+                                    <View className="relative h-32 w-full bg-slate-100">
                                         {imageUrl ? (
                                             <Image
                                                 source={{ uri: imageUrl }}
@@ -285,25 +285,25 @@ const ProductList = ({
                                                 resizeMode="cover"
                                             />
                                         ) : (
-                                            <View className="h-full w-full items-center justify-center bg-emerald-50/50">
+                                            <View className="h-full w-full items-center justify-center bg-blue-50">
                                                 <Ionicons
                                                     name="fast-food-outline"
                                                     size={28}
-                                                    color="#10B981"
+                                                    color="#2563EB"
                                                 />
                                             </View>
                                         )}
                                     </View>
 
-                                    <View className="bg-gray-500/15 p-3">
+                                    <View className="bg-white p-3">
                                         <Text
-                                            className="text-xs font-bold text-black"
+                                            className="text-xs font-bold text-slate-900"
                                             numberOfLines={1}
                                         >
                                             {itemName}
                                         </Text>
 
-                                        <Text className="mt-1 text-sm font-extrabold text-orange-600">
+                                        <Text className="mt-1 text-sm font-extrabold text-[#F97316]">
                                             Rs. {itemPrice}
                                         </Text>
                                     </View>
@@ -312,8 +312,8 @@ const ProductList = ({
                                 <TouchableOpacity
                                     className={`mt-2 flex-row items-center justify-center rounded-2xl py-3 ${
                                         isAvailable
-                                            ? "bg-emerald-600"
-                                            : "bg-gray-200"
+                                            ? "bg-blue-600"
+                                            : "bg-slate-200"
                                     }`}
                                     onPress={() => handleOrderNow(item)}
                                     disabled={!isAvailable}
@@ -327,7 +327,7 @@ const ProductList = ({
                                         }
                                         size={14}
                                         color={
-                                            isAvailable ? "#FFFFFF" : "#6B7280"
+                                            isAvailable ? "#FFFFFF" : "#64748B"
                                         }
                                     />
 
@@ -335,7 +335,7 @@ const ProductList = ({
                                         className={`ml-1.5 text-xs font-bold ${
                                             isAvailable
                                                 ? "text-white"
-                                                : "text-gray-500"
+                                                : "text-slate-500"
                                         }`}
                                     >
                                         {isAvailable ? "Order Now" : "N/A"}

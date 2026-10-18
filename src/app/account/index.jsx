@@ -44,7 +44,6 @@ const Account = () => {
 
                 const response = await axios.get(
                     profileUrl,
-                    {},
                     {
                         headers: {
                             Authorization: "Bearer " + token,
@@ -123,8 +122,8 @@ const Account = () => {
     }, [profileImage]);
 
     return (
-        <SafeAreaView className="flex-1 bg-gray-50" edges={["top", "left", "right"]}>
-            <StatusBar style="light" backgroundColor="#000000" />
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top", "left", "right"]}>
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
             <Navbar />
 
             <ScrollView
@@ -132,35 +131,36 @@ const Account = () => {
                 contentContainerStyle={{ paddingBottom: 110 }}
                 showsVerticalScrollIndicator={false}
             >
-                <View className="rounded-b-[36px] bg-black px-6 pb-12 pt-6 shadow-lg">
+                {/* Header Banner */}
+                <View className="rounded-b-[36px] bg-[#2563EB] px-6 pb-12 pt-6 shadow-sm">
                     <View className="flex-row items-center justify-between">
                         <View>
                             <Text className="text-2xl font-black tracking-tight text-white">
                                 Account Overview
                             </Text>
-                            <Text className="mt-1 text-xs font-semibold text-gray-400">
+                            <Text className="mt-1 text-xs font-semibold text-blue-100">
                                 Manage your profile & preferences
                             </Text>
                         </View>
 
-                        <View className="h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/10">
-                            <Ionicons name="person" size={20} color="#10B981" />
+                        <View className="h-10 w-10 items-center justify-center rounded-2xl border border-white/20 bg-white/15">
+                            <Ionicons name="person" size={20} color="#FFFFFF" />
                         </View>
                     </View>
                 </View>
 
                 <View className="-mt-8 px-5">
                     {!isAuthenticated ? (
-                        <View className="items-center rounded-3xl border border-gray-100 bg-white p-8 shadow-sm">
-                            <View className="mb-4 h-16 w-16 items-center justify-center rounded-2xl border border-orange-100 bg-orange-50">
-                                <Ionicons name="lock-closed-outline" size={30} color="#F97316" />
+                        <View className="items-center rounded-3xl border border-[#E2E8F0] bg-white p-8 shadow-sm">
+                            <View className="mb-4 h-16 w-16 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF]">
+                                <Ionicons name="lock-closed-outline" size={30} color="#2563EB" />
                             </View>
 
-                            <Text className="text-lg font-extrabold text-black">
+                            <Text className="text-lg font-extrabold text-[#0F172A]">
                                 Sign In Required
                             </Text>
 
-                            <Text className="mt-1.5 text-center text-xs leading-5 text-gray-500">
+                            <Text className="mt-1.5 text-center text-xs leading-5 text-[#64748B]">
                                 Connect to your account to view profile information,
                                 order history, and reservations.
                             </Text>
@@ -168,7 +168,7 @@ const Account = () => {
                             <TouchableOpacity
                                 onPress={() => router.push("/signin")}
                                 activeOpacity={0.8}
-                                className="mt-6 w-full flex-row items-center justify-center rounded-2xl bg-emerald-600 py-4"
+                                className="mt-6 w-full flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-4 shadow-sm"
                             >
                                 <Ionicons name="log-in-outline" size={18} color="#FFFFFF" />
                                 <Text className="ml-2 text-xs font-bold text-white">
@@ -177,25 +177,25 @@ const Account = () => {
                             </TouchableOpacity>
                         </View>
                     ) : profileLoading ? (
-                        <View className="items-center rounded-3xl border border-gray-100 bg-white p-10 shadow-sm">
-                            <ActivityIndicator size="large" color="#10B981" />
-                            <Text className="mt-3 text-xs font-semibold text-gray-500">
+                        <View className="items-center rounded-3xl border border-[#E2E8F0] bg-white p-10 shadow-sm">
+                            <ActivityIndicator size="large" color="#2563EB" />
+                            <Text className="mt-3 text-xs font-semibold text-[#64748B]">
                                 Loading your profile...
                             </Text>
                         </View>
                     ) : !profile ? (
-                        <View className="items-center rounded-3xl border border-gray-100 bg-white p-8 shadow-sm">
-                            <Ionicons name="alert-circle-outline" size={36} color="#F97316" />
-                            <Text className="mt-3 text-base font-extrabold text-black">
+                        <View className="items-center rounded-3xl border border-[#E2E8F0] bg-white p-8 shadow-sm">
+                            <Ionicons name="alert-circle-outline" size={36} color="#2563EB" />
+                            <Text className="mt-3 text-base font-extrabold text-[#0F172A]">
                                 Unable to Load Profile
                             </Text>
-                            <Text className="mt-1 text-center text-xs text-gray-500">
+                            <Text className="mt-1 text-center text-xs text-[#64748B]">
                                 Please check your connection and try again.
                             </Text>
 
                             <TouchableOpacity
                                 onPress={() => router.replace("/account")}
-                                className="mt-5 rounded-2xl bg-black px-6 py-3"
+                                className="mt-5 rounded-2xl bg-[#2563EB] px-6 py-3 shadow-sm"
                             >
                                 <Text className="text-xs font-bold text-white">
                                     Try Again
@@ -204,14 +204,14 @@ const Account = () => {
                         </View>
                     ) : (
                         <>
-                            <View className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
+                            <View className="rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm">
                                 <View className="flex-row items-center">
                                     <View className="relative h-20 w-20">
                                         {profileImage && !imageError ? (
                                             <Image
                                                 key={profileImage}
                                                 source={{ uri: profileImage }}
-                                                className="h-20 w-20 rounded-2xl border-2 border-emerald-500"
+                                                className="h-20 w-20 rounded-2xl border-2 border-[#2563EB]"
                                                 resizeMode="cover"
                                                 onLoad={() => {
                                                     setImageLoading(false);
@@ -223,8 +223,8 @@ const Account = () => {
                                                 }}
                                             />
                                         ) : (
-                                            <View className="h-20 w-20 items-center justify-center rounded-2xl border-2 border-orange-500 bg-orange-50">
-                                                <Text className="text-3xl font-black text-orange-600">
+                                            <View className="h-20 w-20 items-center justify-center rounded-2xl border-2 border-[#DBEAFE] bg-[#EFF6FF]">
+                                                <Text className="text-3xl font-black text-[#2563EB]">
                                                     {initial}
                                                 </Text>
                                             </View>
@@ -232,27 +232,27 @@ const Account = () => {
 
                                         {imageLoading && !imageError && (
                                             <View className="absolute inset-0 items-center justify-center rounded-2xl bg-white/70">
-                                                <ActivityIndicator color="#10B981" />
+                                                <ActivityIndicator color="#2563EB" />
                                             </View>
                                         )}
 
-                                        <View className="absolute -bottom-1 -right-1 rounded-full border-2 border-white bg-emerald-600 p-1">
+                                        <View className="absolute -bottom-1 -right-1 rounded-full border-2 border-white bg-[#2563EB] p-1">
                                             <Ionicons name="checkmark-sharp" size={10} color="#FFFFFF" />
                                         </View>
                                     </View>
 
                                     <View className="ml-4 flex-1">
-                                        <Text className="text-base font-extrabold text-black" numberOfLines={1}>
+                                        <Text className="text-base font-extrabold text-[#0F172A]" numberOfLines={1}>
                                             {profile.name || "BiteFlow User"}
                                         </Text>
 
-                                        <Text className="mt-0.5 text-xs font-semibold text-gray-400" numberOfLines={1}>
+                                        <Text className="mt-0.5 text-xs font-semibold text-[#64748B]" numberOfLines={1}>
                                             {profile.email || "No email available"}
                                         </Text>
 
-                                        <View className="mt-2.5 flex-row items-center self-start rounded-xl border border-emerald-100 bg-emerald-50 px-2.5 py-1">
-                                            <Ionicons name="shield-checkmark-outline" size={12} color="#10B981" />
-                                            <Text className="ml-1 text-[10px] font-extrabold uppercase tracking-wider text-emerald-700">
+                                        <View className="mt-2.5 flex-row items-center self-start rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] px-2.5 py-1">
+                                            <Ionicons name="shield-checkmark-outline" size={12} color="#2563EB" />
+                                            <Text className="ml-1 text-[10px] font-extrabold uppercase tracking-wider text-[#2563EB]">
                                                 {profile.role || "Customer"}
                                             </Text>
                                         </View>
@@ -262,7 +262,7 @@ const Account = () => {
                                 <TouchableOpacity
                                     onPress={() => router.push("/account/edit")}
                                     activeOpacity={0.8}
-                                    className="mt-5 w-full flex-row items-center justify-center rounded-2xl bg-black py-3.5"
+                                    className="mt-5 w-full flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-3.5 shadow-sm"
                                 >
                                     <Ionicons name="create-outline" size={16} color="#FFFFFF" />
                                     <Text className="ml-2 text-xs font-bold text-white">
@@ -275,13 +275,13 @@ const Account = () => {
                                 <TouchableOpacity
                                     onPress={() => router.push("/account/orders")}
                                     activeOpacity={0.8}
-                                    className="flex-1 rounded-3xl border border-gray-100 bg-white p-4 shadow-sm"
+                                    className="flex-1 rounded-3xl border border-[#E2E8F0] bg-white p-4 shadow-sm"
                                 >
-                                    <View className="mb-3 h-10 w-10 items-center justify-center rounded-2xl border border-emerald-100 bg-emerald-50">
-                                        <Ionicons name="receipt-outline" size={20} color="#10B981" />
+                                    <View className="mb-3 h-10 w-10 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF]">
+                                        <Ionicons name="receipt-outline" size={20} color="#2563EB" />
                                     </View>
-                                    <Text className="text-xs font-extrabold text-black">Orders</Text>
-                                    <Text className="mt-0.5 text-[10px] text-gray-400">
+                                    <Text className="text-xs font-extrabold text-[#0F172A]">Orders</Text>
+                                    <Text className="mt-0.5 text-[10px] text-[#64748B]">
                                         Track & History
                                     </Text>
                                 </TouchableOpacity>
@@ -289,56 +289,56 @@ const Account = () => {
                                 <TouchableOpacity
                                     onPress={() => router.push("/account/reservations")}
                                     activeOpacity={0.8}
-                                    className="flex-1 rounded-3xl border border-gray-100 bg-white p-4 shadow-sm"
+                                    className="flex-1 rounded-3xl border border-[#E2E8F0] bg-white p-4 shadow-sm"
                                 >
-                                    <View className="mb-3 h-10 w-10 items-center justify-center rounded-2xl border border-orange-100 bg-orange-50">
-                                        <Ionicons name="calendar-outline" size={20} color="#F97316" />
+                                    <View className="mb-3 h-10 w-10 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF]">
+                                        <Ionicons name="calendar-outline" size={20} color="#2563EB" />
                                     </View>
-                                    <Text className="text-xs font-extrabold text-black">Reservations</Text>
-                                    <Text className="mt-0.5 text-[10px] text-gray-400">
+                                    <Text className="text-xs font-extrabold text-[#0F172A]">Reservations</Text>
+                                    <Text className="mt-0.5 text-[10px] text-[#64748B]">
                                         Bookings
                                     </Text>
                                 </TouchableOpacity>
                             </View>
 
-                            <View className="mt-4 rounded-3xl border border-gray-100 bg-white p-5 shadow-sm">
-                                <Text className="mb-3 text-xs font-black uppercase tracking-wider text-black">
+                            <View className="mt-4 rounded-3xl border border-[#E2E8F0] bg-white p-5 shadow-sm">
+                                <Text className="mb-3 text-xs font-black uppercase tracking-wider text-[#0F172A]">
                                     Personal Details
                                 </Text>
 
                                 <View className="gap-3">
-                                    <View className="flex-row items-center justify-between border-b border-gray-100 py-2">
+                                    <View className="flex-row items-center justify-between border-b border-[#F1F5F9] py-2">
                                         <View className="flex-row items-center">
-                                            <Ionicons name="person-outline" size={16} color="#9CA3AF" />
-                                            <Text className="ml-2.5 text-xs font-bold text-gray-500">
+                                            <Ionicons name="person-outline" size={16} color="#94A3B8" />
+                                            <Text className="ml-2.5 text-xs font-bold text-[#64748B]">
                                                 Full Name
                                             </Text>
                                         </View>
-                                        <Text className="ml-3 flex-1 text-right text-xs font-extrabold text-black">
+                                        <Text className="ml-3 flex-1 text-right text-xs font-extrabold text-[#0F172A]">
                                             {profile.name || "N/A"}
                                         </Text>
                                     </View>
 
-                                    <View className="flex-row items-center justify-between border-b border-gray-100 py-2">
+                                    <View className="flex-row items-center justify-between border-b border-[#F1F5F9] py-2">
                                         <View className="flex-row items-center">
-                                            <Ionicons name="mail-outline" size={16} color="#9CA3AF" />
-                                            <Text className="ml-2.5 text-xs font-bold text-gray-500">
+                                            <Ionicons name="mail-outline" size={16} color="#94A3B8" />
+                                            <Text className="ml-2.5 text-xs font-bold text-[#64748B]">
                                                 Email Address
                                             </Text>
                                         </View>
-                                        <Text className="ml-3 flex-1 text-right text-xs font-extrabold text-black">
+                                        <Text className="ml-3 flex-1 text-right text-xs font-extrabold text-[#0F172A]">
                                             {profile.email || "N/A"}
                                         </Text>
                                     </View>
 
                                     <View className="flex-row items-center justify-between py-2">
                                         <View className="flex-row items-center">
-                                            <Ionicons name="calendar-outline" size={16} color="#9CA3AF" />
-                                            <Text className="ml-2.5 text-xs font-bold text-gray-500">
+                                            <Ionicons name="calendar-outline" size={16} color="#94A3B8" />
+                                            <Text className="ml-2.5 text-xs font-bold text-[#64748B]">
                                                 Member Since
                                             </Text>
                                         </View>
-                                        <Text className="ml-3 text-xs font-extrabold text-black">
+                                        <Text className="ml-3 text-xs font-extrabold text-[#0F172A]">
                                             {formatDate(profile.createdAt)}
                                         </Text>
                                     </View>

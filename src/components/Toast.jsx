@@ -31,13 +31,13 @@ const Toast = ({
         >
             <View
                 pointerEvents="auto"
-                className="flex-row items-start rounded-3xl border border-gray-100 bg-white p-4 shadow-xl shadow-gray-200"
+                className="flex-row items-start rounded-3xl border border-slate-100 bg-white p-4 shadow-xl shadow-slate-200"
             >
                 {/* Icon Container */}
                 <View
                     className={`mr-3 h-11 w-11 items-center justify-center rounded-2xl ${
                         isConfirm
-                            ? "bg-orange-50 border border-orange-100"
+                            ? "bg-blue-50 border border-blue-100"
                             : isSuccess
                                 ? "bg-emerald-50 border border-emerald-100"
                                 : "bg-red-50 border border-red-100"
@@ -54,7 +54,7 @@ const Toast = ({
                         size={22}
                         color={
                             isConfirm
-                                ? "#F97316"
+                                ? "#2563EB"
                                 : isSuccess
                                     ? "#10B981"
                                     : "#EF4444"
@@ -67,7 +67,7 @@ const Toast = ({
                     <Text
                         className={`text-xs font-bold uppercase tracking-wider ${
                             isConfirm
-                                ? "text-orange-600"
+                                ? "text-blue-600"
                                 : isSuccess
                                     ? "text-emerald-600"
                                     : "text-red-600"
@@ -80,7 +80,7 @@ const Toast = ({
                                 : "Error"}
                     </Text>
 
-                    <Text className="mt-1 text-xs font-semibold leading-relaxed text-black">
+                    <Text className="mt-1 text-xs font-semibold leading-relaxed text-slate-900">
                         {message}
                     </Text>
 
@@ -90,9 +90,9 @@ const Toast = ({
                             <TouchableOpacity
                                 onPress={onHide}
                                 activeOpacity={0.8}
-                                className="flex-1 items-center justify-center rounded-2xl border border-gray-200 bg-gray-50 py-2.5"
+                                className="flex-1 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 py-2.5"
                             >
-                                <Text className="text-xs font-bold text-gray-700">
+                                <Text className="text-xs font-bold text-slate-700">
                                     Cancel
                                 </Text>
                             </TouchableOpacity>
@@ -100,7 +100,7 @@ const Toast = ({
                             <TouchableOpacity
                                 onPress={onConfirm}
                                 activeOpacity={0.8}
-                                className="flex-1 items-center justify-center rounded-2xl bg-emerald-600 py-2.5 shadow-sm shadow-emerald-200"
+                                className="flex-1 items-center justify-center rounded-2xl bg-blue-600 py-2.5 shadow-sm shadow-blue-200"
                             >
                                 <Text className="text-xs font-bold text-white">
                                     Confirm

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Platform, ScrollView, StatusBar, View } from "react-native";
+import { ScrollView, StatusBar, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Category from "../../components/Category";
 import HeroSlider from "../../components/HeroSlider";
 import Navbar from "../../components/Navbar";
@@ -10,17 +11,12 @@ const Index = () => {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [searchQuery, setSearchQuery] = useState("");
 
-    const statusBarHeight =
-        Platform.OS === "android" ? StatusBar.currentHeight || 0 : 0;
-
     return (
-        <View className="flex-1 bg-white">
-            <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top", "bottom"]}>
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            <View
-                className="absolute left-0 right-0 top-0 z-50 bg-white shadow-sm"
-                style={{ paddingTop: statusBarHeight }}
-            >
+            {/* Navbar wrapper with proper clearance below status bar */}
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9] z-50">
                 <Navbar />
             </View>
 
@@ -28,17 +24,16 @@ const Index = () => {
                 className="flex-1"
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
-                    paddingTop: statusBarHeight + 60,
                     paddingBottom: 40,
                 }}
             >
                 <SearchAndDelivery onSearch={setSearchQuery} />
 
-                <View className="-mt-2 bg-white">
+                <View className="mt-2 bg-white">
                     <HeroSlider />
                 </View>
 
-                <View className="border-b border-gray-100 bg-white py-3 shadow-sm">
+                <View className="border-b border-[#DBEAFE] bg-white py-3 shadow-sm">
                     <Category
                         selectedCategory={selectedCategory}
                         onSelectCategory={setSelectedCategory}
@@ -59,7 +54,7 @@ const Index = () => {
                     />
                 </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 };
 

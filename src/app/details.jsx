@@ -1,4 +1,3 @@
-
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -94,6 +93,11 @@ const MenuItemDetail = () => {
 
         addToCart(item);
         showToast(`${item.name} added to your bucket.`);
+
+        setTimeout(() => {
+            setToast((current) => ({ ...current, visible: false }));
+            router.push("/bucket");
+        }, 1000);
     };
 
     const handleOrderNow = () => {
@@ -113,15 +117,21 @@ const MenuItemDetail = () => {
                 ? item.image
                 : item.image?.url || item.image?.secure_url || "";
 
-        router.push({
-            pathname: "/ordernow/[id]",
-            params: {
-                id: String(productId),
-                name: item.name || "",
-                price: String(item.price ?? 0),
-                imageUrl,
-            },
-        });
+        showToast(`${item.name || "Product"} selected for ordering`);
+
+        setTimeout(() => {
+            setToast((current) => ({ ...current, visible: false }));
+
+            router.push({
+                pathname: "/ordernow/[id]",
+                params: {
+                    id: String(productId),
+                    name: item.name || "",
+                    price: String(item.price ?? 0),
+                    imageUrl,
+                },
+            });
+        }, 1000);
     };
 
     if (loading) {
@@ -129,9 +139,9 @@ const MenuItemDetail = () => {
             <SafeAreaView className="flex-1 bg-white" edges={["top", "left", "right"]}>
                 <StatusBar style="dark" backgroundColor="#FFFFFF" />
                 <Navbar />
-                <View className="flex-1 items-center justify-center">
-                    <ActivityIndicator size="large" color="#F97316" />
-                    <Text className="mt-3 text-sm text-gray-500">
+                <View className="flex-1 items-center justify-center bg-white">
+                    <ActivityIndicator size="large" color="#2563EB" />
+                    <Text className="mt-3 text-sm text-slate-500">
                         Loading item...
                     </Text>
                 </View>
@@ -144,18 +154,18 @@ const MenuItemDetail = () => {
             <SafeAreaView className="flex-1 bg-white" edges={["top", "left", "right"]}>
                 <StatusBar style="dark" backgroundColor="#FFFFFF" />
                 <Navbar />
-                <View className="flex-1 items-center justify-center p-4">
+                <View className="flex-1 items-center justify-center bg-white p-4">
                     <Ionicons
                         name="alert-circle-outline"
                         size={48}
                         color="#EF4444"
                     />
-                    <Text className="mt-2 text-base font-bold text-gray-800">
+                    <Text className="mt-2 text-base font-bold text-slate-900">
                         Item Not Found
                     </Text>
                     <TouchableOpacity
                         onPress={() => router.back()}
-                        className="mt-4 rounded-xl bg-gray-900 px-5 py-2.5"
+                        className="mt-4 rounded-xl bg-slate-900 px-5 py-2.5"
                     >
                         <Text className="font-bold text-white">Go Back</Text>
                     </TouchableOpacity>
@@ -196,10 +206,10 @@ const MenuItemDetail = () => {
             >
                 <TouchableOpacity
                     onPress={() => router.back()}
-                    className="mb-5 flex-row items-center self-start rounded-xl border border-gray-200 bg-white px-4 py-2.5"
+                    className="mb-5 flex-row items-center self-start rounded-xl border border-slate-200 bg-white px-4 py-2.5 shadow-sm"
                 >
-                    <Ionicons name="arrow-back" size={18} color="#111827" />
-                    <Text className="ml-2 text-xs font-bold text-gray-900">
+                    <Ionicons name="arrow-back" size={18} color="#0F172A" />
+                    <Text className="ml-2 text-xs font-bold text-slate-900">
                         Back to Menu
                     </Text>
                 </TouchableOpacity>
@@ -207,17 +217,17 @@ const MenuItemDetail = () => {
                 {imageUrl ? (
                     <Image
                         source={{ uri: imageUrl }}
-                        className="h-64 w-full rounded-2xl border border-gray-200 bg-gray-100"
+                        className="h-64 w-full rounded-2xl border border-slate-200 bg-slate-100"
                         resizeMode="cover"
                     />
                 ) : (
-                    <View className="h-64 w-full items-center justify-center rounded-2xl border border-gray-200 bg-gray-100">
+                    <View className="h-64 w-full items-center justify-center rounded-2xl border border-slate-200 bg-slate-100">
                         <Ionicons
                             name="fast-food-outline"
                             size={48}
-                            color="#9CA3AF"
+                            color="#94A3B8"
                         />
-                        <Text className="mt-2 text-xs text-gray-400">
+                        <Text className="mt-2 text-xs text-slate-400">
                             No image available
                         </Text>
                     </View>
@@ -225,18 +235,18 @@ const MenuItemDetail = () => {
 
                 <View className="mt-6">
                     <View className="flex-row items-start justify-between">
-                        <Text className="mr-2 flex-1 text-2xl font-extrabold text-gray-900">
+                        <Text className="mr-2 flex-1 text-2xl font-extrabold text-slate-900">
                             {item.name || "Menu Item"}
                         </Text>
 
-                        <Text className="text-2xl font-extrabold text-orange-500">
+                        <Text className="text-2xl font-extrabold text-[#F97316]">
                             Rs. {item.price ?? "N/A"}
                         </Text>
                     </View>
 
                     <View className="mt-4 flex-row items-center">
-                        <View className="mr-2 rounded-lg border border-gray-200 bg-gray-100 px-3 py-1.5">
-                            <Text className="text-xs font-bold text-gray-800">
+                        <View className="mr-2 rounded-lg border border-slate-200 bg-slate-100 px-3 py-1.5">
+                            <Text className="text-xs font-bold text-slate-800">
                                 {item.category || "General"}
                             </Text>
                         </View>
@@ -260,28 +270,28 @@ const MenuItemDetail = () => {
                         </View>
                     </View>
 
-                    <View className="mt-6 border-t border-gray-100 pt-4">
-                        <Text className="text-sm font-bold text-gray-800">
+                    <View className="mt-6 border-t border-slate-100 pt-4">
+                        <Text className="text-sm font-bold text-slate-900">
                             Description
                         </Text>
-                        <Text className="mt-2 text-sm leading-6 text-gray-600">
+                        <Text className="mt-2 text-sm leading-6 text-slate-600">
                             {item.description || "No description provided."}
                         </Text>
                     </View>
                 </View>
             </ScrollView>
 
-            <View className="absolute bottom-0 left-0 right-0 flex-row items-center justify-between border-t border-gray-200 bg-white px-5 py-4 shadow-lg">
+            <View className="absolute bottom-0 left-0 right-0 flex-row items-center justify-between border-t border-slate-200 bg-white px-5 py-4 shadow-lg">
                 <TouchableOpacity
                     onPress={handleAddToBucket}
                     disabled={!isAvailable}
-                    className={`mr-2.5 flex-1 flex-row items-center justify-center rounded-xl border border-orange-500 py-3.5 ${
+                    className={`mr-2.5 flex-1 flex-row items-center justify-center rounded-2xl border border-blue-600 py-3.5 shadow-sm ${
                         !isAvailable ? "opacity-50" : "bg-white"
                     }`}
                     activeOpacity={0.8}
                 >
-                    <Ionicons name="cart-outline" size={18} color="#F97316" />
-                    <Text className="ml-2 font-bold text-orange-500">
+                    <Ionicons name="cart-outline" size={18} color="#2563EB" />
+                    <Text className="ml-2 font-bold text-blue-600">
                         Add to Bucket
                     </Text>
                 </TouchableOpacity>
@@ -289,8 +299,8 @@ const MenuItemDetail = () => {
                 <TouchableOpacity
                     onPress={handleOrderNow}
                     disabled={!isAvailable}
-                    className={`ml-2.5 flex-1 flex-row items-center justify-center rounded-xl py-3.5 ${
-                        !isAvailable ? "bg-gray-300" : "bg-orange-500"
+                    className={`ml-2.5 flex-1 flex-row items-center justify-center rounded-2xl py-3.5 shadow-sm ${
+                        !isAvailable ? "bg-slate-200" : "bg-blue-600"
                     }`}
                     activeOpacity={0.8}
                 >

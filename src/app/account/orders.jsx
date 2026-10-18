@@ -1,4 +1,3 @@
-
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
@@ -111,12 +110,12 @@ const OrderHistory = () => {
             const fetchedOrders = Array.isArray(data)
                 ? data
                 : Array.isArray(data.orders)
-                  ? data.orders
-                  : Array.isArray(data.data)
-                    ? data.data
-                    : Array.isArray(data.data?.orders)
-                      ? data.data.orders
-                      : null;
+                    ? data.orders
+                    : Array.isArray(data.data)
+                        ? data.data
+                        : Array.isArray(data.data?.orders)
+                            ? data.data.orders
+                            : null;
 
             if (!fetchedOrders) {
                 throw new Error(
@@ -194,9 +193,9 @@ const OrderHistory = () => {
 
         if (normalizedStatus === "completed") {
             return {
-                container: "bg-emerald-50 border-emerald-100",
-                text: "text-emerald-700",
-                icon: "#059669",
+                container: "bg-[#EFF6FF] border-[#DBEAFE]",
+                text: "text-[#2563EB]",
+                icon: "#2563EB",
                 iconName: "checkmark-circle-outline",
             };
         }
@@ -228,16 +227,16 @@ const OrderHistory = () => {
         const orderId = item._id || item.id;
 
         return (
-            <View className="mb-4 rounded-3xl border border-gray-100 bg-white p-4 shadow-sm">
-                <View className="mb-3 flex-row items-center justify-between border-b border-gray-100 pb-3">
+            <View className="mb-4 rounded-3xl border border-[#E2E8F0] bg-white p-4 shadow-sm">
+                <View className="mb-3 flex-row items-center justify-between border-b border-[#F1F5F9] pb-3">
                     <View className="flex-1 pr-3">
-                        <Text className="text-sm font-black text-black">
+                        <Text className="text-sm font-black text-[#0F172A]">
                             {orderId
                                 ? `Order #${String(orderId).slice(-6).toUpperCase()}`
                                 : "Order"}
                         </Text>
 
-                        <Text className="mt-1 text-[10px] font-medium text-gray-400">
+                        <Text className="mt-1 text-[10px] font-medium text-[#64748B]">
                             {formatDate(
                                 item.createdAt || item.date || item.orderDate
                             )}
@@ -261,7 +260,7 @@ const OrderHistory = () => {
                 </View>
 
                 <View className="mb-3">
-                    <Text className="mb-2 text-[10px] font-extrabold uppercase tracking-wider text-gray-400">
+                    <Text className="mb-2 text-[10px] font-extrabold uppercase tracking-wider text-[#64748B]">
                         Order Items
                     </Text>
 
@@ -287,48 +286,48 @@ const OrderHistory = () => {
                                     }
                                     className="flex-row items-start justify-between py-1"
                                 >
-                                    <Text className="flex-1 pr-3 text-xs font-semibold text-gray-600">
+                                    <Text className="flex-1 pr-3 text-xs font-semibold text-[#0F172A]">
                                         {name}
                                     </Text>
 
-                                    <Text className="text-xs font-bold text-gray-400">
+                                    <Text className="text-xs font-bold text-[#64748B]">
                                         x{subItem.quantity ?? subItem.qty ?? 1}
                                     </Text>
                                 </View>
                             );
                         })
                     ) : (
-                        <Text className="text-xs text-gray-500">
+                        <Text className="text-xs text-[#64748B]">
                             Order details unavailable
                         </Text>
                     )}
                 </View>
 
-                <View className="mb-3 flex-row items-center justify-between border-t border-gray-100 pt-3">
+                <View className="mb-3 flex-row items-center justify-between border-t border-[#F1F5F9] pt-3">
                     <View className="flex-row items-center">
                         <Ionicons
                             name="card-outline"
                             size={15}
-                            color="#9CA3AF"
+                            color="#94A3B8"
                         />
-                        <Text className="ml-2 text-xs font-semibold text-gray-500">
+                        <Text className="ml-2 text-xs font-semibold text-[#64748B]">
                             {item.paymentMethod || "Payment method unavailable"}
                         </Text>
                     </View>
 
                     {item.paymentStatus ? (
-                        <Text className="text-[10px] font-bold text-gray-500">
+                        <Text className="text-[10px] font-bold text-[#64748B]">
                             Payment: {item.paymentStatus}
                         </Text>
                     ) : null}
                 </View>
 
-                <View className="flex-row items-center justify-between rounded-2xl bg-orange-50 px-3 py-3">
-                    <Text className="text-xs font-bold text-gray-600">
+                <View className="flex-row items-center justify-between rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE] px-3 py-3">
+                    <Text className="text-xs font-bold text-[#64748B]">
                         Order Total
                     </Text>
 
-                    <Text className="text-base font-black text-orange-600">
+                    <Text className="text-base font-black text-[#2563EB]">
                         Rs. {formatAmount(total)}
                     </Text>
                 </View>
@@ -338,19 +337,19 @@ const OrderHistory = () => {
 
     const renderEmptyOrders = () => (
         <View className="flex-1 items-center justify-center px-8 py-16">
-            <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-emerald-100 bg-emerald-50">
+            <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-[#DBEAFE] bg-[#EFF6FF]">
                 <Ionicons
                     name="receipt-outline"
                     size={36}
-                    color="#10B981"
+                    color="#2563EB"
                 />
             </View>
 
-            <Text className="text-lg font-extrabold text-black">
+            <Text className="text-lg font-extrabold text-[#0F172A]">
                 No Order History Yet
             </Text>
 
-            <Text className="mt-2 text-center text-xs leading-5 text-gray-500">
+            <Text className="mt-2 text-center text-xs leading-5 text-[#64748B]">
                 Completed and cancelled orders will appear here. You can track
                 ongoing orders from the Orders tab.
             </Text>
@@ -358,7 +357,7 @@ const OrderHistory = () => {
             <TouchableOpacity
                 onPress={() => router.replace("/")}
                 activeOpacity={0.8}
-                className="mt-6 flex-row items-center rounded-2xl bg-black px-6 py-3.5"
+                className="mt-6 flex-row items-center rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
             >
                 <Ionicons
                     name="restaurant-outline"
@@ -382,18 +381,18 @@ const OrderHistory = () => {
                 />
             </View>
 
-            <Text className="text-base font-extrabold text-black">
+            <Text className="text-base font-extrabold text-[#0F172A]">
                 Unable to Load Order History
             </Text>
 
-            <Text className="mt-2 text-center text-xs leading-5 text-gray-500">
+            <Text className="mt-2 text-center text-xs leading-5 text-[#64748B]">
                 {error}
             </Text>
 
             <TouchableOpacity
                 onPress={() => fetchOrders()}
                 activeOpacity={0.8}
-                className="mt-5 flex-row items-center rounded-2xl bg-black px-6 py-3.5"
+                className="mt-5 flex-row items-center rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
             >
                 <Ionicons name="refresh" size={16} color="#FFFFFF" />
                 <Text className="ml-2 text-xs font-bold text-white">
@@ -406,9 +405,9 @@ const OrderHistory = () => {
                 <TouchableOpacity
                     onPress={() => router.replace("/signin")}
                     activeOpacity={0.8}
-                    className="mt-3 rounded-2xl border border-gray-200 px-6 py-3"
+                    className="mt-3 rounded-2xl border border-[#E2E8F0] px-6 py-3 bg-white"
                 >
-                    <Text className="text-xs font-bold text-black">
+                    <Text className="text-xs font-bold text-[#0F172A]">
                         Go to Sign In
                     </Text>
                 </TouchableOpacity>
@@ -418,18 +417,18 @@ const OrderHistory = () => {
 
     return (
         <SafeAreaView
-            className="flex-1 bg-gray-50"
+            className="flex-1 bg-[#F8FAFC]"
             edges={["top", "left", "right"]}
         >
-            <StatusBar style="light" backgroundColor="#000000" />
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
             <Navbar />
 
-            <View className="flex-row items-center justify-between bg-black px-5 pb-5 pt-2">
+            <View className="flex-row items-center justify-between bg-[#2563EB] px-5 pb-5 pt-2 shadow-sm">
                 <TouchableOpacity
                     onPress={() => router.back()}
                     activeOpacity={0.7}
-                    className="h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/10"
+                    className="h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/15"
                 >
                     <Ionicons
                         name="arrow-back"
@@ -442,7 +441,7 @@ const OrderHistory = () => {
                     <Text className="text-base font-black text-white">
                         Order History
                     </Text>
-                    <Text className="mt-0.5 text-[10px] font-medium text-gray-400">
+                    <Text className="mt-0.5 text-[10px] font-medium text-blue-100">
                         Completed & cancelled orders
                     </Text>
                 </View>
@@ -451,7 +450,7 @@ const OrderHistory = () => {
                     onPress={() => fetchOrders(true)}
                     disabled={loading || refreshing}
                     activeOpacity={0.7}
-                    className="h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/10"
+                    className="h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/15"
                 >
                     <Ionicons
                         name="refresh"
@@ -463,8 +462,8 @@ const OrderHistory = () => {
 
             {loading ? (
                 <View className="flex-1 items-center justify-center p-6">
-                    <ActivityIndicator size="large" color="#10B981" />
-                    <Text className="mt-3 text-xs font-bold text-gray-500">
+                    <ActivityIndicator size="large" color="#2563EB" />
+                    <Text className="mt-3 text-xs font-bold text-[#64748B]">
                         Loading order history...
                     </Text>
                 </View>
@@ -481,16 +480,16 @@ const OrderHistory = () => {
                         orders.length > 0 ? (
                             <View className="mb-4 flex-row items-center justify-between">
                                 <View>
-                                    <Text className="text-lg font-black text-black">
+                                    <Text className="text-lg font-black text-[#0F172A]">
                                         Previous Orders
                                     </Text>
-                                    <Text className="mt-1 text-xs text-gray-500">
+                                    <Text className="mt-1 text-xs text-[#64748B]">
                                         Your completed and cancelled orders
                                     </Text>
                                 </View>
 
-                                <View className="rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2">
-                                    <Text className="text-xs font-extrabold text-emerald-700">
+                                <View className="rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] px-3 py-2">
+                                    <Text className="text-xs font-extrabold text-[#2563EB]">
                                         {orders.length}{" "}
                                         {orders.length === 1
                                             ? "Order"
@@ -510,6 +509,8 @@ const OrderHistory = () => {
                     showsVerticalScrollIndicator={false}
                     onRefresh={() => fetchOrders(true)}
                     refreshing={refreshing}
+                    tintColor="#2563EB"
+                    colors={["#2563EB"]}
                 />
             )}
 

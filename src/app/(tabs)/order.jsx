@@ -167,10 +167,10 @@ const Orders = () => {
 
             case "preparing":
                 return {
-                    container: "bg-orange-50 border-orange-100",
-                    text: "text-orange-600",
+                    container: "bg-[#EFF6FF] border-[#DBEAFE]",
+                    text: "text-[#2563EB]",
                     icon: "restaurant-outline",
-                    color: "#F97316",
+                    color: "#2563EB",
                 };
 
             case "ready":
@@ -192,12 +192,12 @@ const Orders = () => {
     };
 
     const renderHeader = () => (
-        <View className="bg-gray-900 px-5 py-4">
-            <Text className="text-base font-extrabold text-white">
+        <View className="bg-white px-5 pt-2 pb-3 border-b border-[#F1F5F9]">
+            <Text className="text-xl font-black text-[#0F172A]">
                 My Orders
             </Text>
 
-            <Text className="mt-0.5 text-[10px] font-semibold text-gray-400">
+            <Text className="mt-0.5 text-xs text-[#64748B]">
                 Track your orders currently in progress
             </Text>
         </View>
@@ -205,19 +205,19 @@ const Orders = () => {
 
     const renderEmptyState = () => (
         <View className="flex-1 items-center justify-center p-6">
-            <View className="mb-4 h-16 w-16 items-center justify-center rounded-2xl border border-orange-100 bg-orange-50">
+            <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-[#DBEAFE] bg-[#EFF6FF]">
                 <Ionicons
                     name={isLoggedIn ? "receipt-outline" : "person-outline"}
-                    size={32}
-                    color="#F97316"
+                    size={36}
+                    color="#2563EB"
                 />
             </View>
 
-            <Text className="text-base font-bold text-black">
+            <Text className="text-lg font-black text-[#0F172A]">
                 {isLoggedIn ? "No Active Orders" : "Sign In to View Orders"}
             </Text>
 
-            <Text className="mt-1 text-center text-xs leading-5 text-gray-500">
+            <Text className="mt-2 text-center text-xs leading-5 text-[#64748B]">
                 {isLoggedIn
                     ? "You have no orders in progress. New orders will appear here after checkout."
                     : "Sign in to track your orders. You can add products to your cart before signing in."}
@@ -227,7 +227,7 @@ const Orders = () => {
                 onPress={() =>
                     router.push(isLoggedIn ? "/(tabs)" : "/signin")
                 }
-                className="mt-6 rounded-2xl bg-orange-500 px-6 py-3.5"
+                className="mt-6 rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
                 activeOpacity={0.8}
             >
                 <Text className="text-xs font-bold text-white">
@@ -238,10 +238,10 @@ const Orders = () => {
             {isLoggedIn && (
                 <TouchableOpacity
                     onPress={() => router.push("/account/orders")}
-                    className="mt-3 rounded-2xl border border-gray-200 px-6 py-3"
+                    className="mt-3 rounded-2xl border border-[#DBEAFE] bg-white px-6 py-3"
                     activeOpacity={0.8}
                 >
-                    <Text className="text-xs font-bold text-gray-700">
+                    <Text className="text-xs font-bold text-[#0F172A]">
                         View Order History
                     </Text>
                 </TouchableOpacity>
@@ -251,27 +251,33 @@ const Orders = () => {
 
     return (
         <SafeAreaView
-            className="flex-1 bg-white"
+            className="flex-1 bg-[#F8FAFC]"
             edges={["top", "left", "right"]}
         >
             {renderHeader()}
 
             {loading ? (
                 <View className="flex-1 items-center justify-center">
-                    <ActivityIndicator size="large" color="#F97316" />
-                    <Text className="mt-3 text-sm text-gray-500">
+                    <ActivityIndicator size="large" color="#2563EB" />
+                    <Text className="mt-3 text-xs font-bold text-[#64748B]">
                         Loading your active orders...
                     </Text>
                 </View>
             ) : error && orders.length === 0 && isLoggedIn ? (
                 <View className="flex-1 items-center justify-center p-6">
-                    <Ionicons
-                        name="alert-circle-outline"
-                        size={48}
-                        color="#EF4444"
-                    />
+                    <View className="mb-4 h-16 w-16 items-center justify-center rounded-2xl border border-red-100 bg-red-50">
+                        <Ionicons
+                            name="alert-circle-outline"
+                            size={32}
+                            color="#DC2626"
+                        />
+                    </View>
 
-                    <Text className="mt-3 text-center font-semibold text-gray-800">
+                    <Text className="text-base font-extrabold text-[#0F172A]">
+                        Unable to Load Orders
+                    </Text>
+
+                    <Text className="mt-2 text-center text-xs leading-5 text-[#64748B]">
                         {error}
                     </Text>
 
@@ -281,10 +287,10 @@ const Orders = () => {
                                 ? router.push("/signin")
                                 : fetchOrders()
                         }
-                        className="mt-5 rounded-xl bg-orange-500 px-6 py-3"
+                        className="mt-5 rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
                         activeOpacity={0.8}
                     >
-                        <Text className="font-bold text-white">
+                        <Text className="text-xs font-bold text-white">
                             {error.toLowerCase().includes("sign in")
                                 ? "Sign In"
                                 : "Try Again"}
@@ -299,7 +305,8 @@ const Orders = () => {
                         <RefreshControl
                             refreshing={refreshing}
                             onRefresh={() => fetchOrders(true)}
-                            tintColor="#F97316"
+                            tintColor="#2563EB"
+                            colors={["#2563EB"]}
                         />
                     }
                 >
@@ -313,17 +320,18 @@ const Orders = () => {
                         <RefreshControl
                             refreshing={refreshing}
                             onRefresh={() => fetchOrders(true)}
-                            tintColor="#F97316"
+                            tintColor="#2563EB"
+                            colors={["#2563EB"]}
                         />
                     }
                 >
                     {error ? (
                         <TouchableOpacity
                             onPress={() => fetchOrders(true)}
-                            className="mb-4 rounded-xl bg-red-50 p-3"
+                            className="mb-4 rounded-2xl border border-red-100 bg-red-50 p-4"
                             activeOpacity={0.8}
                         >
-                            <Text className="text-sm text-red-600">
+                            <Text className="text-xs font-semibold text-red-600">
                                 {error} Tap to retry.
                             </Text>
                         </TouchableOpacity>
@@ -331,16 +339,16 @@ const Orders = () => {
 
                     <View className="mb-4 flex-row items-center justify-between">
                         <View>
-                            <Text className="text-lg font-black text-black">
+                            <Text className="text-lg font-black text-[#0F172A]">
                                 In Progress
                             </Text>
-                            <Text className="mt-1 text-xs text-gray-500">
+                            <Text className="mt-0.5 text-xs text-[#64748B]">
                                 Follow your order status
                             </Text>
                         </View>
 
-                        <View className="rounded-xl border border-orange-100 bg-orange-50 px-3 py-2">
-                            <Text className="text-xs font-extrabold text-orange-600">
+                        <View className="rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] px-3 py-2">
+                            <Text className="text-xs font-extrabold text-[#2563EB]">
                                 {orders.length}{" "}
                                 {orders.length === 1 ? "Order" : "Orders"}
                             </Text>
@@ -360,18 +368,18 @@ const Orders = () => {
                         return (
                             <View
                                 key={orderId}
-                                className="mb-4 rounded-3xl border border-gray-100 bg-white p-4 shadow-sm"
+                                className="mb-4 rounded-3xl border border-[#DBEAFE] bg-white p-4 shadow-sm"
                             >
-                                <View className="mb-3 flex-row items-center justify-between border-b border-gray-100 pb-3">
+                                <View className="mb-3 flex-row items-center justify-between border-b border-[#F1F5F9] pb-3">
                                     <View className="flex-1 pr-2">
-                                        <Text className="text-xs font-bold text-black">
+                                        <Text className="text-xs font-black text-[#0F172A]">
                                             Order #
                                             {String(orderId || "")
                                                 .slice(-8)
                                                 .toUpperCase()}
                                         </Text>
 
-                                        <Text className="mt-1 text-[10px] text-gray-400">
+                                        <Text className="mt-1 text-[10px] font-medium text-[#64748B]">
                                             {formatDate(order.createdAt)}
                                         </Text>
                                     </View>
@@ -386,7 +394,7 @@ const Orders = () => {
                                         />
 
                                         <Text
-                                            className={`ml-1 text-[10px] font-bold ${statusStyle.text}`}
+                                            className={`ml-1 text-[10px] font-extrabold uppercase ${statusStyle.text}`}
                                         >
                                             {status}
                                         </Text>
@@ -396,7 +404,7 @@ const Orders = () => {
                                 {orderItems.slice(0, 2).map((item, index) => (
                                     <Text
                                         key={item._id || `${orderId}-${index}`}
-                                        className="mb-1 text-xs font-medium text-gray-700"
+                                        className="mb-1 text-xs font-medium text-[#64748B]"
                                     >
                                         {item.menuItem?.name || "Menu item"} ×{" "}
                                         {item.quantity}
@@ -404,32 +412,32 @@ const Orders = () => {
                                 ))}
 
                                 {orderItems.length > 2 && (
-                                    <Text className="text-xs text-gray-400">
+                                    <Text className="text-xs font-medium text-[#64748B]">
                                         +{orderItems.length - 2} more items
                                     </Text>
                                 )}
 
-                                <View className="mt-3 flex-row items-center justify-between border-t border-gray-100 pt-3">
+                                <View className="mt-3 flex-row items-center justify-between border-t border-[#F1F5F9] pt-3">
                                     <View>
-                                        <Text className="text-[10px] text-gray-400">
+                                        <Text className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
                                             Order Total
                                         </Text>
 
-                                        <Text className="mt-1 text-sm font-extrabold text-orange-600">
+                                        <Text className="mt-0.5 text-sm font-black text-[#2563EB]">
                                             Rs. {formatAmount(order.totalAmount)}
                                         </Text>
                                     </View>
 
                                     <TouchableOpacity
                                         activeOpacity={0.8}
-                                        className="flex-row items-center rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2"
+                                        className="flex-row items-center rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] px-3.5 py-2"
                                         onPress={() =>
                                             setExpandedOrder(
                                                 isExpanded ? null : orderId
                                             )
                                         }
                                     >
-                                        <Text className="text-[11px] font-bold text-black">
+                                        <Text className="text-[11px] font-extrabold text-[#2563EB]">
                                             {isExpanded
                                                 ? "Hide Details"
                                                 : "View Details"}
@@ -442,20 +450,20 @@ const Orders = () => {
                                                     : "chevron-down"
                                             }
                                             size={15}
-                                            color="#111827"
+                                            color="#2563EB"
                                             style={{ marginLeft: 5 }}
                                         />
                                     </TouchableOpacity>
                                 </View>
 
                                 {isExpanded && (
-                                    <View className="mt-4 border-t border-gray-100 pt-4">
-                                        <Text className="mb-3 text-sm font-bold text-black">
+                                    <View className="mt-4 border-t border-[#F1F5F9] pt-4">
+                                        <Text className="mb-3 text-xs font-black uppercase tracking-wider text-[#0F172A]">
                                             Order Details
                                         </Text>
 
                                         {orderItems.length === 0 ? (
-                                            <Text className="mb-3 text-xs text-gray-500">
+                                            <Text className="mb-3 text-xs text-[#64748B]">
                                                 No product details available.
                                             </Text>
                                         ) : (
@@ -468,19 +476,19 @@ const Orders = () => {
                                                     className="mb-3 flex-row justify-between"
                                                 >
                                                     <View className="flex-1 pr-3">
-                                                        <Text className="text-xs font-semibold text-gray-800">
+                                                        <Text className="text-xs font-bold text-[#0F172A]">
                                                             {item.menuItem?.name ||
                                                                 "Menu item"}
                                                         </Text>
 
-                                                        <Text className="mt-1 text-[10px] text-gray-500">
+                                                        <Text className="mt-0.5 text-[10px] font-medium text-[#64748B]">
                                                             Rs.{" "}
                                                             {formatAmount(item.price)}{" "}
                                                             × {item.quantity}
                                                         </Text>
                                                     </View>
 
-                                                    <Text className="text-xs font-bold text-gray-800">
+                                                    <Text className="text-xs font-black text-[#0F172A]">
                                                         Rs.{" "}
                                                         {formatAmount(
                                                             Number(item.price) *
@@ -491,29 +499,29 @@ const Orders = () => {
                                             ))
                                         )}
 
-                                        <View className="mt-1 border-t border-gray-100 pt-3">
-                                            <Text className="text-xs text-gray-500">
+                                        <View className="mt-1 border-t border-[#F1F5F9] pt-3">
+                                            <Text className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
                                                 Payment Method
                                             </Text>
 
-                                            <Text className="mt-1 text-xs font-semibold text-gray-800">
+                                            <Text className="mt-0.5 text-xs font-bold text-[#0F172A]">
                                                 {order.paymentMethod ||
                                                     "Not specified"}
                                             </Text>
 
-                                            <Text className="mt-3 text-xs text-gray-500">
+                                            <Text className="mt-3 text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
                                                 Payment Status
                                             </Text>
 
-                                            <Text className="mt-1 text-xs font-semibold text-gray-800">
+                                            <Text className="mt-0.5 text-xs font-bold text-[#0F172A]">
                                                 {order.paymentStatus || "Pending"}
                                             </Text>
 
-                                            <Text className="mt-3 text-xs text-gray-500">
+                                            <Text className="mt-3 text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
                                                 Delivery Address
                                             </Text>
 
-                                            <Text className="mt-1 text-xs leading-5 text-gray-800">
+                                            <Text className="mt-0.5 text-xs leading-5 font-medium text-[#64748B]">
                                                 {order.deliveryAddress ||
                                                     "Not available"}
                                             </Text>

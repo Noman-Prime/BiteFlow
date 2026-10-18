@@ -1,4 +1,3 @@
-
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -16,6 +15,7 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../../components/Navbar";
 import { useAuth } from "../../context/AuthContext";
 
@@ -219,7 +219,7 @@ const Reservation = () => {
         ) {
             Alert.alert(
                 "Outside Opening Hours",
-                "Choose a start time between 9:00 AM and 9:00 PM."
+                "Choose a start time between 9:00 AM and 10:00 PM."
             );
             return false;
         }
@@ -470,51 +470,51 @@ const Reservation = () => {
             table.status &&
             String(table.status).toLowerCase() !== "available"
         ) {
-            return "#6B7280";
+            return "#64748B";
         }
 
-        return "#D1D5DB";
+        return "#CBD5E1";
     };
 
     const renderBookingOptions = () => (
-        <View className="mt-5 rounded-2xl border border-gray-200 bg-white p-5">
+        <View className="mt-5 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
             <View className="mb-4 flex-row items-center justify-between">
                 <View className="flex-1">
-                    <Text className="text-xl font-extrabold text-gray-900">
+                    <Text className="text-xl font-black text-[#0F172A]">
                         {selectedTable
                             ? `Reserve ${getTableName(selectedTable)}`
                             : "Check Availability"}
                     </Text>
-                    <Text className="mt-1 text-sm text-gray-500">
+                    <Text className="mt-1 text-xs text-[#64748B]">
                         Select a date, time, and number of guests.
                     </Text>
                 </View>
 
                 <TouchableOpacity
-                    className="ml-2 rounded-full bg-gray-100 p-2"
+                    className="ml-2 rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE] p-2"
                     onPress={() => {
                         setShowAvailabilityOptions(false);
                         setSelectedTable(null);
                     }}
                 >
-                    <Ionicons name="close" size={21} color="#374151" />
+                    <Ionicons name="close" size={21} color="#2563EB" />
                 </TouchableOpacity>
             </View>
 
-            <Text className="mb-2 mt-2 font-bold text-gray-700">
+            <Text className="mb-2 mt-2 text-xs font-bold uppercase tracking-wider text-[#64748B]">
                 Reservation Date
             </Text>
 
             <TouchableOpacity
-                className="flex-row items-center gap-3 rounded-xl border border-gray-300 p-4"
+                className="flex-row items-center gap-3 rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] p-4"
                 onPress={() => openPicker("date")}
             >
                 <Ionicons
                     name="calendar-outline"
                     size={21}
-                    color="#F97316"
+                    color="#2563EB"
                 />
-                <Text className="flex-1 font-semibold text-gray-900">
+                <Text className="flex-1 font-bold text-[#0F172A]">
                     {selectedDate.toLocaleDateString("en-US", {
                         weekday: "short",
                         day: "numeric",
@@ -525,90 +525,87 @@ const Reservation = () => {
                 <Ionicons
                     name="chevron-down"
                     size={18}
-                    color="#6B7280"
+                    color="#64748B"
                 />
             </TouchableOpacity>
 
-            <Text className="mb-2 mt-4 font-bold text-gray-700">
+            <Text className="mb-2 mt-4 text-xs font-bold uppercase tracking-wider text-[#64748B]">
                 Start Time
             </Text>
 
             <TouchableOpacity
-                className="flex-row items-center gap-3 rounded-xl border border-gray-300 p-4"
+                className="flex-row items-center gap-3 rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] p-4"
                 onPress={() => openPicker("time")}
             >
-                <Ionicons name="time-outline" size={21} color="#F97316" />
-                <Text className="flex-1 font-semibold text-gray-900">
+                <Ionicons name="time-outline" size={21} color="#2563EB" />
+                <Text className="flex-1 font-bold text-[#0F172A]">
                     {displayTime(startDateTime)}
                 </Text>
                 <Ionicons
                     name="chevron-down"
                     size={18}
-                    color="#6B7280"
+                    color="#64748B"
                 />
             </TouchableOpacity>
 
-            <View className="mt-4 flex-row items-center gap-3 rounded-xl bg-green-50 p-3">
+            <View className="mt-4 flex-row items-center gap-3 rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] p-3.5">
                 <Ionicons
                     name="checkmark-circle-outline"
                     size={23}
-                    color="#16A34A"
+                    color="#2563EB"
                 />
                 <View className="flex-1">
-                    <Text className="text-xs text-green-800">
+                    <Text className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
                         Booking Duration
                     </Text>
-                    <Text className="mt-1 font-extrabold text-green-800">
+                    <Text className="mt-0.5 text-xs font-black text-[#0F172A]">
                         {displayTime(startDateTime)} –{" "}
                         {displayTime(endDateTime)}
                     </Text>
                 </View>
-                <Text className="text-xs font-bold text-green-800">
+                <Text className="text-[10px] font-black uppercase text-[#2563EB]">
                     1 HOUR
                 </Text>
             </View>
 
-            <Text className="mb-2 mt-4 font-bold text-gray-700">
+            <Text className="mb-2 mt-4 text-xs font-bold uppercase tracking-wider text-[#64748B]">
                 Number of Guests
             </Text>
 
-            <View className="flex-row items-center justify-between rounded-xl border border-gray-300 p-2">
+            <View className="flex-row items-center justify-between rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] p-2">
                 <TouchableOpacity
-                    className="h-10 w-10 items-center justify-center rounded-lg bg-gray-100"
+                    className="h-10 w-10 items-center justify-center rounded-xl bg-white border border-[#DBEAFE]"
                     disabled={guests <= 1}
                     onPress={() => setGuests((value) => value - 1)}
                 >
                     <Ionicons
                         name="remove"
-                        size={22}
-                        color={guests <= 1 ? "#D1D5DB" : "#374151"}
+                        size={20}
+                        color={guests <= 1 ? "#CBD5E1" : "#2563EB"}
                     />
                 </TouchableOpacity>
 
                 <View className="flex-row items-center gap-2">
                     <Ionicons
                         name="people-outline"
-                        size={20}
-                        color="#F97316"
+                        size={18}
+                        color="#2563EB"
                     />
-                    <Text className="text-lg font-extrabold text-gray-900">
-                        {guests}
-                    </Text>
-                    <Text className="text-sm text-gray-500">
-                        {guests === 1 ? "Guest" : "Guests"}
+                    <Text className="text-sm font-black text-[#0F172A]">
+                        {guests} {guests === 1 ? "Guest" : "Guests"}
                     </Text>
                 </View>
 
                 <TouchableOpacity
-                    className="h-10 w-10 items-center justify-center rounded-lg bg-gray-100"
+                    className="h-10 w-10 items-center justify-center rounded-xl bg-white border border-[#DBEAFE]"
                     onPress={() => setGuests((value) => value + 1)}
                 >
-                    <Ionicons name="add" size={22} color="#374151" />
+                    <Ionicons name="add" size={20} color="#2563EB" />
                 </TouchableOpacity>
             </View>
 
             <TouchableOpacity
-                className={`mt-5 flex-row items-center justify-center gap-2 rounded-xl bg-orange-500 p-4 ${
+                className={`mt-5 flex-row items-center justify-center gap-2 rounded-2xl bg-[#2563EB] p-4 shadow-sm ${
                     checking ? "opacity-60" : ""
                 }`}
                 onPress={() => checkAvailability(selectedTable)}
@@ -620,10 +617,10 @@ const Reservation = () => {
                     <>
                         <Ionicons
                             name="search-outline"
-                            size={21}
+                            size={18}
                             color="#FFFFFF"
                         />
-                        <Text className="font-extrabold text-white">
+                        <Text className="text-xs font-extrabold text-white">
                             {selectedTable
                                 ? "Check This Table"
                                 : "Check All Tables"}
@@ -634,19 +631,19 @@ const Reservation = () => {
 
             {selectedTable?.slotStatus === "available" && (
                 <View className="mt-4">
-                    <View className="flex-row items-center gap-2 rounded-xl bg-green-50 p-3">
+                    <View className="flex-row items-center gap-2 rounded-2xl border border-green-200 bg-green-50 p-3.5">
                         <Ionicons
                             name="checkmark-circle"
-                            size={23}
+                            size={21}
                             color="#16A34A"
                         />
-                        <Text className="flex-1 font-bold text-green-800">
+                        <Text className="flex-1 text-xs font-bold text-green-800">
                             This table is available!
                         </Text>
                     </View>
 
                     <TouchableOpacity
-                        className={`mt-3 items-center justify-center rounded-xl bg-orange-500 p-4 ${
+                        className={`mt-3 items-center justify-center rounded-2xl bg-[#2563EB] p-4 shadow-sm ${
                             submitting ? "opacity-60" : ""
                         }`}
                         onPress={createReservation}
@@ -655,7 +652,7 @@ const Reservation = () => {
                         {submitting ? (
                             <ActivityIndicator color="#FFFFFF" />
                         ) : (
-                            <Text className="font-extrabold text-white">
+                            <Text className="text-xs font-extrabold text-white">
                                 Confirm Reservation
                             </Text>
                         )}
@@ -664,13 +661,13 @@ const Reservation = () => {
             )}
 
             {selectedTable?.slotStatus === "reserved" && (
-                <View className="mt-4 flex-row items-center gap-2 rounded-xl bg-red-50 p-3">
+                <View className="mt-4 flex-row items-center gap-2 rounded-2xl border border-red-200 bg-red-50 p-3.5">
                     <Ionicons
                         name="close-circle"
-                        size={23}
+                        size={21}
                         color="#DC2626"
                     />
-                    <Text className="flex-1 font-bold text-red-800">
+                    <Text className="flex-1 text-xs font-bold text-red-800">
                         This table is unavailable for the selected time.
                     </Text>
                 </View>
@@ -678,21 +675,21 @@ const Reservation = () => {
 
             {reservedSlots.length > 0 && (
                 <View className="mt-4">
-                    <Text className="mb-2 font-extrabold text-gray-900">
+                    <Text className="mb-2 text-xs font-extrabold uppercase text-[#0F172A]">
                         Existing Booked Slots
                     </Text>
 
                     {reservedSlots.map((slot, index) => (
                         <View
                             key={slot._id || index}
-                            className="flex-row items-center gap-2 py-2"
+                            className="flex-row items-center gap-2 py-1.5"
                         >
                             <Ionicons
                                 name="time-outline"
-                                size={18}
+                                size={16}
                                 color="#DC2626"
                             />
-                            <Text className="text-sm text-gray-600">
+                            <Text className="text-xs font-medium text-[#64748B]">
                                 {slot.startTime || slot.start} –{" "}
                                 {slot.endTime || slot.end}
                             </Text>
@@ -701,9 +698,8 @@ const Reservation = () => {
                 </View>
             )}
 
-            <Text className="mt-3 text-center text-xs leading-5 text-gray-500">
-                Open daily from 9:00 AM to 10:00 PM. Reservations last one
-                hour.
+            <Text className="mt-4 text-center text-[10px] leading-4 text-[#64748B]">
+                Open daily from 9:00 AM to 10:00 PM. Reservations last one hour.
             </Text>
         </View>
     );
@@ -719,8 +715,8 @@ const Reservation = () => {
                 onRequestClose={() => setPickerType(null)}
             >
                 <View className="flex-1 items-center justify-center bg-black/60 p-5">
-                    <View className="w-full max-w-md items-center rounded-2xl bg-white p-5">
-                        <Text className="mb-4 text-lg font-extrabold text-gray-900">
+                    <View className="w-full max-w-md items-center rounded-3xl bg-white p-5 shadow-lg">
+                        <Text className="mb-4 text-base font-black text-[#0F172A]">
                             {pickerType === "date"
                                 ? "Select Reservation Date"
                                 : "Select Start Time"}
@@ -754,10 +750,10 @@ const Reservation = () => {
 
                         {Platform.OS === "ios" && (
                             <TouchableOpacity
-                                className="mt-4 w-full items-center rounded-xl bg-orange-500 p-4"
+                                className="mt-4 w-full items-center rounded-2xl bg-[#2563EB] p-4 shadow-sm"
                                 onPress={() => confirmPicker(pickerValue)}
                             >
-                                <Text className="font-bold text-white">
+                                <Text className="text-xs font-bold text-white">
                                     Confirm Selection
                                 </Text>
                             </TouchableOpacity>
@@ -767,7 +763,7 @@ const Reservation = () => {
                             className="mt-3 p-3"
                             onPress={() => setPickerType(null)}
                         >
-                            <Text className="font-semibold text-gray-500">
+                            <Text className="text-xs font-semibold text-[#64748B]">
                                 Cancel
                             </Text>
                         </TouchableOpacity>
@@ -778,206 +774,200 @@ const Reservation = () => {
     };
 
     return (
-        <View className="flex-1 bg-gray-50">
-            <StatusBar style="dark" />
-            <Navbar />
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top", "bottom"]}>
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
+
+            {/* Navbar wrapper with proper top spacing to prevent status bar overlap */}
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
+            </View>
 
             <ScrollView
                 contentContainerStyle={{
-                    paddingHorizontal: 18,
-                    paddingTop: 20,
-                    paddingBottom: 45,
+                    paddingHorizontal: 20,
+                    paddingTop: 16,
+                    paddingBottom: 40,
                 }}
                 showsVerticalScrollIndicator={false}
             >
                 <View className="mb-5">
-                    <Text className="text-3xl font-extrabold text-gray-900">
+                    <Text className="text-2xl font-black text-[#0F172A]">
                         Reserve a Table
                     </Text>
-                    <Text className="mt-1 text-sm text-gray-500">
+                    <Text className="mt-1 text-xs text-[#64748B]">
                         Choose your table and reserve your preferred time.
                     </Text>
                 </View>
 
+                {/* Primary Action Cards */}
                 <View className="mb-6 gap-3">
                     <TouchableOpacity
-                        className="flex-row items-center gap-3 rounded-xl bg-orange-500 p-4"
+                        activeOpacity={0.85}
+                        className="flex-row items-center gap-3 rounded-3xl bg-[#2563EB] p-5 shadow-sm"
                         onPress={() => {
                             setSelectedTable(null);
                             setReservedSlots([]);
                             setShowAvailabilityOptions(true);
                         }}
                     >
-                        <View className="h-11 w-11 items-center justify-center rounded-full bg-white/20">
+                        <View className="h-12 w-12 items-center justify-center rounded-2xl bg-white/20">
                             <Ionicons
                                 name="search-outline"
-                                size={24}
+                                size={22}
                                 color="#FFFFFF"
                             />
                         </View>
                         <View className="flex-1">
-                            <Text className="font-extrabold text-white">
+                            <Text className="text-base font-black text-white">
                                 Check Availability
                             </Text>
-                            <Text className="mt-1 text-xs text-white">
+                            <Text className="mt-0.5 text-xs text-blue-100 font-medium">
                                 Choose a date and time for your visit
                             </Text>
                         </View>
                         <Ionicons
                             name="chevron-forward"
-                            size={21}
+                            size={20}
                             color="#FFFFFF"
                         />
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        className="flex-row items-center gap-3 rounded-xl border border-orange-200 bg-orange-50 p-4"
+                        activeOpacity={0.85}
+                        className="flex-row items-center gap-3 rounded-3xl border border-[#DBEAFE] bg-[#EFF6FF] p-5"
                         onPress={openMyReservations}
                     >
-                        <View className="h-11 w-11 items-center justify-center rounded-full bg-orange-100">
+                        <View className="h-12 w-12 items-center justify-center rounded-2xl bg-white border border-[#DBEAFE]">
                             <Ionicons
                                 name="calendar-outline"
-                                size={24}
-                                color="#F97316"
+                                size={22}
+                                color="#2563EB"
                             />
                         </View>
                         <View className="flex-1">
-                            <Text className="font-extrabold text-orange-800">
+                            <Text className="text-base font-black text-[#0F172A]">
                                 My Reservations
                             </Text>
-                            <Text className="mt-1 text-xs text-orange-700">
+                            <Text className="mt-0.5 text-xs text-[#64748B] font-medium">
                                 View your bookings and their status
                             </Text>
                         </View>
                         <Ionicons
                             name="chevron-forward"
-                            size={21}
-                            color="#F97316"
+                            size={20}
+                            color="#2563EB"
                         />
                     </TouchableOpacity>
                 </View>
 
-                <View className="mb-3 flex-row items-center justify-between">
-                    <Text className="text-lg font-extrabold text-gray-900">
-                        Choose Your Table
-                    </Text>
-                    <Text className="text-sm text-gray-500">
-                        {tables.length} tables
-                    </Text>
-                </View>
-
-                <Text className="mb-4 text-sm leading-5 text-gray-500">
-                    Select any table to choose your date and time. You can
-                    check availability before confirming your reservation.
-                </Text>
-
-                {loading ? (
-                    <ActivityIndicator
-                        size="large"
-                        color="#F97316"
-                        style={{ marginVertical: 35 }}
-                    />
-                ) : tables.length === 0 ? (
-                    <View className="items-center rounded-2xl bg-white p-8">
-                        <Ionicons
-                            name="restaurant-outline"
-                            size={40}
-                            color="#9CA3AF"
-                        />
-                        <Text className="mt-3 text-gray-500">
-                            No tables found.
-                        </Text>
-                        <TouchableOpacity
-                            className="mt-4 rounded-xl bg-orange-500 px-5 py-3"
-                            onPress={fetchTables}
-                        >
-                            <Text className="font-bold text-white">
-                                Try Again
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                {showAvailabilityOptions ? (
+                    renderBookingOptions()
                 ) : (
-                    <View className="flex-row flex-wrap gap-3">
-                        {tables.map((table) => {
-                            const tableId = getTableId(table);
-                            const color = getTableColor(table);
-                            const isSelected =
-                                String(getTableId(selectedTable)) ===
-                                String(tableId);
+                    <>
+                        <View className="mb-3 flex-row items-center justify-between">
+                            <Text className="text-lg font-black text-[#0F172A]">
+                                Choose Your Table
+                            </Text>
+                            <Text className="text-xs font-bold text-[#64748B]">
+                                {tables.length} tables
+                            </Text>
+                        </View>
 
-                            return (
+                        <Text className="mb-4 text-xs leading-5 text-[#64748B]">
+                            Select any table to choose your date and time. You can
+                            check availability before confirming your reservation.
+                        </Text>
+
+                        {loading ? (
+                            <ActivityIndicator
+                                size="large"
+                                color="#2563EB"
+                                style={{ marginVertical: 35 }}
+                            />
+                        ) : tables.length === 0 ? (
+                            <View className="items-center rounded-3xl border border-[#DBEAFE] bg-white p-8">
+                                <Ionicons
+                                    name="restaurant-outline"
+                                    size={36}
+                                    color="#2563EB"
+                                />
+                                <Text className="mt-3 text-xs font-bold text-[#64748B]">
+                                    No tables found.
+                                </Text>
                                 <TouchableOpacity
-                                    key={tableId}
-                                    className={`min-w-[45%] flex-1 items-center rounded-2xl border bg-white p-4 ${
-                                        isSelected
-                                            ? "border-orange-500"
-                                            : "border-gray-200"
-                                    }`}
-                                    style={{ borderColor: isSelected ? "#F97316" : color }}
-                                    onPress={() => openTableOptions(table)}
+                                    className="mt-4 rounded-2xl bg-[#2563EB] px-6 py-3 shadow-sm"
+                                    onPress={fetchTables}
                                 >
-                                    <View
-                                        className="mb-3 h-14 w-14 items-center justify-center rounded-full"
-                                        style={{
-                                            backgroundColor: `${color}18`,
-                                        }}
-                                    >
-                                        <Ionicons
-                                            name="restaurant-outline"
-                                            size={28}
-                                            color={color}
-                                        />
-                                    </View>
-
-                                    <Text className="text-center text-base font-extrabold text-gray-900">
-                                        {getTableName(table)}
-                                    </Text>
-
-                                    <View className="mt-2 flex-row items-center gap-1">
-                                        <Ionicons
-                                            name="people-outline"
-                                            size={15}
-                                            color="#6B7280"
-                                        />
-                                        <Text className="text-sm text-gray-500">
-                                            {table.capacity ||
-                                                table.seatingCapacity ||
-                                                "—"}{" "}
-                                            seats
-                                        </Text>
-                                    </View>
-
-                                    <Text
-                                        className="mt-3 text-center text-xs font-bold"
-                                        style={{ color }}
-                                    >
-                                        {table.slotStatus === "available"
-                                            ? "Available"
-                                            : table.slotStatus === "reserved"
-                                              ? "Unavailable"
-                                              : table.status &&
-                                                  String(
-                                                      table.status
-                                                  ).toLowerCase() !==
-                                                      "available"
-                                                ? String(table.status)
-                                                : "Select Table"}
-                                    </Text>
-
-                                    <Text className="mt-2 text-xs font-bold text-orange-600">
-                                        Check Times
+                                    <Text className="text-xs font-bold text-white">
+                                        Try Again
                                     </Text>
                                 </TouchableOpacity>
-                            );
-                        })}
-                    </View>
-                )}
+                            </View>
+                        ) : (
+                            <View className="flex-row flex-wrap justify-between">
+                                {tables.map((table) => {
+                                    const tableId = getTableId(table);
+                                    const color = getTableColor(table);
+                                    const isSelected =
+                                        selectedTable &&
+                                        String(getTableId(selectedTable)) ===
+                                            String(tableId);
 
-                {showAvailabilityOptions && renderBookingOptions()}
+                                    return (
+                                        <TouchableOpacity
+                                            key={tableId || Math.random()}
+                                            activeOpacity={0.8}
+                                            onPress={() =>
+                                                openTableOptions(table)
+                                            }
+                                            className={`mb-4 w-[48%] rounded-3xl border p-4 bg-white shadow-sm items-center justify-between ${
+                                                isSelected
+                                                    ? "border-[#2563EB] bg-[#EFF6FF]"
+                                                    : "border-[#DBEAFE]"
+                                            }`}
+                                            style={{ minHeight: 180 }}
+                                        >
+                                            <View className="h-14 w-14 items-center justify-center rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE] mb-2">
+                                                <Ionicons
+                                                    name="restaurant-outline"
+                                                    size={24}
+                                                    color="#2563EB"
+                                                />
+                                            </View>
+
+                                            <Text className="text-sm font-black text-[#0F172A] text-center mb-1">
+                                                {getTableName(table)}
+                                            </Text>
+
+                                            <View className="flex-row items-center mb-3">
+                                                <View
+                                                    className="mr-1.5 h-2 w-2 rounded-full"
+                                                    style={{ backgroundColor: color }}
+                                                />
+                                                <Text className="text-[10px] font-bold text-[#64748B] uppercase">
+                                                    {table.slotStatus
+                                                        ? table.slotStatus
+                                                        : table.status ||
+                                                          "Available"}
+                                                </Text>
+                                            </View>
+
+                                            <View className="w-full items-center py-2 rounded-xl bg-[#EFF6FF] border border-[#DBEAFE]">
+                                                <Text className="text-[10px] font-extrabold text-[#2563EB]">
+                                                    Check Times
+                                                </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    );
+                                })}
+                            </View>
+                        )}
+                    </>
+                )}
             </ScrollView>
 
             {renderPicker()}
-        </View>
+        </SafeAreaView>
     );
 };
 

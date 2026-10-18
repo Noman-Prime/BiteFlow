@@ -46,8 +46,8 @@ const EditAccount = () => {
             typeof user?.profileImage === "string"
                 ? user.profileImage
                 : user?.profileImage?.url ||
-                      user?.profileImage?.secure_url ||
-                      ""
+                    user?.profileImage?.secure_url ||
+                    ""
         );
     }, [user]);
 
@@ -274,32 +274,35 @@ const EditAccount = () => {
     if (!isAuthenticated || !user) {
         return (
             <SafeAreaView
-                className="flex-1 bg-gray-50"
+                className="flex-1 bg-[#F8FAFC]"
                 edges={["top", "left", "right"]}
             >
-                <StatusBar style="light" backgroundColor="#000000" />
+                <StatusBar style="dark" backgroundColor="#FFFFFF" />
                 <Navbar />
 
                 <View className="flex-1 items-center justify-center px-6">
-                    <Ionicons
-                        name="lock-closed-outline"
-                        size={48}
-                        color="#F97316"
-                    />
+                    <View className="mb-4 h-16 w-16 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF]">
+                        <Ionicons
+                            name="lock-closed-outline"
+                            size={30}
+                            color="#2563EB"
+                        />
+                    </View>
 
-                    <Text className="mt-4 text-lg font-extrabold text-black">
+                    <Text className="text-lg font-extrabold text-[#0F172A]">
                         Sign In Required
                     </Text>
 
-                    <Text className="mt-2 text-center text-sm text-gray-500">
+                    <Text className="mt-2 text-center text-sm text-[#64748B]">
                         Please sign in to edit your account.
                     </Text>
 
                     <TouchableOpacity
                         onPress={() => router.replace("/signin")}
-                        className="mt-6 rounded-2xl bg-black px-8 py-4"
+                        activeOpacity={0.8}
+                        className="mt-6 w-full flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-4 shadow-sm"
                     >
-                        <Text className="font-bold text-white">Sign In</Text>
+                        <Text className="font-bold text-white text-xs">Sign In</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -315,10 +318,10 @@ const EditAccount = () => {
 
     return (
         <SafeAreaView
-            className="flex-1 bg-gray-50"
+            className="flex-1 bg-[#F8FAFC]"
             edges={["top", "left", "right"]}
         >
-            <StatusBar style="light" backgroundColor="#000000" />
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
             <Navbar />
 
             <ScrollView
@@ -326,10 +329,11 @@ const EditAccount = () => {
                 contentContainerStyle={{ paddingBottom: 40 }}
                 showsVerticalScrollIndicator={false}
             >
-                <View className="rounded-b-[32px] bg-black px-6 pb-10 pt-6">
+                <View className="rounded-b-[36px] bg-[#2563EB] px-6 pb-12 pt-6 shadow-sm">
                     <TouchableOpacity
                         onPress={() => router.back()}
-                        className="mb-5 h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/10"
+                        activeOpacity={0.7}
+                        className="mb-5 h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/15"
                     >
                         <Ionicons
                             name="arrow-back"
@@ -338,17 +342,17 @@ const EditAccount = () => {
                         />
                     </TouchableOpacity>
 
-                    <Text className="text-2xl font-black text-white">
+                    <Text className="text-2xl font-black tracking-tight text-white">
                         Edit Profile
                     </Text>
 
-                    <Text className="mt-1 text-xs font-semibold text-gray-400">
+                    <Text className="mt-1 text-xs font-semibold text-blue-100">
                         Update your personal information
                     </Text>
                 </View>
 
-                <View className="-mt-5 px-5">
-                    <View className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
+                <View className="-mt-8 px-5">
+                    <View className="rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm">
                         <View className="items-center">
                             <View className="relative">
                                 {selectedImage?.uri || profileImage ? (
@@ -358,12 +362,12 @@ const EditAccount = () => {
                                                 selectedImage?.uri ||
                                                 profileImage,
                                         }}
-                                        className="h-28 w-28 rounded-3xl border-2 border-emerald-500"
+                                        className="h-28 w-28 rounded-3xl border-2 border-[#2563EB]"
                                         resizeMode="cover"
                                     />
                                 ) : (
-                                    <View className="h-28 w-28 items-center justify-center rounded-3xl border-2 border-orange-500 bg-orange-50">
-                                        <Text className="text-4xl font-black text-orange-600">
+                                    <View className="h-28 w-28 items-center justify-center rounded-3xl border-2 border-[#DBEAFE] bg-[#EFF6FF]">
+                                        <Text className="text-4xl font-black text-[#2563EB]">
                                             {name.trim().charAt(0).toUpperCase() ||
                                                 "U"}
                                         </Text>
@@ -373,7 +377,8 @@ const EditAccount = () => {
                                 <TouchableOpacity
                                     onPress={pickImage}
                                     disabled={uploadingImage || saving}
-                                    className="absolute -bottom-2 -right-2 h-10 w-10 items-center justify-center rounded-2xl border-2 border-white bg-emerald-600"
+                                    activeOpacity={0.8}
+                                    className="absolute -bottom-2 -right-2 h-10 w-10 items-center justify-center rounded-2xl border-2 border-white bg-[#2563EB] shadow-sm"
                                 >
                                     <Ionicons
                                         name="camera-outline"
@@ -383,20 +388,21 @@ const EditAccount = () => {
                                 </TouchableOpacity>
                             </View>
 
-                            <Text className="mt-4 text-base font-extrabold text-black">
+                            <Text className="mt-4 text-base font-extrabold text-[#0F172A]">
                                 {name || "BiteFlow User"}
                             </Text>
 
-                            <Text className="mt-1 text-xs text-gray-400">
+                            <Text className="mt-1 text-xs text-[#64748B]">
                                 {email}
                             </Text>
 
                             <TouchableOpacity
                                 onPress={pickImage}
                                 disabled={uploadingImage || saving}
-                                className="mt-4 rounded-xl border border-orange-100 bg-orange-50 px-5 py-3"
+                                activeOpacity={0.8}
+                                className="mt-4 rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] px-5 py-3"
                             >
-                                <Text className="text-xs font-bold text-orange-600">
+                                <Text className="text-xs font-bold text-[#2563EB]">
                                     Choose Profile Photo
                                 </Text>
                             </TouchableOpacity>
@@ -406,7 +412,7 @@ const EditAccount = () => {
                                     onPress={handleImageUpload}
                                     disabled={uploadingImage || saving}
                                     activeOpacity={0.8}
-                                    className="mt-3 w-full flex-row items-center justify-center rounded-xl bg-emerald-600 py-3.5"
+                                    className="mt-3 w-full flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-3.5 shadow-sm"
                                 >
                                     {uploadingImage ? (
                                         <ActivityIndicator color="#FFFFFF" />
@@ -428,62 +434,62 @@ const EditAccount = () => {
                         </View>
 
                         <View className="mt-8">
-                            <Text className="mb-2 text-xs font-bold text-gray-600">
+                            <Text className="mb-2 text-xs font-bold text-[#64748B]">
                                 Full Name
                             </Text>
 
-                            <View className="flex-row items-center rounded-2xl border border-gray-200 bg-gray-50 px-4">
+                            <View className="flex-row items-center rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] px-4">
                                 <Ionicons
                                     name="person-outline"
                                     size={18}
-                                    color="#9CA3AF"
+                                    color="#94A3B8"
                                 />
 
                                 <TextInput
                                     value={name}
                                     onChangeText={setName}
                                     placeholder="Enter your full name"
-                                    placeholderTextColor="#9CA3AF"
+                                    placeholderTextColor="#94A3B8"
                                     autoCapitalize="words"
-                                    className="ml-3 flex-1 py-4 text-sm text-black"
+                                    className="ml-3 flex-1 py-4 text-xs font-extrabold text-[#0F172A]"
                                 />
                             </View>
 
-                            <Text className="mb-2 mt-5 text-xs font-bold text-gray-600">
+                            <Text className="mb-2 mt-5 text-xs font-bold text-[#64748B]">
                                 Email Address
                             </Text>
 
-                            <View className="flex-row items-center rounded-2xl border border-gray-200 bg-gray-50 px-4">
+                            <View className="flex-row items-center rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] px-4">
                                 <Ionicons
                                     name="mail-outline"
                                     size={18}
-                                    color="#9CA3AF"
+                                    color="#94A3B8"
                                 />
 
                                 <TextInput
                                     value={email}
                                     onChangeText={setEmail}
                                     placeholder="Enter your email"
-                                    placeholderTextColor="#9CA3AF"
+                                    placeholderTextColor="#94A3B8"
                                     keyboardType="email-address"
                                     autoCapitalize="none"
                                     autoCorrect={false}
-                                    className="ml-3 flex-1 py-4 text-sm text-black"
+                                    className="ml-3 flex-1 py-4 text-xs font-extrabold text-[#0F172A]"
                                 />
                             </View>
 
-                            <Text className="mb-2 mt-5 text-xs font-bold text-gray-600">
+                            <Text className="mb-2 mt-5 text-xs font-bold text-[#64748B]">
                                 Account Role
                             </Text>
 
-                            <View className="flex-row items-center rounded-2xl border border-gray-200 bg-gray-100 px-4 py-4">
+                            <View className="flex-row items-center rounded-2xl border border-[#E2E8F0] bg-[#F1F5F9] px-4 py-4">
                                 <Ionicons
                                     name="shield-checkmark-outline"
                                     size={18}
-                                    color="#9CA3AF"
+                                    color="#94A3B8"
                                 />
 
-                                <Text className="ml-3 text-sm font-semibold text-gray-500">
+                                <Text className="ml-3 text-xs font-extrabold text-[#64748B]">
                                     {user.role || "Customer"}
                                 </Text>
 
@@ -491,7 +497,7 @@ const EditAccount = () => {
                                     <Ionicons
                                         name="lock-closed-outline"
                                         size={16}
-                                        color="#9CA3AF"
+                                        color="#94A3B8"
                                     />
                                 </View>
                             </View>
@@ -500,7 +506,7 @@ const EditAccount = () => {
                                 onPress={handleSave}
                                 disabled={saving || uploadingImage}
                                 activeOpacity={0.8}
-                                className="mt-8 flex-row items-center justify-center rounded-2xl bg-black py-4"
+                                className="mt-8 flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-4 shadow-sm"
                             >
                                 {saving ? (
                                     <ActivityIndicator color="#FFFFFF" />
@@ -522,9 +528,10 @@ const EditAccount = () => {
                             <TouchableOpacity
                                 onPress={() => router.back()}
                                 disabled={saving || uploadingImage}
-                                className="mt-3 items-center rounded-2xl border border-gray-200 bg-white py-4"
+                                activeOpacity={0.8}
+                                className="mt-3 items-center rounded-2xl border border-[#E2E8F0] bg-white py-4 shadow-sm"
                             >
-                                <Text className="text-xs font-bold text-gray-600">
+                                <Text className="text-xs font-bold text-[#64748B]">
                                     Cancel
                                 </Text>
                             </TouchableOpacity>

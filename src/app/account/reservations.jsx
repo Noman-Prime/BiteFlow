@@ -221,14 +221,14 @@ const ReservationHistory = () => {
     const getStatusStyle = (status) => {
         const normalizedStatus = String(status).toLowerCase();
 
-        // Confirmed, Completed, Approved -> Emerald Green
+        // Confirmed, Completed, Approved -> Blue / Emerald
         if (
             ["confirmed", "completed", "approved"].includes(normalizedStatus)
         ) {
             return {
-                container: "bg-emerald-50 border-emerald-100",
-                text: "text-emerald-700",
-                color: "#059669",
+                container: "bg-[#EFF6FF] border-[#DBEAFE]",
+                text: "text-[#2563EB]",
+                color: "#2563EB",
             };
         }
 
@@ -245,11 +245,11 @@ const ReservationHistory = () => {
             };
         }
 
-        // Default -> Orange (Pending)
+        // Default -> Blue (Pending)
         return {
-            container: "bg-orange-50 border-orange-100",
-            text: "text-orange-600",
-            color: "#F97316",
+            container: "bg-[#EFF6FF] border-[#DBEAFE]",
+            text: "text-[#2563EB]",
+            color: "#2563EB",
         };
     };
 
@@ -314,10 +314,10 @@ const ReservationHistory = () => {
         const tableName = getTableName(item);
 
         return (
-            <View className="mb-4 rounded-3xl border border-gray-100 bg-white p-4 shadow-sm">
-                <View className="mb-4 flex-row items-center justify-between border-b border-gray-100 pb-3">
+            <View className="mb-4 rounded-3xl border border-[#E2E8F0] bg-white p-4 shadow-sm">
+                <View className="mb-4 flex-row items-center justify-between border-b border-[#F1F5F9] pb-3">
                     <View className="flex-1 pr-3">
-                        <Text className="text-sm font-black text-black">
+                        <Text className="text-sm font-black text-[#0F172A]">
                             {reservationId
                                 ? `Booking #${String(reservationId)
                                     .slice(-6)
@@ -325,7 +325,7 @@ const ReservationHistory = () => {
                                 : "Table Reservation"}
                         </Text>
 
-                        <Text className="mt-1 text-[10px] font-medium text-gray-400">
+                        <Text className="mt-1 text-[10px] font-medium text-[#64748B]">
                             Booked on{" "}
                             {formatDate(item.createdAt || item.createdOn)}
                         </Text>
@@ -347,35 +347,35 @@ const ReservationHistory = () => {
                     </View>
                 </View>
 
-                <View className="mb-3 rounded-2xl bg-orange-50 p-4">
+                <View className="mb-3 rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE] p-4">
                     <View className="mb-3 flex-row items-center">
-                        <View className="h-11 w-11 items-center justify-center rounded-2xl border border-orange-100 bg-white">
+                        <View className="h-11 w-11 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-white">
                             <Ionicons
                                 name="calendar-outline"
                                 size={22}
-                                color="#F97316"
+                                color="#2563EB"
                             />
                         </View>
 
                         <View className="ml-3 flex-1">
-                            <Text className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                            <Text className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
                                 Reservation Date
                             </Text>
 
-                            <Text className="mt-1 text-sm font-black text-black">
+                            <Text className="mt-1 text-sm font-black text-[#0F172A]">
                                 {formatDate(reservationDate)}
                             </Text>
                         </View>
                     </View>
 
-                    <View className="flex-row items-center border-t border-orange-100 pt-3">
+                    <View className="flex-row items-center border-t border-[#DBEAFE] pt-3">
                         <Ionicons
                             name="time-outline"
                             size={17}
-                            color="#F97316"
+                            color="#2563EB"
                         />
 
-                        <Text className="ml-2 text-xs font-bold text-gray-600">
+                        <Text className="ml-2 text-xs font-bold text-[#64748B]">
                             {formatTime(reservationTime)}
                         </Text>
                     </View>
@@ -383,14 +383,14 @@ const ReservationHistory = () => {
 
                 <View className="flex-row flex-wrap">
                     {guestCount !== null && (
-                        <View className="mb-2 mr-2 flex-row items-center rounded-xl border border-gray-100 bg-gray-50 px-3 py-2">
+                        <View className="mb-2 mr-2 flex-row items-center rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-3 py-2">
                             <Ionicons
                                 name="people-outline"
                                 size={16}
-                                color="#6B7280"
+                                color="#64748B"
                             />
 
-                            <Text className="ml-2 text-xs font-bold text-gray-600">
+                            <Text className="ml-2 text-xs font-bold text-[#64748B]">
                                 {guestCount}{" "}
                                 {Number(guestCount) === 1 ? "Guest" : "Guests"}
                             </Text>
@@ -398,14 +398,14 @@ const ReservationHistory = () => {
                     )}
 
                     {tableName && (
-                        <View className="mb-2 flex-row items-center rounded-xl border border-gray-100 bg-gray-50 px-3 py-2">
+                        <View className="mb-2 flex-row items-center rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-3 py-2">
                             <Ionicons
                                 name="restaurant-outline"
                                 size={16}
-                                color="#6B7280"
+                                color="#64748B"
                             />
 
-                            <Text className="ml-2 text-xs font-bold text-gray-600">
+                            <Text className="ml-2 text-xs font-bold text-[#64748B]">
                                 {tableName}
                             </Text>
                         </View>
@@ -413,12 +413,12 @@ const ReservationHistory = () => {
                 </View>
 
                 {item.specialRequest || item.notes || item.description ? (
-                    <View className="mt-1 border-t border-gray-100 pt-3">
-                        <Text className="mb-1 text-[10px] font-extrabold uppercase tracking-wider text-gray-400">
+                    <View className="mt-1 border-t border-[#F1F5F9] pt-3">
+                        <Text className="mb-1 text-[10px] font-extrabold uppercase tracking-wider text-[#64748B]">
                             Special Request
                         </Text>
 
-                        <Text className="text-xs leading-5 text-gray-600">
+                        <Text className="text-xs leading-5 text-[#0F172A]">
                             {item.specialRequest ||
                                 item.notes ||
                                 item.description}
@@ -431,19 +431,19 @@ const ReservationHistory = () => {
 
     const renderEmptyReservations = () => (
         <View className="flex-1 items-center justify-center px-8 py-16">
-            <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-orange-100 bg-orange-50">
+            <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-[#DBEAFE] bg-[#EFF6FF]">
                 <Ionicons
                     name="calendar-outline"
                     size={36}
-                    color="#F97316"
+                    color="#2563EB"
                 />
             </View>
 
-            <Text className="text-lg font-extrabold text-black">
+            <Text className="text-lg font-extrabold text-[#0F172A]">
                 No Reservations Yet
             </Text>
 
-            <Text className="mt-2 text-center text-xs leading-5 text-gray-500">
+            <Text className="mt-2 text-center text-xs leading-5 text-[#64748B]">
                 Your table reservations will appear here after you make a
                 booking.
             </Text>
@@ -451,7 +451,7 @@ const ReservationHistory = () => {
             <TouchableOpacity
                 onPress={() => router.replace("/")}
                 activeOpacity={0.8}
-                className="mt-6 flex-row items-center rounded-2xl bg-black px-6 py-3.5"
+                className="mt-6 flex-row items-center rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
             >
                 <Ionicons
                     name="restaurant-outline"
@@ -476,18 +476,18 @@ const ReservationHistory = () => {
                 />
             </View>
 
-            <Text className="text-base font-extrabold text-black">
+            <Text className="text-base font-extrabold text-[#0F172A]">
                 Unable to Load Reservations
             </Text>
 
-            <Text className="mt-2 text-center text-xs leading-5 text-gray-500">
+            <Text className="mt-2 text-center text-xs leading-5 text-[#64748B]">
                 {error}
             </Text>
 
             <TouchableOpacity
                 onPress={() => fetchReservations()}
                 activeOpacity={0.8}
-                className="mt-5 flex-row items-center rounded-2xl bg-black px-6 py-3.5"
+                className="mt-5 flex-row items-center rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
             >
                 <Ionicons name="refresh" size={16} color="#FFFFFF" />
 
@@ -501,9 +501,9 @@ const ReservationHistory = () => {
                 <TouchableOpacity
                     onPress={() => router.replace("/signin")}
                     activeOpacity={0.8}
-                    className="mt-3 rounded-2xl border border-gray-200 px-6 py-3"
+                    className="mt-3 rounded-2xl border border-[#E2E8F0] px-6 py-3 bg-white"
                 >
-                    <Text className="text-xs font-bold text-black">
+                    <Text className="text-xs font-bold text-[#0F172A]">
                         Go to Sign In
                     </Text>
                 </TouchableOpacity>
@@ -513,18 +513,18 @@ const ReservationHistory = () => {
 
     return (
         <SafeAreaView
-            className="flex-1 bg-gray-50"
+            className="flex-1 bg-[#F8FAFC]"
             edges={["top", "left", "right"]}
         >
-            <StatusBar style="light" backgroundColor="#000000" />
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
             <Navbar />
 
-            <View className="flex-row items-center justify-between bg-black px-5 pb-5 pt-2">
+            <View className="flex-row items-center justify-between bg-[#2563EB] px-5 pb-5 pt-2 shadow-sm">
                 <TouchableOpacity
                     onPress={() => router.back()}
                     activeOpacity={0.7}
-                    className="h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/10"
+                    className="h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/15"
                 >
                     <Ionicons
                         name="arrow-back"
@@ -538,7 +538,7 @@ const ReservationHistory = () => {
                         Reservation History
                     </Text>
 
-                    <Text className="mt-0.5 text-[10px] font-medium text-gray-400">
+                    <Text className="mt-0.5 text-[10px] font-medium text-blue-100">
                         Your BiteFlow bookings
                     </Text>
                 </View>
@@ -547,7 +547,7 @@ const ReservationHistory = () => {
                     onPress={() => fetchReservations(true)}
                     disabled={loading || refreshing}
                     activeOpacity={0.7}
-                    className="h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/10"
+                    className="h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/15"
                 >
                     <Ionicons
                         name="refresh"
@@ -561,10 +561,10 @@ const ReservationHistory = () => {
                 <View className="flex-1 items-center justify-center p-6">
                     <ActivityIndicator
                         size="large"
-                        color="#F97316"
+                        color="#2563EB"
                     />
 
-                    <Text className="mt-3 text-xs font-bold text-gray-500">
+                    <Text className="mt-3 text-xs font-bold text-[#64748B]">
                         Loading reservation history...
                     </Text>
                 </View>
@@ -581,17 +581,17 @@ const ReservationHistory = () => {
                         reservations.length > 0 ? (
                             <View className="mb-4 flex-row items-center justify-between">
                                 <View>
-                                    <Text className="text-lg font-black text-black">
+                                    <Text className="text-lg font-black text-[#0F172A]">
                                         Your Reservations
                                     </Text>
 
-                                    <Text className="mt-1 text-xs text-gray-500">
+                                    <Text className="mt-1 text-xs text-[#64748B]">
                                         Review your previous bookings
                                     </Text>
                                 </View>
 
-                                <View className="rounded-xl border border-orange-100 bg-orange-50 px-3 py-2">
-                                    <Text className="text-xs font-extrabold text-orange-700">
+                                <View className="rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] px-3 py-2">
+                                    <Text className="text-xs font-extrabold text-[#2563EB]">
                                         {reservations.length}{" "}
                                         {reservations.length === 1
                                             ? "Booking"
@@ -611,6 +611,8 @@ const ReservationHistory = () => {
                     showsVerticalScrollIndicator={false}
                     onRefresh={() => fetchReservations(true)}
                     refreshing={refreshing}
+                    tintColor="#2563EB"
+                    colors={["#2563EB"]}
                 />
             )}
 

@@ -5,15 +5,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useState } from "react";
-import {
-    ActivityIndicator,
-    Alert,
-    Image,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { ActivityIndicator, Alert, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../../../components/Navbar";
@@ -349,12 +341,14 @@ const MenuItemDetails = () => {
 
     if (loading) {
         return (
-            <SafeAreaView className="flex-1 bg-white" edges={["top", "left", "right"]}>
+            <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
                 <StatusBar style="dark" backgroundColor="#FFFFFF" />
-                <Navbar />
+                <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                    <Navbar />
+                </View>
                 <View className="flex-1 items-center justify-center">
-                    <ActivityIndicator size="large" color="#F97316" />
-                    <Text className="mt-3 text-sm text-gray-500">
+                    <ActivityIndicator size="large" color="#2563EB" />
+                    <Text className="mt-3 text-xs font-bold text-[#64748B]">
                         Loading product details...
                     </Text>
                 </View>
@@ -364,19 +358,24 @@ const MenuItemDetails = () => {
 
     if (!item) {
         return (
-            <SafeAreaView className="flex-1 bg-white" edges={["top", "left", "right"]}>
+            <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
                 <StatusBar style="dark" backgroundColor="#FFFFFF" />
-                <Navbar />
+                <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                    <Navbar />
+                </View>
                 <View className="flex-1 items-center justify-center px-6">
-                    <Ionicons name="alert-circle-outline" size={48} color="#EF4444" />
-                    <Text className="mt-3 text-lg font-bold text-gray-900">
+                    <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-red-100 bg-red-50">
+                        <Ionicons name="alert-circle-outline" size={36} color="#DC2626" />
+                    </View>
+                    <Text className="text-base font-extrabold text-[#0F172A]">
                         Product Not Found
                     </Text>
                     <TouchableOpacity
                         onPress={() => router.back()}
-                        className="mt-5 rounded-xl bg-gray-900 px-6 py-3"
+                        activeOpacity={0.8}
+                        className="mt-6 rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
                     >
-                        <Text className="font-bold text-white">Go Back</Text>
+                        <Text className="text-xs font-bold text-white">Go Back</Text>
                     </TouchableOpacity>
                 </View>
                 <Toast
@@ -399,13 +398,15 @@ const MenuItemDetails = () => {
         (!removeImage ? displayImageUrl : null);
 
     return (
-        <SafeAreaView className="flex-1 bg-white" edges={["top", "left", "right"]}>
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
             <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            <Navbar />
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
+            </View>
 
             <KeyboardAwareScrollView
-                className="flex-1 bg-white"
+                className="flex-1 bg-[#F8FAFC]"
                 contentContainerStyle={{ padding: 20, paddingBottom: 140 }}
                 enableOnAndroid
                 enableAutomaticScroll
@@ -415,10 +416,11 @@ const MenuItemDetails = () => {
             >
                 <TouchableOpacity
                     onPress={() => router.back()}
-                    className="mb-5 flex-row items-center self-start rounded-xl border border-gray-200 bg-white px-4 py-2.5"
+                    activeOpacity={0.7}
+                    className="mb-5 flex-row items-center self-start rounded-2xl border border-[#DBEAFE] bg-white px-4 py-2.5 shadow-sm"
                 >
-                    <Ionicons name="arrow-back" size={18} color="#111827" />
-                    <Text className="ml-2 text-xs font-bold text-gray-900">
+                    <Ionicons name="arrow-back" size={18} color="#2563EB" />
+                    <Text className="ml-2 text-xs font-bold text-[#2563EB]">
                         Back to Management
                     </Text>
                 </TouchableOpacity>
@@ -428,25 +430,25 @@ const MenuItemDetails = () => {
                     displayImageUrl ? (
                         <Image
                             source={{ uri: displayImageUrl }}
-                            className="h-64 w-full rounded-2xl border border-gray-200 bg-gray-100"
+                            className="h-64 w-full rounded-3xl border border-[#DBEAFE] bg-white shadow-sm"
                             resizeMode="cover"
                         />
                     ) : (
-                        <View className="h-64 w-full items-center justify-center rounded-2xl border border-gray-200 bg-gray-100">
-                            <Ionicons name="fast-food-outline" size={60} color="#9CA3AF" />
-                            <Text className="mt-2 text-xs text-gray-400">
+                        <View className="h-64 w-full items-center justify-center rounded-3xl border border-[#DBEAFE] bg-white shadow-sm">
+                            <Ionicons name="fast-food-outline" size={50} color="#2563EB" />
+                            <Text className="mt-2 text-xs font-bold text-[#64748B]">
                                 No image available
                             </Text>
                         </View>
                     )
                 ) : (
                     <View className="mb-4">
-                        <Text className="mb-2 text-xs font-bold text-gray-700">
+                        <Text className="mb-2 text-xs font-bold text-[#0F172A]">
                             Product Image
                         </Text>
 
                         {editPreviewUri ? (
-                            <View className="relative h-64 w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-100">
+                            <View className="relative h-64 w-full overflow-hidden rounded-3xl border border-[#DBEAFE] bg-white shadow-sm">
                                 <Image
                                     source={{ uri: editPreviewUri }}
                                     className="h-full w-full"
@@ -456,7 +458,8 @@ const MenuItemDetails = () => {
                                 <View className="absolute bottom-3 right-3 flex-row gap-2">
                                     <TouchableOpacity
                                         onPress={handlePickImage}
-                                        className="flex-row items-center rounded-xl bg-gray-900 px-3.5 py-2"
+                                        activeOpacity={0.8}
+                                        className="flex-row items-center rounded-2xl bg-[#2563EB] px-3.5 py-2 shadow-sm"
                                     >
                                         <Ionicons name="camera-outline" size={16} color="#FFFFFF" />
                                         <Text className="ml-1.5 text-xs font-bold text-white">
@@ -466,7 +469,8 @@ const MenuItemDetails = () => {
 
                                     <TouchableOpacity
                                         onPress={handleRemoveImage}
-                                        className="flex-row items-center rounded-xl bg-red-600 px-3.5 py-2"
+                                        activeOpacity={0.8}
+                                        className="flex-row items-center rounded-2xl bg-red-600 px-3.5 py-2 shadow-sm"
                                     >
                                         <Ionicons name="trash-outline" size={16} color="#FFFFFF" />
                                         <Text className="ml-1.5 text-xs font-bold text-white">
@@ -478,10 +482,11 @@ const MenuItemDetails = () => {
                         ) : (
                             <TouchableOpacity
                                 onPress={handlePickImage}
-                                className="h-44 w-full items-center justify-center rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50"
+                                activeOpacity={0.8}
+                                className="h-44 w-full items-center justify-center rounded-3xl border-2 border-dashed border-[#DBEAFE] bg-[#EFF6FF] shadow-sm"
                             >
-                                <Ionicons name="image-outline" size={40} color="#9CA3AF" />
-                                <Text className="mt-2 text-xs font-bold text-gray-600">
+                                <Ionicons name="image-outline" size={36} color="#2563EB" />
+                                <Text className="mt-2 text-xs font-bold text-[#2563EB]">
                                     Tap to add product image
                                 </Text>
                             </TouchableOpacity>
@@ -491,35 +496,35 @@ const MenuItemDetails = () => {
 
                 {/* Product details */}
                 {!isEditing ? (
-                    <View className="mt-6 rounded-2xl border border-gray-200 bg-white p-5">
+                    <View className="mt-6 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
                         <View className="flex-row items-start justify-between">
-                            <Text className="mr-2 flex-1 text-2xl font-extrabold text-gray-900">
+                            <Text className="mr-2 flex-1 text-xl font-black text-[#0F172A]">
                                 {item.name}
                             </Text>
-                            <Text className="text-2xl font-extrabold text-orange-500">
+                            <Text className="text-xl font-black text-[#2563EB]">
                                 Rs. {item.price}
                             </Text>
                         </View>
 
                         <View className="mt-4 flex-row items-center">
-                            <View className="mr-2 rounded-lg border border-gray-200 bg-gray-100 px-3 py-1.5">
-                                <Text className="text-xs font-bold text-gray-800">
+                            <View className="mr-2 rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] px-3 py-1.5">
+                                <Text className="text-xs font-bold text-[#2563EB]">
                                     {item.category || "General"}
                                 </Text>
                             </View>
 
                             <View
-                                className={`rounded-lg border px-3 py-1.5 ${
+                                className={`rounded-xl border px-3 py-1.5 ${
                                     item.isAvailable === false
                                         ? "border-red-200 bg-red-50"
-                                        : "border-emerald-200 bg-emerald-50"
+                                        : "border-[#DBEAFE] bg-[#EFF6FF]"
                                 }`}
                             >
                                 <Text
                                     className={`text-xs font-bold ${
                                         item.isAvailable === false
                                             ? "text-red-600"
-                                            : "text-emerald-600"
+                                            : "text-[#2563EB]"
                                     }`}
                                 >
                                     {item.isAvailable === false ? "Unavailable" : "Available"}
@@ -527,22 +532,22 @@ const MenuItemDetails = () => {
                             </View>
                         </View>
 
-                        <View className="mt-6 border-t border-gray-100 pt-4">
-                            <Text className="text-sm font-bold text-gray-800">
+                        <View className="mt-6 border-t border-[#F1F5F9] pt-4">
+                            <Text className="text-xs font-bold uppercase tracking-wider text-[#64748B]">
                                 Description
                             </Text>
-                            <Text className="mt-2 text-sm leading-6 text-gray-600">
+                            <Text className="mt-2 text-xs leading-5 text-[#0F172A]">
                                 {item.description || "No description provided."}
                             </Text>
                         </View>
                     </View>
                 ) : (
-                    <View className="mt-2 rounded-2xl border border-orange-200 bg-white p-5">
-                        <Text className="mb-4 text-lg font-extrabold text-gray-900">
+                    <View className="mt-2 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                        <Text className="mb-4 text-base font-black text-[#0F172A]">
                             Edit Product Details
                         </Text>
 
-                        <Text className="mb-1 text-xs font-bold text-gray-700">
+                        <Text className="mb-1 text-xs font-bold text-[#0F172A]">
                             Item Name
                         </Text>
                         <TextInput
@@ -550,11 +555,12 @@ const MenuItemDetails = () => {
                             onChangeText={(value) =>
                                 setFormData((prev) => ({ ...prev, name: value }))
                             }
-                            className="mb-4 rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-3 text-sm text-gray-900"
+                            className="mb-4 rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] px-4 py-3.5 text-xs font-bold text-[#0F172A]"
                             placeholder="Enter item name"
+                            placeholderTextColor="#94A3B8"
                         />
 
-                        <Text className="mb-1 text-xs font-bold text-gray-700">
+                        <Text className="mb-1 text-xs font-bold text-[#0F172A]">
                             Price (Rs.)
                         </Text>
                         <TextInput
@@ -563,11 +569,12 @@ const MenuItemDetails = () => {
                                 setFormData((prev) => ({ ...prev, price: value }))
                             }
                             keyboardType="decimal-pad"
-                            className="mb-4 rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-3 text-sm text-gray-900"
+                            className="mb-4 rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] px-4 py-3.5 text-xs font-bold text-[#0F172A]"
                             placeholder="Enter price"
+                            placeholderTextColor="#94A3B8"
                         />
 
-                        <Text className="mb-1 text-xs font-bold text-gray-700">
+                        <Text className="mb-1 text-xs font-bold text-[#0F172A]">
                             Category
                         </Text>
                         <TextInput
@@ -575,11 +582,12 @@ const MenuItemDetails = () => {
                             onChangeText={(value) =>
                                 setFormData((prev) => ({ ...prev, category: value }))
                             }
-                            className="mb-4 rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-3 text-sm text-gray-900"
+                            className="mb-4 rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] px-4 py-3.5 text-xs font-bold text-[#0F172A]"
                             placeholder="Enter category"
+                            placeholderTextColor="#94A3B8"
                         />
 
-                        <Text className="mb-1 text-xs font-bold text-gray-700">
+                        <Text className="mb-1 text-xs font-bold text-[#0F172A]">
                             Availability
                         </Text>
                         <TouchableOpacity
@@ -589,15 +597,16 @@ const MenuItemDetails = () => {
                                     isAvailable: !prev.isAvailable,
                                 }))
                             }
-                            className={`mb-4 flex-row items-center justify-between rounded-xl border p-3 ${
+                            activeOpacity={0.8}
+                            className={`mb-4 flex-row items-center justify-between rounded-2xl border p-3.5 ${
                                 formData.isAvailable
-                                    ? "border-emerald-200 bg-emerald-50"
+                                    ? "border-[#DBEAFE] bg-[#EFF6FF]"
                                     : "border-red-200 bg-red-50"
                             }`}
                         >
                             <Text
                                 className={`text-xs font-bold ${
-                                    formData.isAvailable ? "text-emerald-700" : "text-red-700"
+                                    formData.isAvailable ? "text-[#2563EB]" : "text-red-700"
                                 }`}
                             >
                                 {formData.isAvailable ? "Available to Customers" : "Unavailable"}
@@ -605,11 +614,11 @@ const MenuItemDetails = () => {
                             <Ionicons
                                 name={formData.isAvailable ? "checkmark-circle" : "close-circle"}
                                 size={20}
-                                color={formData.isAvailable ? "#059669" : "#DC2626"}
+                                color={formData.isAvailable ? "#2563EB" : "#DC2626"}
                             />
                         </TouchableOpacity>
 
-                        <Text className="mb-1 text-xs font-bold text-gray-700">
+                        <Text className="mb-1 text-xs font-bold text-[#0F172A]">
                             Description
                         </Text>
                         <TextInput
@@ -620,15 +629,16 @@ const MenuItemDetails = () => {
                             multiline
                             numberOfLines={4}
                             textAlignVertical="top"
-                            className="min-h-[120px] rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-3 text-sm text-gray-900"
+                            className="min-h-[120px] rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] px-4 py-3.5 text-xs font-bold text-[#0F172A]"
                             placeholder="Enter description"
+                            placeholderTextColor="#94A3B8"
                         />
                     </View>
                 )}
             </KeyboardAwareScrollView>
 
             {/* Bottom action buttons */}
-            <View className="flex-row items-center justify-between border-t border-gray-200 bg-white px-5 py-4">
+            <View className="flex-row items-center justify-between border-t border-[#F1F5F9] bg-white px-5 py-4 shadow-lg">
                 {!isEditing ? (
                     <>
                         <TouchableOpacity
@@ -636,17 +646,17 @@ const MenuItemDetails = () => {
                                 setRemoveImage(false);
                                 setIsEditing(true);
                             }}
-                            className="mr-2.5 flex-1 flex-row items-center justify-center rounded-xl bg-orange-500 py-3.5"
+                            className="mr-2.5 flex-1 flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-4 shadow-sm"
                             activeOpacity={0.8}
                         >
                             <Ionicons name="create-outline" size={18} color="#FFFFFF" />
-                            <Text className="ml-2 font-bold text-white">Update Item</Text>
+                            <Text className="ml-2 text-xs font-bold text-white">Update Item</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             onPress={handleDelete}
                             disabled={deleting}
-                            className="ml-2.5 flex-1 flex-row items-center justify-center rounded-xl bg-red-600 py-3.5"
+                            className="ml-2.5 flex-1 flex-row items-center justify-center rounded-2xl bg-red-600 py-4 shadow-sm"
                             activeOpacity={0.8}
                         >
                             {deleting ? (
@@ -654,7 +664,7 @@ const MenuItemDetails = () => {
                             ) : (
                                 <>
                                     <Ionicons name="trash-outline" size={18} color="#FFFFFF" />
-                                    <Text className="ml-2 font-bold text-white">Delete Item</Text>
+                                    <Text className="ml-2 text-xs font-bold text-white">Delete Item</Text>
                                 </>
                             )}
                         </TouchableOpacity>
@@ -664,7 +674,7 @@ const MenuItemDetails = () => {
                         <TouchableOpacity
                             onPress={handleSaveUpdate}
                             disabled={updating}
-                            className="mr-2.5 flex-1 flex-row items-center justify-center rounded-xl bg-emerald-600 py-3.5"
+                            className="mr-2.5 flex-1 flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-4 shadow-sm"
                             activeOpacity={0.8}
                         >
                             {updating ? (
@@ -676,7 +686,7 @@ const MenuItemDetails = () => {
                                         size={18}
                                         color="#FFFFFF"
                                     />
-                                    <Text className="ml-2 font-bold text-white">
+                                    <Text className="ml-2 text-xs font-bold text-white">
                                         Save Changes
                                     </Text>
                                 </>
@@ -686,10 +696,10 @@ const MenuItemDetails = () => {
                         <TouchableOpacity
                             onPress={cancelEditing}
                             disabled={updating}
-                            className="ml-2.5 flex-1 items-center justify-center rounded-xl bg-gray-200 py-3.5"
+                            className="ml-2.5 flex-1 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-white py-4 shadow-sm"
                             activeOpacity={0.8}
                         >
-                            <Text className="font-bold text-gray-700">Cancel</Text>
+                            <Text className="text-xs font-bold text-[#64748B]">Cancel</Text>
                         </TouchableOpacity>
                     </>
                 )}

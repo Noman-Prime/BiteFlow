@@ -177,20 +177,15 @@ const ReservationDetails = () => {
             if (typeof window !== "undefined" && window.confirm(message)) {
                 updateStatus(newStatus);
             }
-
             return;
         }
 
-        // Use a toast for feedback; on native, update directly.
-        // Confirmation can be added through a dedicated modal if required.
         updateStatus(newStatus);
     };
 
     const formatDate = (date) => {
         if (!date) return "Not provided";
-
         const parsedDate = new Date(date);
-
         return Number.isNaN(parsedDate.getTime())
             ? String(date)
             : parsedDate.toLocaleDateString();
@@ -198,11 +193,9 @@ const ReservationDetails = () => {
 
     const getTableName = () => {
         if (!reservation?.table) return "Not assigned";
-
         if (typeof reservation.table === "string") {
             return reservation.table;
         }
-
         return (
             reservation.table.tableNumber ||
             reservation.table.number ||
@@ -213,14 +206,16 @@ const ReservationDetails = () => {
     };
 
     const DetailRow = ({ icon, label, value }) => (
-        <View className="flex-row items-center border-b border-gray-100 py-3">
-            <View className="mr-3 h-11 w-11 items-center justify-center rounded-xl bg-orange-50">
-                <Ionicons name={icon} size={21} color="#EA580C" />
+        <View className="flex-row items-center border-b border-[#F1F5F9] py-3">
+            <View className="mr-3 h-11 w-11 items-center justify-center rounded-2xl bg-[#EFF6FF] border border-[#DBEAFE]">
+                <Ionicons name={icon} size={20} color="#2563EB" />
             </View>
 
             <View className="flex-1">
-                <Text className="mb-1 text-xs text-gray-400">{label}</Text>
-                <Text className="text-sm font-semibold text-gray-800">
+                <Text className="mb-0.5 text-[10px] font-bold text-[#64748B]">
+                    {label}
+                </Text>
+                <Text className="text-xs font-bold text-[#0F172A]">
                     {value === null || value === undefined || value === ""
                         ? "Not provided"
                         : String(value)}
@@ -237,86 +232,61 @@ const ReservationDetails = () => {
 
     const statusClass =
         normalizedStatus === "confirmed"
-            ? "bg-green-100 text-green-700"
+            ? "bg-blue-50 text-blue-600 border border-blue-200"
             : normalizedStatus === "cancelled"
-              ? "bg-red-100 text-red-700"
-              : normalizedStatus === "completed"
-                ? "bg-blue-100 text-blue-700"
-                : "bg-amber-100 text-amber-700";
+            ? "bg-red-50 text-red-600 border border-red-200"
+            : normalizedStatus === "completed"
+            ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
+            : "bg-blue-50 text-blue-600 border border-blue-200";
 
     return (
-        <SafeAreaView className="flex-1 bg-gray-50">
-            <StatusBar style="dark" />
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            <Navbar />
-
-            <View className="flex-row items-center border-b border-gray-200 bg-white px-4 py-4">
-                <TouchableOpacity
-                    className="h-11 w-11 items-center justify-center rounded-xl bg-gray-100"
-                    onPress={() => router.back()}
-                >
-                    <Ionicons name="arrow-back" size={23} color="#1F2937" />
-                </TouchableOpacity>
-
-                <View className="ml-3 flex-1">
-                    <Text className="text-xl font-bold text-gray-900">
-                        Reservation Details
-                    </Text>
-                    <Text className="mt-1 text-xs text-gray-500">
-                        Manage this reservation
-                    </Text>
-                </View>
-
-                <TouchableOpacity
-                    className="h-11 w-11 items-center justify-center rounded-xl bg-gray-100"
-                    onPress={getReservation}
-                    disabled={loading || updating}
-                >
-                    <Ionicons
-                        name="refresh-outline"
-                        size={22}
-                        color="#1F2937"
-                    />
-                </TouchableOpacity>
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
             </View>
 
             {loading ? (
                 <View className="flex-1 items-center justify-center px-6">
-                    <ActivityIndicator size="large" color="#EA580C" />
-                    <Text className="mt-4 text-sm text-gray-500">
+                    <ActivityIndicator size="large" color="#2563EB" />
+                    <Text className="mt-3 text-xs font-bold text-[#64748B]">
                         Loading reservation details...
                     </Text>
                 </View>
             ) : !reservation ? (
                 <View className="flex-1 items-center justify-center px-6">
-                    <Ionicons
-                        name="alert-circle-outline"
-                        size={54}
-                        color="#DC2626"
-                    />
+                    <View className="mb-4 h-20 w-20 items-center justify-center rounded-3xl border border-red-100 bg-red-50">
+                        <Ionicons
+                            name="alert-circle-outline"
+                            size={36}
+                            color="#DC2626"
+                        />
+                    </View>
 
-                    <Text className="mt-4 text-center text-xl font-bold text-gray-900">
+                    <Text className="text-base font-extrabold text-[#0F172A]">
                         Unable to Load Reservation
                     </Text>
 
-                    <Text className="mt-2 text-center text-sm leading-6 text-gray-500">
+                    <Text className="mt-1 text-center text-xs text-[#64748B]">
                         Check the error message and try again.
                     </Text>
 
                     <TouchableOpacity
-                        className="mt-6 rounded-xl bg-orange-600 px-7 py-3"
+                        className="mt-6 rounded-2xl bg-[#2563EB] px-6 py-3.5 shadow-sm"
                         onPress={getReservation}
+                        activeOpacity={0.8}
                     >
-                        <Text className="font-semibold text-white">
+                        <Text className="text-xs font-bold text-white">
                             Try Again
                         </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        className="mt-3 p-3"
+                        className="mt-3 p-2"
                         onPress={() => router.back()}
                     >
-                        <Text className="font-semibold text-gray-700">
+                        <Text className="text-xs font-bold text-[#64748B]">
                             Go Back
                         </Text>
                     </TouchableOpacity>
@@ -325,7 +295,7 @@ const ReservationDetails = () => {
                 <ScrollView
                     className="flex-1"
                     contentContainerStyle={{
-                        padding: 18,
+                        padding: 20,
                         paddingBottom: 40,
                         width: "100%",
                         maxWidth: 850,
@@ -333,30 +303,41 @@ const ReservationDetails = () => {
                     }}
                     showsVerticalScrollIndicator={false}
                 >
-                    <View className="rounded-2xl border border-gray-200 bg-white p-5">
+                    <TouchableOpacity
+                        onPress={() => router.back()}
+                        className="mb-5 flex-row items-center self-start rounded-2xl border border-[#DBEAFE] bg-white px-4 py-2.5 shadow-sm"
+                        activeOpacity={0.7}
+                    >
+                        <Ionicons name="arrow-back" size={18} color="#2563EB" />
+                        <Text className="ml-2 text-xs font-bold text-[#2563EB]">
+                            Back to Reservations
+                        </Text>
+                    </TouchableOpacity>
+
+                    <View className="rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
                         <View className="flex-row items-start justify-between gap-3">
                             <View className="flex-1">
-                                <Text className="text-[11px] font-bold tracking-widest text-gray-400">
+                                <Text className="text-[10px] font-black uppercase tracking-wider text-[#64748B]">
                                     RESERVATION ID
                                 </Text>
 
-                                <Text className="mt-2 text-xs font-semibold text-gray-700">
+                                <Text className="mt-1 text-xs font-bold text-[#0F172A]">
                                     {reservation._id || reservationId}
                                 </Text>
                             </View>
 
                             <View
-                                className={`rounded-full px-3 py-2 ${statusClass.split(" ")[0]}`}
+                                className={`rounded-xl px-3 py-1.5 ${statusClass.split(" ")[0]} ${statusClass.split(" ")[2]}`}
                             >
                                 <Text
-                                    className={`text-xs font-bold ${statusClass.split(" ")[1]}`}
+                                    className={`text-[10px] font-extrabold uppercase ${statusClass.split(" ")[1]}`}
                                 >
                                     {status}
                                 </Text>
                             </View>
                         </View>
 
-                        <View className="my-5 h-px bg-gray-200" />
+                        <View className="my-5 h-px bg-[#F1F5F9]" />
 
                         <DetailRow
                             icon="person-outline"
@@ -415,28 +396,28 @@ const ReservationDetails = () => {
                         />
                     </View>
 
-                    <View className="mt-5 rounded-2xl border border-gray-200 bg-white p-5">
-                        <Text className="text-lg font-bold text-gray-900">
+                    <View className="mt-5 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                        <Text className="text-base font-black text-[#0F172A]">
                             Manage Reservation
                         </Text>
 
-                        <Text className="mb-5 mt-2 text-sm leading-6 text-gray-500">
+                        <Text className="mb-4 mt-1 text-xs text-[#64748B]">
                             Update the status of this reservation using the actions below.
                         </Text>
 
                         {isCancelled || isCompleted ? (
-                            <View className="flex-row items-center rounded-xl bg-gray-50 p-4">
+                            <View className="flex-row items-center rounded-2xl border border-[#DBEAFE] bg-[#EFF6FF] p-4">
                                 <Ionicons
                                     name={
                                         isCancelled
                                             ? "close-circle"
                                             : "checkmark-circle"
                                     }
-                                    size={23}
+                                    size={22}
                                     color={isCancelled ? "#DC2626" : "#16A34A"}
                                 />
 
-                                <Text className="ml-3 flex-1 text-sm font-semibold text-gray-700">
+                                <Text className="ml-3 flex-1 text-xs font-bold text-[#0F172A]">
                                     {isCancelled
                                         ? "This reservation has been cancelled."
                                         : "This reservation is completed."}
@@ -446,13 +427,14 @@ const ReservationDetails = () => {
                             <>
                                 {!isConfirmed && (
                                     <TouchableOpacity
-                                        className={`min-h-12 flex-row items-center justify-center rounded-xl bg-green-600 px-4 py-4 ${
-                                            updating ? "opacity-60" : ""
+                                        className={`flex-row items-center justify-center rounded-2xl bg-[#2563EB] px-4 py-4 shadow-sm ${
+                                            updating ? "opacity-50" : ""
                                         }`}
                                         onPress={() =>
                                             confirmStatusUpdate("Confirmed")
                                         }
                                         disabled={updating}
+                                        activeOpacity={0.8}
                                     >
                                         {updating ? (
                                             <ActivityIndicator color="#FFFFFF" />
@@ -460,10 +442,10 @@ const ReservationDetails = () => {
                                             <>
                                                 <Ionicons
                                                     name="checkmark-circle-outline"
-                                                    size={21}
+                                                    size={18}
                                                     color="#FFFFFF"
                                                 />
-                                                <Text className="ml-2 font-bold text-white">
+                                                <Text className="ml-2 text-xs font-bold text-white">
                                                     Confirm Reservation
                                                 </Text>
                                             </>
@@ -472,20 +454,21 @@ const ReservationDetails = () => {
                                 )}
 
                                 <TouchableOpacity
-                                    className={`mt-3 min-h-12 flex-row items-center justify-center rounded-xl border border-red-200 bg-red-50 px-4 py-4 ${
-                                        updating ? "opacity-60" : ""
+                                    className={`mt-3 flex-row items-center justify-center rounded-2xl border border-red-200 bg-red-50 px-4 py-4 ${
+                                        updating ? "opacity-50" : ""
                                     }`}
                                     onPress={() =>
                                         confirmStatusUpdate("Cancelled")
                                     }
                                     disabled={updating}
+                                    activeOpacity={0.8}
                                 >
                                     <Ionicons
                                         name="close-circle-outline"
-                                        size={21}
+                                        size={18}
                                         color="#DC2626"
                                     />
-                                    <Text className="ml-2 font-bold text-red-600">
+                                    <Text className="ml-2 text-xs font-bold text-red-600">
                                         Cancel Reservation
                                     </Text>
                                 </TouchableOpacity>

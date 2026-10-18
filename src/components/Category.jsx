@@ -82,7 +82,7 @@ const Category = ({ selectedCategory, onSelectCategory }) => {
     if (loading) {
         return (
             <View className="my-2 items-center justify-center py-2">
-                <ActivityIndicator size="small" color="#10B981" />
+                <ActivityIndicator size="small" color="#2563EB" />
             </View>
         );
     }
@@ -113,13 +113,13 @@ const Category = ({ selectedCategory, onSelectCategory }) => {
                             }}
                             className={`mr-2.5 rounded-full px-5 py-2.5 border ${
                                 isSelected
-                                    ? "bg-emerald-600 border-emerald-600"
-                                    : "bg-white border-gray-200"
+                                    ? "bg-blue-600 border-blue-600 shadow-sm"
+                                    : "bg-slate-800 border-slate-700"
                             }`}
                         >
                             <Text
                                 className={`text-xs font-bold ${
-                                    isSelected ? "text-white" : "text-gray-700"
+                                    isSelected ? "text-white" : "text-slate-300"
                                 }`}
                             >
                                 {cat}

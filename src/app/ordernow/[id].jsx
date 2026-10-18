@@ -1,8 +1,8 @@
-
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
     ActivityIndicator,
@@ -137,20 +137,23 @@ const OrderNow = () => {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-white" edges={["top", "left", "right"]}>
-            <View className="flex-row items-center border-b border-gray-100 px-5 py-4">
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
+            <StatusBar style="dark" backgroundColor="#FFFFFF" />
+
+            <View className="flex-row items-center border-b border-[#F1F5F9] bg-white px-5 py-3">
                 <TouchableOpacity
                     onPress={() => router.back()}
-                    className="mr-3 h-10 w-10 items-center justify-center rounded-xl bg-gray-100"
+                    className="mr-3 h-10 w-10 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-white shadow-sm"
+                    activeOpacity={0.7}
                 >
-                    <Ionicons name="arrow-back" size={20} color="#111827" />
+                    <Ionicons name="arrow-back" size={18} color="#2563EB" />
                 </TouchableOpacity>
 
                 <View>
-                    <Text className="text-base font-extrabold text-black">
+                    <Text className="text-sm font-black text-[#0F172A]">
                         Order Now
                     </Text>
-                    <Text className="mt-0.5 text-xs text-gray-500">
+                    <Text className="mt-0.5 text-[10px] font-medium text-[#64748B]">
                         Customize your order
                     </Text>
                 </View>
@@ -161,45 +164,45 @@ const OrderNow = () => {
                 contentContainerStyle={{ padding: 20, paddingBottom: 32 }}
                 showsVerticalScrollIndicator={false}
             >
-                <View className="overflow-hidden rounded-3xl border border-gray-100 bg-white">
+                <View className="overflow-hidden rounded-3xl border border-[#DBEAFE] bg-white shadow-sm">
                     {productImage ? (
                         <Image
                             source={{ uri: productImage }}
-                            className="h-56 w-full"
+                            className="h-52 w-full"
                             resizeMode="cover"
                         />
                     ) : (
-                        <View className="h-56 items-center justify-center bg-orange-50">
+                        <View className="h-52 items-center justify-center bg-[#EFF6FF] border-b border-[#DBEAFE]">
                             <Ionicons
                                 name="fast-food-outline"
-                                size={64}
-                                color="#F97316"
+                                size={56}
+                                color="#2563EB"
                             />
                         </View>
                     )}
 
                     <View className="p-5">
-                        <Text className="text-xl font-extrabold text-black">
+                        <Text className="text-base font-black text-[#0F172A]">
                             {productName || "Selected Product"}
                         </Text>
 
-                        <Text className="mt-2 text-lg font-extrabold text-orange-600">
+                        <Text className="mt-1 text-sm font-black text-[#2563EB]">
                             Rs. {productPrice.toLocaleString("en-PK")}
                         </Text>
 
-                        <Text className="mt-1 text-xs text-gray-500">
+                        <Text className="mt-0.5 text-[10px] font-medium text-[#64748B]">
                             Price per item
                         </Text>
                     </View>
                 </View>
 
-                <View className="mt-6 rounded-3xl border border-gray-100 p-5">
-                    <Text className="text-sm font-extrabold text-black">
+                <View className="mt-5 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                    <Text className="text-xs font-black text-[#0F172A]">
                         Select Quantity
                     </Text>
 
                     <View className="mt-4 flex-row items-center justify-between">
-                        <Text className="text-sm text-gray-600">
+                        <Text className="text-xs font-medium text-[#64748B]">
                             Number of items
                         </Text>
 
@@ -211,20 +214,21 @@ const OrderNow = () => {
                                     )
                                 }
                                 disabled={quantity <= 1}
-                                className={`h-10 w-10 items-center justify-center rounded-xl ${
+                                className={`h-10 w-10 items-center justify-center rounded-2xl border ${
                                     quantity <= 1
-                                        ? "bg-gray-100"
-                                        : "bg-orange-50"
+                                        ? "border-[#F1F5F9] bg-[#F8FAFC]"
+                                        : "border-[#DBEAFE] bg-[#EFF6FF]"
                                 }`}
+                                activeOpacity={0.7}
                             >
                                 <Ionicons
                                     name="remove"
-                                    size={20}
-                                    color={quantity <= 1 ? "#9CA3AF" : "#F97316"}
+                                    size={18}
+                                    color={quantity <= 1 ? "#94A3B8" : "#2563EB"}
                                 />
                             </TouchableOpacity>
 
-                            <Text className="mx-6 text-base font-extrabold text-black">
+                            <Text className="mx-5 text-sm font-black text-[#0F172A]">
                                 {quantity}
                             </Text>
 
@@ -232,11 +236,12 @@ const OrderNow = () => {
                                 onPress={() =>
                                     setQuantity((current) => current + 1)
                                 }
-                                className="h-10 w-10 items-center justify-center rounded-xl bg-orange-500"
+                                className="h-10 w-10 items-center justify-center rounded-2xl bg-[#2563EB] shadow-sm"
+                                activeOpacity={0.8}
                             >
                                 <Ionicons
                                     name="add"
-                                    size={20}
+                                    size={18}
                                     color="#FFFFFF"
                                 />
                             </TouchableOpacity>
@@ -245,7 +250,7 @@ const OrderNow = () => {
                 </View>
 
                 <View className="mt-5">
-                    <Text className="mb-2 text-sm font-bold text-black">
+                    <Text className="mb-2 text-xs font-black text-[#0F172A]">
                         Delivery Address
                     </Text>
 
@@ -253,14 +258,15 @@ const OrderNow = () => {
                         value={deliveryAddress}
                         onChangeText={setDeliveryAddress}
                         placeholder="Enter your complete delivery address"
+                        placeholderTextColor="#94A3B8"
                         multiline
                         textAlignVertical="top"
-                        className="min-h-24 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-black"
+                        className="min-h-24 rounded-2xl border border-[#DBEAFE] bg-white px-4 py-3 text-xs font-bold text-[#0F172A] shadow-sm"
                     />
                 </View>
 
                 <View className="mt-5">
-                    <Text className="mb-3 text-sm font-bold text-black">
+                    <Text className="mb-3 text-xs font-black text-[#0F172A]">
                         Payment Method
                     </Text>
 
@@ -268,11 +274,12 @@ const OrderNow = () => {
                         <TouchableOpacity
                             key={method}
                             onPress={() => setPaymentMethod(method)}
-                            className={`mb-3 flex-row items-center rounded-2xl border p-4 ${
+                            className={`mb-3 flex-row items-center rounded-2xl border p-4 shadow-sm ${
                                 paymentMethod === method
-                                    ? "border-orange-400 bg-orange-50"
-                                    : "border-gray-200 bg-white"
+                                    ? "border-[#2563EB] bg-[#EFF6FF]"
+                                    : "border-[#DBEAFE] bg-white"
                             }`}
+                            activeOpacity={0.8}
                         >
                             <Ionicons
                                 name={
@@ -280,15 +287,15 @@ const OrderNow = () => {
                                         ? "cash-outline"
                                         : "card-outline"
                                 }
-                                size={22}
+                                size={20}
                                 color={
                                     paymentMethod === method
-                                        ? "#F97316"
-                                        : "#6B7280"
+                                        ? "#2563EB"
+                                        : "#64748B"
                                 }
                             />
 
-                            <Text className="ml-3 flex-1 text-sm font-semibold text-gray-800">
+                            <Text className="ml-3 flex-1 text-xs font-bold text-[#0F172A]">
                                 {method}
                             </Text>
 
@@ -298,39 +305,39 @@ const OrderNow = () => {
                                         ? "radio-button-on"
                                         : "radio-button-off"
                                 }
-                                size={20}
+                                size={18}
                                 color={
                                     paymentMethod === method
-                                        ? "#F97316"
-                                        : "#9CA3AF"
+                                        ? "#2563EB"
+                                        : "#94A3B8"
                                 }
                             />
                         </TouchableOpacity>
                     ))}
                 </View>
 
-                <View className="mt-2 rounded-3xl bg-gray-50 p-5">
-                    <Text className="text-sm font-extrabold text-black">
+                <View className="mt-3 rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                    <Text className="text-xs font-black text-[#0F172A]">
                         Order Summary
                     </Text>
 
-                    <View className="mt-4 flex-row justify-between">
-                        <Text className="text-sm text-gray-500">
+                    <View className="mt-3 flex-row justify-between">
+                        <Text className="text-xs text-[#64748B]">
                             {productName || "Product"} × {quantity}
                         </Text>
 
-                        <Text className="text-sm font-semibold text-gray-800">
+                        <Text className="text-xs font-bold text-[#0F172A]">
                             Rs. {totalAmount.toLocaleString("en-PK")}
                         </Text>
                     </View>
 
-                    <View className="mt-4 border-t border-gray-200 pt-4">
+                    <View className="mt-3 border-t border-[#F1F5F9] pt-3">
                         <View className="flex-row items-center justify-between">
-                            <Text className="text-sm font-bold text-black">
+                            <Text className="text-xs font-black text-[#0F172A]">
                                 Total
                             </Text>
 
-                            <Text className="text-xl font-extrabold text-orange-600">
+                            <Text className="text-base font-black text-[#2563EB]">
                                 Rs. {totalAmount.toLocaleString("en-PK")}
                             </Text>
                         </View>
@@ -341,20 +348,18 @@ const OrderNow = () => {
                     onPress={placeOrder}
                     disabled={loading}
                     activeOpacity={0.8}
-                    className={`mt-6 flex-row items-center justify-center rounded-2xl py-4 ${
-                        loading ? "bg-orange-300" : "bg-orange-500"
-                    }`}
+                    className="mt-6 flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-4 shadow-sm"
                 >
                     {loading ? (
-                        <ActivityIndicator color="#FFFFFF" />
+                        <ActivityIndicator color="#FFFFFF" size="small" />
                     ) : (
                         <>
                             <Ionicons
                                 name="checkmark-circle-outline"
-                                size={20}
+                                size={18}
                                 color="#FFFFFF"
                             />
-                            <Text className="ml-2 text-sm font-extrabold text-white">
+                            <Text className="ml-2 text-xs font-bold text-white">
                                 Place Order · Rs. {totalAmount.toLocaleString("en-PK")}
                             </Text>
                         </>

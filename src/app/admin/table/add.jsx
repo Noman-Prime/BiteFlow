@@ -93,14 +93,12 @@ const AddTable = () => {
             if (response.status >= 200 && response.status < 300) {
                 showToast("success", "Table created successfully!");
 
-                // Clear input data
                 setFormData({
                     tableNumber: "",
                     seats: "",
                     isAvailable: true,
                 });
 
-                // Go back to index.jsx (which triggers useFocusEffect to recall the API automatically)
                 setTimeout(() => {
                     router.back();
                 }, 800);
@@ -119,13 +117,13 @@ const AddTable = () => {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-white" edges={["top", "left", "right"]}>
+        <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
             <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            {/* Navbar Header */}
-            <Navbar />
+            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9]">
+                <Navbar />
+            </View>
 
-            {/* Toast Component positioned right below the navbar area */}
             <Toast
                 visible={toast.visible}
                 type={toast.type}
@@ -134,33 +132,34 @@ const AddTable = () => {
             />
 
             <KeyboardAwareScrollView
-                className="flex-1 bg-white"
+                className="flex-1 bg-[#F8FAFC]"
                 contentContainerStyle={{ padding: 20, paddingBottom: 100 }}
                 enableOnAndroid
                 showsVerticalScrollIndicator={false}
             >
                 <TouchableOpacity
                     onPress={() => router.back()}
-                    className="mb-5 flex-row items-center self-start rounded-xl border border-gray-100 bg-white px-4 py-2.5 shadow-sm"
+                    className="mb-5 flex-row items-center self-start rounded-2xl border border-[#DBEAFE] bg-white px-4 py-2.5 shadow-sm"
+                    activeOpacity={0.7}
                 >
-                    <Ionicons name="arrow-back" size={18} color="#111827" />
-                    <Text className="ml-2 text-xs font-bold text-gray-900">
+                    <Ionicons name="arrow-back" size={18} color="#2563EB" />
+                    <Text className="ml-2 text-xs font-bold text-[#2563EB]">
                         Back to Tables
                     </Text>
                 </TouchableOpacity>
 
-                <View className="mb-6">
-                    <Text className="text-2xl font-extrabold text-gray-900">
-                        Create New <Text className="text-orange-500">Table</Text>
+                <View className="mb-5">
+                    <Text className="text-xl font-black text-[#0F172A]">
+                        Create New Table
                     </Text>
-                    <Text className="mt-1 text-xs text-gray-500">
+                    <Text className="mt-0.5 text-xs text-[#64748B]">
                         Add seating arrangements for your restaurant layout.
                     </Text>
                 </View>
 
                 {/* Form Fields Container */}
-                <View className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-                    <Text className="mb-1 text-xs font-bold text-gray-700">
+                <View className="rounded-3xl border border-[#DBEAFE] bg-white p-5 shadow-sm">
+                    <Text className="mb-1 text-[10px] font-bold text-[#64748B]">
                         Table Number
                     </Text>
                     <TextInput
@@ -169,12 +168,12 @@ const AddTable = () => {
                             setFormData((prev) => ({ ...prev, tableNumber: val }))
                         }
                         keyboardType="number-pad"
-                        className="mb-4 rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-3 text-sm text-gray-900"
+                        className="mb-4 rounded-2xl border border-[#DBEAFE] bg-[#F8FAFC] px-3.5 py-3 text-xs font-bold text-[#0F172A]"
                         placeholder="e.g. 1, 2, 3"
-                        placeholderTextColor="#9CA3AF"
+                        placeholderTextColor="#94A3B8"
                     />
 
-                    <Text className="mb-1 text-xs font-bold text-gray-700">
+                    <Text className="mb-1 text-[10px] font-bold text-[#64748B]">
                         Seat Capacity
                     </Text>
                     <TextInput
@@ -183,12 +182,12 @@ const AddTable = () => {
                             setFormData((prev) => ({ ...prev, seats: val }))
                         }
                         keyboardType="number-pad"
-                        className="mb-4 rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-3 text-sm text-gray-900"
+                        className="mb-4 rounded-2xl border border-[#DBEAFE] bg-[#F8FAFC] px-3.5 py-3 text-xs font-bold text-[#0F172A]"
                         placeholder="e.g. 4 persons"
-                        placeholderTextColor="#9CA3AF"
+                        placeholderTextColor="#94A3B8"
                     />
 
-                    <Text className="mb-1 text-xs font-bold text-gray-700">
+                    <Text className="mb-1 text-[10px] font-bold text-[#64748B]">
                         Initial Status
                     </Text>
                     <TouchableOpacity
@@ -198,14 +197,15 @@ const AddTable = () => {
                                 isAvailable: !prev.isAvailable,
                             }))
                         }
-                        className={`mb-2 flex-row items-center justify-between rounded-xl border p-3 ${
+                        className={`flex-row items-center justify-between rounded-2xl border p-3.5 ${
                             formData.isAvailable
                                 ? "border-emerald-200 bg-emerald-50"
                                 : "border-red-200 bg-red-50"
                         }`}
+                        activeOpacity={0.8}
                     >
                         <Text
-                            className={`text-xs font-bold ${
+                            className={`text-xs font-bold uppercase ${
                                 formData.isAvailable ? "text-emerald-700" : "text-red-700"
                             }`}
                         >
@@ -223,7 +223,7 @@ const AddTable = () => {
                 <TouchableOpacity
                     onPress={handleCreateTable}
                     disabled={loading}
-                    className="mt-6 flex-row items-center justify-center rounded-xl bg-orange-500 py-4 shadow-md active:bg-orange-600"
+                    className="mt-5 flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-4 shadow-sm"
                     activeOpacity={0.8}
                 >
                     {loading ? (
@@ -231,7 +231,7 @@ const AddTable = () => {
                     ) : (
                         <>
                             <Ionicons name="add-circle-outline" size={18} color="#FFFFFF" />
-                            <Text className="ml-2 font-bold text-white">Save Table</Text>
+                            <Text className="ml-2 text-xs font-bold text-white">Save Table</Text>
                         </>
                     )}
                 </TouchableOpacity>

@@ -1,4 +1,3 @@
-
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -159,9 +158,7 @@ const Signin = () => {
         >
             <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            <View className="h-px w-full bg-white" />
-
-            <View className="flex-1 bg-[#111827]">
+            <View className="flex-1 bg-[#F8FAFC]">
                 <KeyboardAwareScrollView
                     className="flex-1"
                     contentContainerStyle={{ flexGrow: 1 }}
@@ -174,12 +171,13 @@ const Signin = () => {
                     showsVerticalScrollIndicator={false}
                 >
                     <View
-                        className="w-full flex-1 justify-center self-center px-6 py-6"
+                        className="w-full flex-1 justify-center self-center px-6 py-8"
                         style={{ maxWidth: 520 }}
                     >
+                        {/* Header & Logo */}
                         <View className="mb-8 items-center">
-                            <View className="mb-5 flex-row items-center justify-center gap-3">
-                                <View className="h-14 w-36 items-center justify-center rounded-lg bg-white px-2 py-1 shadow-sm">
+                            <View className="mb-5 flex-row items-center justify-center">
+                                <View className="h-16 w-40 items-center justify-center rounded-2xl bg-[#EFF6FF] px-3 py-2 border border-[#DBEAFE]">
                                     <Image
                                         source={logo}
                                         resizeMode="contain"
@@ -188,135 +186,142 @@ const Signin = () => {
                                 </View>
                             </View>
 
-                            <Text className="text-3xl font-extrabold text-white">
+                            <Text className="text-3xl font-extrabold text-[#0F172A]">
                                 Welcome{" "}
-                                <Text className="text-orange-500">
+                                <Text className="text-[#2563EB]">
                                     back!
                                 </Text>
                             </Text>
 
-                            <Text className="mt-2 text-center font-extrabold leading-6 text-orange-500">
-                                Good Bite Make Good Mode.
+                            <Text className="mt-2 text-center font-semibold text-sm leading-6 text-[#64748B]">
+                                Good Bite Makes Good Mood.
                             </Text>
                         </View>
 
-                        <View className="mb-5">
-                            <Text className="mb-2 text-sm font-semibold text-gray-300">
-                                Email address
-                            </Text>
-
-                            <TextInput
-                                className="h-14 rounded-2xl border border-gray-700 bg-gray-800 px-4 text-base text-white"
-                                placeholder="you@example.com"
-                                placeholderTextColor="#9CA3AF"
-                                keyboardType="email-address"
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                autoComplete="email"
-                                textContentType="emailAddress"
-                                returnKeyType="next"
-                                value={formData.email}
-                                onChangeText={(value) =>
-                                    handleChange("email", value)
-                                }
-                                onSubmitEditing={() =>
-                                    passwordInput.current?.focus()
-                                }
-                                blurOnSubmit={false}
-                            />
-                        </View>
-
-                        <View className="mb-6">
-                            <Text className="mb-2 text-sm font-semibold text-gray-300">
-                                Password
-                            </Text>
-
-                            <View className="h-14 flex-row items-center rounded-2xl border border-gray-700 bg-gray-800 pr-4">
-                                <TextInput
-                                    ref={passwordInput}
-                                    className="h-full flex-1 px-4 text-base text-white"
-                                    placeholder="Enter your password"
-                                    placeholderTextColor="#9CA3AF"
-                                    secureTextEntry={!showPassword}
-                                    autoCapitalize="none"
-                                    autoComplete="current-password"
-                                    textContentType="password"
-                                    returnKeyType="go"
-                                    value={formData.password}
-                                    onChangeText={(value) =>
-                                        handleChange("password", value)
-                                    }
-                                    onSubmitEditing={handleSignin}
-                                />
-
-                                <TouchableOpacity
-                                    onPress={() =>
-                                        setShowPassword((prev) => !prev)
-                                    }
-                                    activeOpacity={0.7}
-                                    accessibilityRole="button"
-                                    accessibilityLabel={
-                                        showPassword
-                                            ? "Hide password"
-                                            : "Show password"
-                                    }
-                                    hitSlop={{
-                                        top: 10,
-                                        bottom: 10,
-                                        left: 10,
-                                        right: 10,
-                                    }}
-                                >
-                                    <Ionicons
-                                        name={
-                                            showPassword
-                                                ? "eye-off-outline"
-                                                : "eye-outline"
-                                        }
-                                        size={22}
-                                        color="#9CA3AF"
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-
-                        <TouchableOpacity
-                            className={`h-14 items-center justify-center rounded-2xl bg-orange-500 ${
-                                loading ? "opacity-70" : ""
-                            }`}
-                            onPress={handleSignin}
-                            disabled={loading}
-                            activeOpacity={0.8}
-                        >
-                            {loading ? (
-                                <ActivityIndicator color="#FFFFFF" />
-                            ) : (
-                                <Text className="text-base font-bold text-white">
-                                    Sign In
+                        {/* Signin Form Card */}
+                        <View className="rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm">
+                            {/* Email Input */}
+                            <View className="mb-5">
+                                <Text className="mb-2 text-xs font-bold uppercase tracking-wider text-[#64748B]">
+                                    Email address
                                 </Text>
-                            )}
-                        </TouchableOpacity>
 
-                        <View className="mt-7 flex-row flex-wrap justify-center">
-                            <Text className="text-sm text-gray-400">
-                                Don't have an account?{" "}
-                            </Text>
+                                <TextInput
+                                    className="h-14 rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] px-4 text-base text-[#0F172A]"
+                                    placeholder="you@example.com"
+                                    placeholderTextColor="#94A3B8"
+                                    keyboardType="email-address"
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    autoComplete="email"
+                                    textContentType="emailAddress"
+                                    returnKeyType="next"
+                                    value={formData.email}
+                                    onChangeText={(value) =>
+                                        handleChange("email", value)
+                                    }
+                                    onSubmitEditing={() =>
+                                        passwordInput.current?.focus()
+                                    }
+                                    blurOnSubmit={false}
+                                />
+                            </View>
 
-                            <Link
-                                href={{
-                                    pathname: "/signup",
-                                    params: params.redirect
-                                        ? { redirect: params.redirect }
-                                        : {},
-                                }}
-                                asChild
+                            {/* Password Input */}
+                            <View className="mb-6">
+                                <Text className="mb-2 text-xs font-bold uppercase tracking-wider text-[#64748B]">
+                                    Password
+                                </Text>
+
+                                <View className="h-14 flex-row items-center rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] pr-4">
+                                    <TextInput
+                                        ref={passwordInput}
+                                        className="h-full flex-1 px-4 text-base text-[#0F172A]"
+                                        placeholder="Enter your password"
+                                        placeholderTextColor="#94A3B8"
+                                        secureTextEntry={!showPassword}
+                                        autoCapitalize="none"
+                                        autoComplete="current-password"
+                                        textContentType="password"
+                                        returnKeyType="go"
+                                        value={formData.password}
+                                        onChangeText={(value) =>
+                                            handleChange("password", value)
+                                        }
+                                        onSubmitEditing={handleSignin}
+                                    />
+
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            setShowPassword((prev) => !prev)
+                                        }
+                                        activeOpacity={0.7}
+                                        accessibilityRole="button"
+                                        accessibilityLabel={
+                                            showPassword
+                                                ? "Hide password"
+                                                : "Show password"
+                                        }
+                                        hitSlop={{
+                                            top: 10,
+                                            bottom: 10,
+                                            left: 10,
+                                            right: 10,
+                                        }}
+                                    >
+                                        <Ionicons
+                                            name={
+                                                showPassword
+                                                    ? "eye-off-outline"
+                                                    : "eye-outline"
+                                            }
+                                            size={22}
+                                            color="#64748B"
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+
+                            {/* Submit Button */}
+                            <TouchableOpacity
+                                className={`h-14 items-center justify-center rounded-2xl bg-[#2563EB] ${
+                                    loading ? "opacity-70" : ""
+                                }`}
+                                onPress={handleSignin}
+                                disabled={loading}
+                                activeOpacity={0.8}
                             >
-                                <TouchableOpacity>
-                                    <Text className="text-sm font-bold text-orange-500">
-                                        Sign Up
+                                {loading ? (
+                                    <ActivityIndicator color="#FFFFFF" />
+                                ) : (
+                                    <Text className="text-base font-bold text-white">
+                                        Sign In
                                     </Text>
-                                </TouchableOpacity>
-                            </Link>
+                                )}
+                            </TouchableOpacity>
+
+                            {/* Navigation Link */}
+                            <View className="mt-6 flex-row flex-wrap justify-center">
+                                <Text className="text-sm text-[#64748B]">
+                                    Don't have an account?{" "}
+                                </Text>
+
+                                <Link
+                                    href={{
+                                        pathname: "/signup",
+                                        params: params.redirect
+                                            ? { redirect: params.redirect }
+                                            : {},
+                                    }}
+                                    asChild
+                                >
+                                    <TouchableOpacity>
+                                        <Text className="text-sm font-bold text-[#2563EB]">
+                                            Sign Up
+                                        </Text>
+                                    </TouchableOpacity>
+                                </Link>
+                            </View>
                         </View>
                     </View>
                 </KeyboardAwareScrollView>
