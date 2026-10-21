@@ -15,8 +15,8 @@ const Index = () => {
         <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top", "bottom"]}>
             <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
-            {/* Navbar wrapper with proper clearance below status bar */}
-            <View className="bg-white pb-2 pt-1 border-b border-[#F1F5F9] z-50">
+            {/* Navbar wrapper directly flush with status bar and top elements */}
+            <View className="bg-white z-50">
                 <Navbar />
             </View>
 
@@ -29,7 +29,7 @@ const Index = () => {
             >
                 <SearchAndDelivery onSearch={setSearchQuery} />
 
-                <View className="mt-2 bg-white">
+                <View className="bg-white">
                     <HeroSlider />
                 </View>
 

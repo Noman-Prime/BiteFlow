@@ -15,8 +15,9 @@ import {
     View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "../../components/Toast";
 
-const ORDER_URL = "https://mad-zwov.onrender.com/api/v1/order";
+const ORDER_URL = process.env.EXPO_PUBLIC_GET_ORDER_BY_ID_URL;
 
 const OrderNow = () => {
     const router = useRouter();
@@ -32,16 +33,34 @@ const OrderNow = () => {
     const [paymentMethod, setPaymentMethod] = useState("Cash On Delivery");
     const [loading, setLoading] = useState(false);
 
+    const [toast, setToast] = useState({
+        visible: false,
+        message: "",
+        type: "success",
+    });
+
     const totalAmount = productPrice * quantity;
+
+    const showToast = (message, type = "success") => {
+        setToast({ visible: true, message, type });
+    };
+
+    const handleGoBack = () => {
+        if (router.canGoBack()) {
+            router.back();
+        } else {
+            router.replace("/(tabs)");
+        }
+    };
 
     const placeOrder = async () => {
         if (!productId) {
-            Alert.alert("Error", "Product information is missing.");
+            showToast("Product information is missing.", "error");
             return;
         }
 
         if (!deliveryAddress.trim()) {
-            Alert.alert("Required", "Please enter your delivery address.");
+            showToast("Please enter your delivery address.", "error");
             return;
         }
 
@@ -92,25 +111,20 @@ const OrderNow = () => {
                 );
             }
 
-            Alert.alert(
-                "Order Placed!",
-                `Your order for ${quantity} × ${productName} has been placed successfully.`,
-                [
-                    {
-                        text: "View Orders",
-                        onPress: () => router.replace("/(tabs)/orders"),
-                    },
-                ]
-            );
-        } catch (err) {
-            console.log(
+            showToast("Order placed successfully!", "success");
+
+            setTimeout(() => {
+                router.replace("/(tabs)/orders");
+            }, 1200);
+        } catch (error) {
+            console.error(
                 "Place order error:",
-                err.response?.data || err.message
+                error.response?.data || error.message
             );
 
             if (
-                err.response?.status === 401 ||
-                err.response?.status === 403
+                error.response?.status === 401 ||
+                error.response?.status === 403
             ) {
                 Alert.alert(
                     "Sign In Required",
@@ -124,11 +138,11 @@ const OrderNow = () => {
                     ]
                 );
             } else {
-                Alert.alert(
-                    "Order Failed",
-                    err.response?.data?.message ||
-                        err.message ||
-                        "Something went wrong. Please try again."
+                showToast(
+                    error.response?.data?.message ||
+                        error.message ||
+                        "Something went wrong. Please try again.",
+                    "error"
                 );
             }
         } finally {
@@ -140,9 +154,21 @@ const OrderNow = () => {
         <SafeAreaView className="flex-1 bg-[#F8FAFC]" edges={["top"]}>
             <StatusBar style="dark" backgroundColor="#FFFFFF" />
 
+            <Toast
+                visible={toast.visible}
+                type={toast.type}
+                message={toast.message}
+                onHide={() =>
+                    setToast((current) => ({
+                        ...current,
+                        visible: false,
+                    }))
+                }
+            />
+
             <View className="flex-row items-center border-b border-[#F1F5F9] bg-white px-5 py-3">
                 <TouchableOpacity
-                    onPress={() => router.back()}
+                    onPress={handleGoBack}
                     className="mr-3 h-10 w-10 items-center justify-center rounded-2xl border border-[#DBEAFE] bg-white shadow-sm"
                     activeOpacity={0.7}
                 >
@@ -161,7 +187,10 @@ const OrderNow = () => {
 
             <ScrollView
                 className="flex-1"
-                contentContainerStyle={{ padding: 20, paddingBottom: 32 }}
+                contentContainerStyle={{
+                    padding: 20,
+                    paddingBottom: 32,
+                }}
                 showsVerticalScrollIndicator={false}
             >
                 <View className="overflow-hidden rounded-3xl border border-[#DBEAFE] bg-white shadow-sm">
@@ -172,7 +201,7 @@ const OrderNow = () => {
                             resizeMode="cover"
                         />
                     ) : (
-                        <View className="h-52 items-center justify-center bg-[#EFF6FF] border-b border-[#DBEAFE]">
+                        <View className="h-52 items-center justify-center border-b border-[#DBEAFE] bg-[#EFF6FF]">
                             <Ionicons
                                 name="fast-food-outline"
                                 size={56}
@@ -348,7 +377,9 @@ const OrderNow = () => {
                     onPress={placeOrder}
                     disabled={loading}
                     activeOpacity={0.8}
-                    className="mt-6 flex-row items-center justify-center rounded-2xl bg-[#2563EB] py-4 shadow-sm"
+                    className={`mt-6 flex-row items-center justify-center rounded-2xl py-4 shadow-sm ${
+                        loading ? "bg-[#94A3B8]" : "bg-[#2563EB]"
+                    }`}
                 >
                     {loading ? (
                         <ActivityIndicator color="#FFFFFF" size="small" />
@@ -360,7 +391,8 @@ const OrderNow = () => {
                                 color="#FFFFFF"
                             />
                             <Text className="ml-2 text-xs font-bold text-white">
-                                Place Order · Rs. {totalAmount.toLocaleString("en-PK")}
+                                Place Order · Rs.{" "}
+                                {totalAmount.toLocaleString("en-PK")}
                             </Text>
                         </>
                     )}

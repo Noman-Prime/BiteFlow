@@ -1,0 +1,47 @@
+{
+  "cli": {
+    "version": ">= 7.0.0"
+  },
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_SIGNUP_URL": "https://mad-zwov.onrender.com/api/v1/user/signUp",
+        "EXPO_PUBLIC_SIGNIN_URL": "https://mad-zwov.onrender.com/api/v1/user/signIn",
+        "EXPO_PUBLIC_LOGOUT_URL": "https://mad-zwov.onrender.com/api/v1/user/logOut",
+        "EXPO_PUBLIC_NEW_MENU_URL": "https://mad-zwov.onrender.com/api/v1/new/menu",
+        "EXPO_PUBLIC_MENU_URL": "https://mad-zwov.onrender.com/api/v1/menu",
+        "EXPO_PUBLIC_UPDATE_MENU_URL": "https://mad-zwov.onrender.com/api/v1/update/menu",
+        "EXPO_PUBLIC_DELETE_MENU_URL": "https://mad-zwov.onrender.com/api/v1/delete/menu/",
+        "EXPO_PUBLIC_TABLE_URL": "https://mad-zwov.onrender.com/api/v1/tables",
+        "EXPO_PUBLIC_TABLE_CREATE_URL": "https://mad-zwov.onrender.com/api/v1/insert/table",
+        "EXPO_PUBLIC_TABLE_VIEW_URL": "https://mad-zwov.onrender.com/api/v1/table/",
+        "EXPO_PUBLIC_TABLE_UPDATE_URL": "https://mad-zwov.onrender.com/api/v1/update/table",
+        "EXPO_PUBLIC_TABLE_DELETE_URL": "https://mad-zwov.onrender.com/api/v1/delete/table",
+        "EXPO_PUBLIC_GET_RESERVATIONS_URL": "https://mad-zwov.onrender.com/api/v1/reservations",
+        "EXPO_PUBLIC_UPDATE_RESERVATION_STATUS_URL": "https://mad-zwov.onrender.com/api/v1/reservation/status",
+        "EXPO_PUBLIC_GET_RESERVATION_BY_ID_URL": "https://mad-zwov.onrender.com/api/v1/reservation",
+        "EXPO_PUBLIC_GET_ALL_ORDERS_URL": "https://mad-zwov.onrender.com/api/v1/all/orders",
+        "EXPO_PUBLIC_GET_ORDER_BY_ID_URL": "https://mad-zwov.onrender.com/api/v1/order",
+        "EXPO_PUBLIC_UPDATE_ORDER_STATUS_URL": "https://mad-zwov.onrender.com/api/v1/order/status",
+        "EXPO_PUBLIC_GET_ALL_USERS_URL": "https://mad-zwov.onrender.com/api/v1/all/users",
+        "EXPO_PUBLIC_GET_USER_BY_ID_URL": "https://mad-zwov.onrender.com/api/v1/get/user",
+        "EXPO_PUBLIC_MY_PROFILE_URL": "https://mad-zwov.onrender.com/api/v1/me",
+        "EXPO_PUBLIC_API_MY_ORDERS_URL": "https://mad-zwov.onrender.com/api/v1/my/orders",
+        "EXPO_PUBLIC_API_MY_RESERVATIONS_URL": "https://mad-zwov.onrender.com/api/v1/my/reservations",
+        "EXPO_PUBLIC_TABLE_AVAILABILITY_URL": "https://mad-zwov.onrender.com/api/v1/table/availability",
+        "EXPO_PUBLIC_CREATE_RESERVATION_URL": "https://mad-zwov.onrender.com/api/v1/new/reservation",
+        "EXPO_PUBLIC_UPDATE_USER_URL": "https://mad-zwov.onrender.com/api/v1/update/user",
+        "EXPO_PUBLIC_PROFILE_IMAGE_URL": "https://mad-zwov.onrender.com/api/v1/user/profile/image"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  }
+}

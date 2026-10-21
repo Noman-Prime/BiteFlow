@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import {
     ActivityIndicator,
+    FlatList,
     Image,
     Text,
     TouchableOpacity,
@@ -175,7 +176,7 @@ const ProductList = ({
 
     if (loading) {
         return (
-            <View className="flex-1 items-center justify-center bg-white py-12">
+            <View className="items-center justify-center bg-white py-12">
                 <ActivityIndicator size="large" color="#2563EB" />
                 <Text className="mt-3 text-xs font-semibold text-slate-700">
                     Loading menu items...
@@ -210,8 +211,82 @@ const ProductList = ({
         );
     }
 
+    const renderProductItem = ({ item, index }) => {
+        const imageUrl =
+            item.image?.url ||
+            (typeof item.image === "string" ? item.image : "");
+
+        const itemName = item.name || "";
+        const itemPrice = item.price ?? 0;
+        const isAvailable = item.isAvailable !== false;
+
+        return (
+            <View className="mb-4 w-[48%]">
+                <TouchableOpacity
+                    activeOpacity={0.85}
+                    onPress={() => handlePress(item)}
+                    className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
+                >
+                    <View className="relative h-32 w-full bg-slate-100">
+                        {imageUrl ? (
+                            <Image
+                                source={{ uri: imageUrl }}
+                                className="h-full w-full"
+                                resizeMode="cover"
+                            />
+                        ) : (
+                            <View className="h-full w-full items-center justify-center bg-blue-50">
+                                <Ionicons
+                                    name="fast-food-outline"
+                                    size={28}
+                                    color="#2563EB"
+                                />
+                            </View>
+                        )}
+                    </View>
+
+                    <View className="bg-white p-3">
+                        <Text
+                            className="text-xs font-bold text-slate-900"
+                            numberOfLines={1}
+                        >
+                            {itemName}
+                        </Text>
+
+                        <Text className="mt-1 text-sm font-extrabold text-[#F97316]">
+                            Rs. {itemPrice}
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    className={`mt-2 flex-row items-center justify-center rounded-2xl py-3 ${
+                        isAvailable ? "bg-blue-600" : "bg-slate-200"
+                    }`}
+                    onPress={() => handleOrderNow(item)}
+                    disabled={!isAvailable}
+                    activeOpacity={0.8}
+                >
+                    <Ionicons
+                        name={isAvailable ? "flash-outline" : "ban-outline"}
+                        size={14}
+                        color={isAvailable ? "#FFFFFF" : "#64748B"}
+                    />
+
+                    <Text
+                        className={`ml-1.5 text-xs font-bold ${
+                            isAvailable ? "text-white" : "text-slate-500"
+                        }`}
+                    >
+                        {isAvailable ? "Order Now" : "N/A"}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
     return (
-        <View className="flex-1 bg-white px-5 pb-6">
+        <View className="bg-white px-5 pb-6">
             <Toast
                 visible={toast.visible}
                 type={toast.type}
@@ -255,99 +330,22 @@ const ProductList = ({
                     </Text>
                 </View>
             ) : (
-                <View className="flex-row flex-wrap justify-between">
-                    {filteredProducts.map((item, index) => {
-                        const imageUrl =
-                            item.image?.url ||
-                            (typeof item.image === "string"
-                                ? item.image
-                                : "");
-
-                        const itemName = item.name || "";
-                        const itemPrice = item.price ?? 0;
-                        const isAvailable = item.isAvailable !== false;
-
-                        return (
-                            <View
-                                key={item._id || item.id || index}
-                                className="mb-4 w-[48%]"
-                            >
-                                <TouchableOpacity
-                                    activeOpacity={0.85}
-                                    onPress={() => handlePress(item)}
-                                    className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
-                                >
-                                    <View className="relative h-32 w-full bg-slate-100">
-                                        {imageUrl ? (
-                                            <Image
-                                                source={{ uri: imageUrl }}
-                                                className="h-full w-full"
-                                                resizeMode="cover"
-                                            />
-                                        ) : (
-                                            <View className="h-full w-full items-center justify-center bg-blue-50">
-                                                <Ionicons
-                                                    name="fast-food-outline"
-                                                    size={28}
-                                                    color="#2563EB"
-                                                />
-                                            </View>
-                                        )}
-                                    </View>
-
-                                    <View className="bg-white p-3">
-                                        <Text
-                                            className="text-xs font-bold text-slate-900"
-                                            numberOfLines={1}
-                                        >
-                                            {itemName}
-                                        </Text>
-
-                                        <Text className="mt-1 text-sm font-extrabold text-[#F97316]">
-                                            Rs. {itemPrice}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    className={`mt-2 flex-row items-center justify-center rounded-2xl py-3 ${
-                                        isAvailable
-                                            ? "bg-blue-600"
-                                            : "bg-slate-200"
-                                    }`}
-                                    onPress={() => handleOrderNow(item)}
-                                    disabled={!isAvailable}
-                                    activeOpacity={0.8}
-                                >
-                                    <Ionicons
-                                        name={
-                                            isAvailable
-                                                ? "flash-outline"
-                                                : "ban-outline"
-                                        }
-                                        size={14}
-                                        color={
-                                            isAvailable ? "#FFFFFF" : "#64748B"
-                                        }
-                                    />
-
-                                    <Text
-                                        className={`ml-1.5 text-xs font-bold ${
-                                            isAvailable
-                                                ? "text-white"
-                                                : "text-slate-500"
-                                        }`}
-                                    >
-                                        {isAvailable ? "Order Now" : "N/A"}
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        );
-                    })}
-                </View>
+                <FlatList
+                    data={filteredProducts}
+                    renderItem={renderProductItem}
+                    keyExtractor={(item, index) =>
+                        String(item._id || item.id || index)
+                    }
+                    numColumns={2}
+                    columnWrapperStyle={{ justifyContent: "space-between" }}
+                    scrollEnabled={false}
+                    showsVerticalScrollIndicator={false}
+                />
             )}
         </View>
     );
 };
+
+ProductList.displayName = "ProductList";
 
 export default ProductList;
