@@ -3,14 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
-import {
-    ActivityIndicator,
-    RefreshControl,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { ActivityIndicator, RefreshControl, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "../../components/Toast";
 
@@ -492,7 +485,7 @@ const Orders = () => {
                                                         Rs.{" "}
                                                         {formatAmount(
                                                             Number(item.price) *
-                                                                Number(item.quantity)
+                                                            Number(item.quantity)
                                                         )}
                                                     </Text>
                                                 </View>

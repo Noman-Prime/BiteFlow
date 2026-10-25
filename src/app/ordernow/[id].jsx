@@ -4,16 +4,7 @@ import axios from "axios";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {
-    ActivityIndicator,
-    Alert,
-    Image,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { ActivityIndicator, Alert, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "../../components/Toast";
 
@@ -114,7 +105,7 @@ const OrderNow = () => {
             showToast("Order placed successfully!", "success");
 
             setTimeout(() => {
-                router.replace("/(tabs)/orders");
+                router.replace("/(tabs)/order");
             }, 1200);
         } catch (error) {
             console.error(
